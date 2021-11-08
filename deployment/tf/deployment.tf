@@ -15,17 +15,32 @@ data "ec_stack" "latest" {
 }
 
 # Create an Elastic Cloud deployment
-resource "ec_deployment" "example_minimal" {
+resource "ec_deployment" "golden_latest" {
   # Optional name.
   name = "golden-latest"
 
   # Mandatory fields
   region                 = "gcp-us-west1"
   version                = data.ec_stack.latest.version
-  deployment_template_id = "default"
+  deployment_template_id = "gcp-io-optimized-v2"
 
-  # Use the deployment template defaults
-  elasticsearch {}
+  elasticsearch {
+    topology {
+      id = "hot_content"
+    }
+
+    topology {
+      id = "master"
+    }
+
+    topology {
+      id = "ml"
+    }
+
+    topology {
+      id = "warm"
+    }
+  }
 
   kibana {}
 }
