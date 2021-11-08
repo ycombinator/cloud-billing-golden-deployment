@@ -9,3 +9,7 @@
    cd deployments/<version>   # latest = latest stable release
    terraform apply --auto-approve=true
    ```
+
+# TODO
+* Add workloads + runner
+* Add more deployments for other stack versions
