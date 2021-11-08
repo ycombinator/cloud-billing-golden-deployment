@@ -22,7 +22,7 @@ resource "ec_deployment" "example_minimal" {
   # Mandatory fields
   region                 = "gcp-us-weas1"
   version                = data.ec_stack.latest.version
-  deployment_template_id = "aws-io-optimized-v2"
+  deployment_template_id = "default"
 
   # Use the deployment template defaults
   elasticsearch {}
