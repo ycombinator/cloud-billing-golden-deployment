@@ -34,7 +34,8 @@ resource "ec_deployment" "golden_latest" {
     }
 
     topology {
-      id = "ml"
+      id   = "ml"
+      size = "1.0g"
     }
 
     topology {
