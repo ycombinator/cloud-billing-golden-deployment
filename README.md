@@ -7,5 +7,5 @@
 2. Create deployment for desired stack version.
    ```
    cd deployments/<version>   # latest = latest stable release
-   terraform apply
+   terraform apply --auto-approve=true
    ```
