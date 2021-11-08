@@ -10,6 +10,11 @@
    terraform apply --auto-approve=true
    ```
 
+3. When done with deployment, destroy it.
+   ```
+   terraform destroy --auto-approve=true
+   ```
+
 # TODO
 * Add workloads + runner
 * Add more deployments for other stack versions
