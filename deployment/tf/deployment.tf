@@ -17,7 +17,7 @@ data "ec_stack" "latest" {
 # Create an Elastic Cloud deployment
 resource "ec_deployment" "example_minimal" {
   # Optional name.
-  name = "my_example_deployment"
+  name = "golden-latest"
 
   # Mandatory fields
   region                 = "gcp-us-weat1"
