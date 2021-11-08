@@ -22,7 +22,7 @@ resource "ec_deployment" "golden_latest" {
   # Mandatory fields
   region                 = "gcp-us-west1"
   version                = data.ec_stack.latest.version
-  deployment_template_id = "gcp-io-optimized-v2"
+  deployment_template_id = "gcp-hot-warm"
 
   elasticsearch {
     topology {
