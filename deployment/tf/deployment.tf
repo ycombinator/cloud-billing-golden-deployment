@@ -20,7 +20,7 @@ resource "ec_deployment" "example_minimal" {
   name = "golden-latest"
 
   # Mandatory fields
-  region                 = "gcp-us-weat1"
+  region                 = "gcp-us-weas1"
   version                = data.ec_stack.latest.version
   deployment_template_id = "aws-io-optimized-v2"
 
