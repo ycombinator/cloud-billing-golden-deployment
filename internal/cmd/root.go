@@ -19,6 +19,7 @@ func init() {
 	rootCmd.AddCommand(setUpCmd)
 	//rootCmd.AddCommand(exerciseCmd)
 	//rootCmd.AddCommand(validateCmd)
+	rootCmd.AddCommand(generateCmd)
 	rootCmd.AddCommand(tearDownCmd)
 }
 

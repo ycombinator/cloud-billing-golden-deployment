@@ -12,7 +12,10 @@ var tearDownCmd = &cobra.Command{
 	Use:   "teardown",
 	Short: "Tear down a test scenario",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		scenario := cmd.Flag("scenario").Value.String()
+		scenario, err := cmd.Flags().GetString("scenario")
+		if err != nil {
+			return err
+		}
 		fmt.Printf("Tearing down scenario [%s]...\n", scenario)
 
 		workDir, err := terraform.NewWorkDir(filepath.Join("scenarios", scenario))

@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -39,6 +40,7 @@ func (g *Generator) Generate() ([]byte, error) {
 		count += 1
 	}
 
+	buf = bytes.TrimSpace(buf)
 	return buf, nil
 }
 
