@@ -14,4 +14,10 @@ func TestReplayer(t *testing.T) {
 	r, err := NewReplayer(*esClient, rawLog)
 	require.NoError(t, err)
 	require.NotNil(t, r)
+
+	done := make(chan interface{})
+	go r.Start(done)
+
+	<-done
+	require.Len(t, r.Errors, 0)
 }

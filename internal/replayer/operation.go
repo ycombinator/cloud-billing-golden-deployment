@@ -2,20 +2,15 @@ package replayer
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
 
 	es "github.com/elastic/go-elasticsearch/v7"
 )
 
-type operation struct {
-	Op     string          `json:"op"` // TODO: make enum
-	Target string          `json:"target"`
-	Body   json.RawMessage `json:"body,omitempty"`
-}
-
-type searchOperation operation
-type indexOperation operation
+type searchOperation models.Operation
+type indexOperation models.Operation
 
 func (s searchOperation) Do(esClient es.Client) error {
 	var body bytes.Buffer

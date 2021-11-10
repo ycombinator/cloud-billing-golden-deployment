@@ -27,8 +27,16 @@ func NewReplayer(esClient es.Client, rawLog []byte) (*Replayer, error) {
 	return r, nil
 }
 
-func (r *Replayer) Start(done chan<- interface{}) {
+func (r *Replayer) Start(done chan interface{}) {
 	var elapsed int
+
+	if err := r.replayLogEntriesAtOffset(elapsed); err != nil {
+		r.Errors = append(r.Errors, err)
+	}
+
+	if r.log.size() == 0 {
+		close(done)
+	}
 
 	ticker := time.NewTicker(1 * time.Second)
 	for {
