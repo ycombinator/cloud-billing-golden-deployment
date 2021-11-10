@@ -3,3 +3,8 @@ api_key.txt
 # Terraform work files
 *.tfstate*
 *.terraform*
+
+# IDE work files
+.idea/
+
+dist/

@@ -1,6 +1,6 @@
-# Elastic Cloud Billing: Golden Deployment Service
+# Elastic Cloud Billing: Golden Deployment CLI
 
-This service allows running pre-defined test scenarios for validating that the Elastic Cloud Billing metering and billing calculations are working as expected.
+This CLI allows running pre-defined test scenarios for validating that the Elastic Cloud Billing metering and billing calculations are working as expected.
 
 ## Structure
 
@@ -23,6 +23,12 @@ Each scenario is governed by the following lifecycle stages:
 
 * `teardown`: This stage tears down everything created during the `setup` lifecycle stage.
 
+## Building the CLI
+
+```
+make build
+```
+
 ## Usage
 
 1. Set Elastic Cloud API Key in environment.
@@ -37,20 +43,20 @@ Each scenario is governed by the following lifecycle stages:
 
 3. Setup the scenario. This step should be idempotent.
    ```
-   make setup
+   ecbgd setup
    ```
 
 4. Exercise the deployment.
    ```
-   make exercise
+   ecbgd exercise
    ```
 
 5. Validate the results.
    ```
-   make validate
+   ecbgd validate
    ```
 
 6. Teardown the scenario.
    ```
-   make teardown
+   ecbgd teardown
    ```
