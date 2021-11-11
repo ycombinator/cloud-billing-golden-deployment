@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 
 	"github.com/spf13/cobra"
@@ -17,6 +18,10 @@ var setUpCmd = &cobra.Command{
 			return err
 		}
 		fmt.Printf("Setting up scenario [%s]...\n", scenario)
+
+		if _, exists := os.LookupEnv("EC_API_KEY"); !exists {
+			return fmt.Errorf("Elastic Cloud API KEY environment variable [EC_API_KEY] is not set")
+		}
 
 		workDir, err := terraform.NewWorkDir(filepath.Join("scenarios", scenario, "setup"))
 		if err != nil {
