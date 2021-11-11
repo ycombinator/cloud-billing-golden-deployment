@@ -1,0 +1,1200 @@
+{"offset":0,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":415}}}
+{"offset":1,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":473}}}
+{"offset":1,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":399}}}
+{"offset":2,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":116}}}
+{"offset":4,"op":"search","target":"foo*"}
+{"offset":4,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":27}}}
+{"offset":5,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":328}}}
+{"offset":5,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":143}}}
+{"offset":5,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":154}}}
+{"offset":6,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":503}}}
+{"offset":7,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":405}}}
+{"offset":8,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":354}}}
+{"offset":10,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":376}}}
+{"offset":10,"op":"search","target":"foo*"}
+{"offset":10,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":420}}}
+{"offset":12,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":128}}}
+{"offset":14,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":158}}}
+{"offset":15,"op":"search","target":"foo*"}
+{"offset":15,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":367}}}
+{"offset":16,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":450}}}
+{"offset":18,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":112}}}
+{"offset":19,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":46}}}
+{"offset":19,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":43}}}
+{"offset":21,"op":"search","target":"foo*"}
+{"offset":22,"op":"search","target":"foo*"}
+{"offset":23,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":231}}}
+{"offset":23,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":397}}}
+{"offset":23,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":4}}}
+{"offset":24,"op":"search","target":"foo*"}
+{"offset":26,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":316}}}
+{"offset":26,"op":"search","target":"foo*"}
+{"offset":28,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":220}}}
+{"offset":28,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":491}}}
+{"offset":29,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":50}}}
+{"offset":31,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":493}}}
+{"offset":32,"op":"search","target":"foo*"}
+{"offset":33,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":183}}}
+{"offset":34,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":517}}}
+{"offset":34,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":416}}}
+{"offset":34,"op":"search","target":"foo*"}
+{"offset":36,"op":"search","target":"foo*"}
+{"offset":38,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":497}}}
+{"offset":40,"op":"search","target":"foo*"}
+{"offset":40,"op":"search","target":"foo*"}
+{"offset":40,"op":"search","target":"foo*"}
+{"offset":40,"op":"search","target":"foo*"}
+{"offset":40,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":518}}}
+{"offset":42,"op":"search","target":"foo*"}
+{"offset":42,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":464}}}
+{"offset":44,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":272}}}
+{"offset":46,"op":"search","target":"foo*"}
+{"offset":48,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":336}}}
+{"offset":48,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":112}}}
+{"offset":49,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":324}}}
+{"offset":50,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":364}}}
+{"offset":51,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":445}}}
+{"offset":53,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":77}}}
+{"offset":54,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":508}}}
+{"offset":54,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":94}}}
+{"offset":56,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":206}}}
+{"offset":57,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":324}}}
+{"offset":57,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":410}}}
+{"offset":58,"op":"search","target":"foo*"}
+{"offset":58,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":271}}}
+{"offset":60,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":515}}}
+{"offset":60,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":511}}}
+{"offset":60,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":271}}}
+{"offset":61,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":331}}}
+{"offset":62,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":370}}}
+{"offset":62,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":476}}}
+{"offset":62,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":315}}}
+{"offset":64,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":322}}}
+{"offset":65,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":378}}}
+{"offset":65,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":465}}}
+{"offset":67,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":272}}}
+{"offset":69,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":236}}}
+{"offset":70,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":231}}}
+{"offset":71,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":33}}}
+{"offset":72,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":251}}}
+{"offset":74,"op":"search","target":"foo*"}
+{"offset":76,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":207}}}
+{"offset":76,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":50}}}
+{"offset":76,"op":"search","target":"foo*"}
+{"offset":77,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":100}}}
+{"offset":77,"op":"search","target":"foo*"}
+{"offset":77,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":286}}}
+{"offset":77,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":190}}}
+{"offset":78,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":358}}}
+{"offset":78,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":96}}}
+{"offset":80,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":10}}}
+{"offset":81,"op":"search","target":"foo*"}
+{"offset":82,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":300}}}
+{"offset":82,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":416}}}
+{"offset":82,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":380}}}
+{"offset":82,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":342}}}
+{"offset":82,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":4}}}
+{"offset":84,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":29}}}
+{"offset":85,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":36}}}
+{"offset":87,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":210}}}
+{"offset":87,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":502}}}
+{"offset":89,"op":"search","target":"foo*"}
+{"offset":89,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":388}}}
+{"offset":89,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":47}}}
+{"offset":91,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":403}}}
+{"offset":92,"op":"search","target":"foo*"}
+{"offset":93,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":5}}}
+{"offset":93,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":27}}}
+{"offset":93,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":91}}}
+{"offset":95,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":329}}}
+{"offset":96,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":90}}}
+{"offset":97,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":417}}}
+{"offset":97,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":228}}}
+{"offset":97,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":345}}}
+{"offset":97,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":271}}}
+{"offset":97,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":407}}}
+{"offset":97,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":389}}}
+{"offset":99,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":88}}}
+{"offset":100,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":322}}}
+{"offset":102,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":201}}}
+{"offset":103,"op":"search","target":"foo*"}
+{"offset":105,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":157}}}
+{"offset":105,"op":"search","target":"foo*"}
+{"offset":106,"op":"search","target":"foo*"}
+{"offset":106,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":255}}}
+{"offset":107,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":503}}}
+{"offset":108,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":441}}}
+{"offset":108,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":406}}}
+{"offset":110,"op":"search","target":"foo*"}
+{"offset":112,"op":"search","target":"foo*"}
+{"offset":114,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":205}}}
+{"offset":114,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":321}}}
+{"offset":114,"op":"search","target":"foo*"}
+{"offset":115,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":280}}}
+{"offset":115,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":193}}}
+{"offset":116,"op":"search","target":"foo*"}
+{"offset":117,"op":"search","target":"foo*"}
+{"offset":117,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":238}}}
+{"offset":118,"op":"search","target":"foo*"}
+{"offset":118,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":29}}}
+{"offset":120,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":469}}}
+{"offset":121,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":180}}}
+{"offset":123,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":447}}}
+{"offset":123,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":179}}}
+{"offset":125,"op":"search","target":"foo*"}
+{"offset":127,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":384}}}
+{"offset":128,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":109}}}
+{"offset":130,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":373}}}
+{"offset":131,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":439}}}
+{"offset":131,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":150}}}
+{"offset":132,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":216}}}
+{"offset":134,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":116}}}
+{"offset":135,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":482}}}
+{"offset":136,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":456}}}
+{"offset":137,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":368}}}
+{"offset":139,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":466}}}
+{"offset":140,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":516}}}
+{"offset":141,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":391}}}
+{"offset":142,"op":"search","target":"foo*"}
+{"offset":142,"op":"search","target":"foo*"}
+{"offset":143,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":448}}}
+{"offset":144,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":418}}}
+{"offset":144,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":252}}}
+{"offset":145,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":298}}}
+{"offset":146,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":173}}}
+{"offset":148,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":392}}}
+{"offset":150,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":315}}}
+{"offset":152,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":227}}}
+{"offset":152,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":203}}}
+{"offset":153,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":67}}}
+{"offset":155,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":248}}}
+{"offset":157,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":161}}}
+{"offset":159,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":103}}}
+{"offset":160,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":490}}}
+{"offset":162,"op":"search","target":"foo*"}
+{"offset":163,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":406}}}
+{"offset":164,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":116}}}
+{"offset":165,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":103}}}
+{"offset":166,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":346}}}
+{"offset":166,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":89}}}
+{"offset":166,"op":"search","target":"foo*"}
+{"offset":168,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":520}}}
+{"offset":168,"op":"search","target":"foo*"}
+{"offset":168,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":126}}}
+{"offset":168,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":469}}}
+{"offset":168,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":199}}}
+{"offset":169,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":73}}}
+{"offset":170,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":334}}}
+{"offset":172,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":342}}}
+{"offset":172,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":254}}}
+{"offset":172,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":9}}}
+{"offset":172,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":277}}}
+{"offset":173,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":373}}}
+{"offset":173,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":416}}}
+{"offset":173,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":60}}}
+{"offset":175,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":329}}}
+{"offset":177,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":78}}}
+{"offset":177,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":210}}}
+{"offset":179,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":435}}}
+{"offset":180,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":287}}}
+{"offset":181,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":307}}}
+{"offset":183,"op":"search","target":"foo*"}
+{"offset":183,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":514}}}
+{"offset":184,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":135}}}
+{"offset":185,"op":"search","target":"foo*"}
+{"offset":186,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":147}}}
+{"offset":186,"op":"search","target":"foo*"}
+{"offset":186,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":406}}}
+{"offset":188,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":183}}}
+{"offset":188,"op":"search","target":"foo*"}
+{"offset":190,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":102}}}
+{"offset":190,"op":"search","target":"foo*"}
+{"offset":192,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":148}}}
+{"offset":192,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":105}}}
+{"offset":194,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":15}}}
+{"offset":194,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":406}}}
+{"offset":195,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":307}}}
+{"offset":196,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":494}}}
+{"offset":196,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":505}}}
+{"offset":197,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":466}}}
+{"offset":199,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":426}}}
+{"offset":201,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":181}}}
+{"offset":202,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":135}}}
+{"offset":204,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":377}}}
+{"offset":205,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":0}}}
+{"offset":206,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":446}}}
+{"offset":206,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":510}}}
+{"offset":208,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":154}}}
+{"offset":208,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":125}}}
+{"offset":208,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":294}}}
+{"offset":208,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":295}}}
+{"offset":208,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":341}}}
+{"offset":209,"op":"search","target":"foo*"}
+{"offset":210,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":380}}}
+{"offset":210,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":88}}}
+{"offset":211,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":192}}}
+{"offset":211,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":53}}}
+{"offset":213,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":450}}}
+{"offset":214,"op":"search","target":"foo*"}
+{"offset":214,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":417}}}
+{"offset":214,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":84}}}
+{"offset":216,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":398}}}
+{"offset":217,"op":"search","target":"foo*"}
+{"offset":218,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":360}}}
+{"offset":220,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":288}}}
+{"offset":221,"op":"search","target":"foo*"}
+{"offset":223,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":92}}}
+{"offset":224,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":255}}}
+{"offset":224,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":262}}}
+{"offset":224,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":54}}}
+{"offset":226,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":216}}}
+{"offset":228,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":460}}}
+{"offset":228,"op":"search","target":"foo*"}
+{"offset":228,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":509}}}
+{"offset":228,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":513}}}
+{"offset":228,"op":"search","target":"foo*"}
+{"offset":230,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":147}}}
+{"offset":231,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":187}}}
+{"offset":231,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":30}}}
+{"offset":232,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":484}}}
+{"offset":233,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":483}}}
+{"offset":234,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":174}}}
+{"offset":236,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":394}}}
+{"offset":236,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":426}}}
+{"offset":237,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":319}}}
+{"offset":238,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":452}}}
+{"offset":238,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":443}}}
+{"offset":239,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":170}}}
+{"offset":240,"op":"search","target":"foo*"}
+{"offset":242,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":191}}}
+{"offset":244,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":322}}}
+{"offset":246,"op":"search","target":"foo*"}
+{"offset":247,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":249}}}
+{"offset":249,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":213}}}
+{"offset":249,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":280}}}
+{"offset":249,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":99}}}
+{"offset":250,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":90}}}
+{"offset":252,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":414}}}
+{"offset":254,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":101}}}
+{"offset":256,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":0}}}
+{"offset":256,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":6}}}
+{"offset":258,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":460}}}
+{"offset":260,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":24}}}
+{"offset":262,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":209}}}
+{"offset":262,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":387}}}
+{"offset":263,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":213}}}
+{"offset":264,"op":"search","target":"foo*"}
+{"offset":264,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":292}}}
+{"offset":265,"op":"search","target":"foo*"}
+{"offset":267,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":241}}}
+{"offset":267,"op":"search","target":"foo*"}
+{"offset":269,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":456}}}
+{"offset":269,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":51}}}
+{"offset":271,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":441}}}
+{"offset":271,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":346}}}
+{"offset":272,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":173}}}
+{"offset":273,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":327}}}
+{"offset":274,"op":"search","target":"foo*"}
+{"offset":274,"op":"search","target":"foo*"}
+{"offset":276,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":441}}}
+{"offset":278,"op":"search","target":"foo*"}
+{"offset":278,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":413}}}
+{"offset":280,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":472}}}
+{"offset":281,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":398}}}
+{"offset":283,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":507}}}
+{"offset":283,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":350}}}
+{"offset":284,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":169}}}
+{"offset":286,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":160}}}
+{"offset":288,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":277}}}
+{"offset":290,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":61}}}
+{"offset":292,"op":"search","target":"foo*"}
+{"offset":294,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":187}}}
+{"offset":294,"op":"search","target":"foo*"}
+{"offset":296,"op":"search","target":"foo*"}
+{"offset":297,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":376}}}
+{"offset":299,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":266}}}
+{"offset":300,"op":"search","target":"foo*"}
+{"offset":302,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":1}}}
+{"offset":304,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":320}}}
+{"offset":304,"op":"search","target":"foo*"}
+{"offset":304,"op":"search","target":"foo*"}
+{"offset":305,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":516}}}
+{"offset":307,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":270}}}
+{"offset":308,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":300}}}
+{"offset":310,"op":"search","target":"foo*"}
+{"offset":312,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":65}}}
+{"offset":312,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":230}}}
+{"offset":314,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":43}}}
+{"offset":314,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":29}}}
+{"offset":315,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":76}}}
+{"offset":315,"op":"search","target":"foo*"}
+{"offset":317,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":431}}}
+{"offset":318,"op":"search","target":"foo*"}
+{"offset":318,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":291}}}
+{"offset":319,"op":"search","target":"foo*"}
+{"offset":321,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":302}}}
+{"offset":322,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":251}}}
+{"offset":322,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":14}}}
+{"offset":323,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":517}}}
+{"offset":323,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":122}}}
+{"offset":323,"op":"search","target":"foo*"}
+{"offset":325,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":426}}}
+{"offset":327,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":339}}}
+{"offset":328,"op":"search","target":"foo*"}
+{"offset":329,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":492}}}
+{"offset":331,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":156}}}
+{"offset":331,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":236}}}
+{"offset":333,"op":"search","target":"foo*"}
+{"offset":335,"op":"search","target":"foo*"}
+{"offset":335,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":154}}}
+{"offset":335,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":40}}}
+{"offset":336,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":121}}}
+{"offset":338,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":261}}}
+{"offset":339,"op":"search","target":"foo*"}
+{"offset":341,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":65}}}
+{"offset":342,"op":"search","target":"foo*"}
+{"offset":344,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":129}}}
+{"offset":344,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":479}}}
+{"offset":344,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":124}}}
+{"offset":345,"op":"search","target":"foo*"}
+{"offset":347,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":33}}}
+{"offset":349,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":104}}}
+{"offset":350,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":320}}}
+{"offset":352,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":12}}}
+{"offset":354,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":520}}}
+{"offset":354,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":168}}}
+{"offset":356,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":56}}}
+{"offset":358,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":298}}}
+{"offset":360,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":179}}}
+{"offset":361,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":377}}}
+{"offset":363,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":296}}}
+{"offset":363,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":287}}}
+{"offset":365,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":442}}}
+{"offset":367,"op":"search","target":"foo*"}
+{"offset":369,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":311}}}
+{"offset":370,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":520}}}
+{"offset":370,"op":"search","target":"foo*"}
+{"offset":371,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":98}}}
+{"offset":372,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":292}}}
+{"offset":373,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":409}}}
+{"offset":373,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":112}}}
+{"offset":373,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":33}}}
+{"offset":373,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":450}}}
+{"offset":375,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":374}}}
+{"offset":377,"op":"search","target":"foo*"}
+{"offset":379,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":426}}}
+{"offset":381,"op":"search","target":"foo*"}
+{"offset":381,"op":"search","target":"foo*"}
+{"offset":381,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":382}}}
+{"offset":383,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":289}}}
+{"offset":385,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":72}}}
+{"offset":386,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":234}}}
+{"offset":386,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":166}}}
+{"offset":388,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":403}}}
+{"offset":388,"op":"search","target":"foo*"}
+{"offset":389,"op":"search","target":"foo*"}
+{"offset":391,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":512}}}
+{"offset":392,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":123}}}
+{"offset":392,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":122}}}
+{"offset":393,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":177}}}
+{"offset":394,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":85}}}
+{"offset":395,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":516}}}
+{"offset":397,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":381}}}
+{"offset":397,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":63}}}
+{"offset":397,"op":"search","target":"foo*"}
+{"offset":398,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":345}}}
+{"offset":398,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":514}}}
+{"offset":400,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":344}}}
+{"offset":400,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":284}}}
+{"offset":401,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":420}}}
+{"offset":402,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":107}}}
+{"offset":403,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":514}}}
+{"offset":404,"op":"search","target":"foo*"}
+{"offset":405,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":359}}}
+{"offset":405,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":460}}}
+{"offset":406,"op":"search","target":"foo*"}
+{"offset":408,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":43}}}
+{"offset":409,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":347}}}
+{"offset":409,"op":"search","target":"foo*"}
+{"offset":411,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":152}}}
+{"offset":411,"op":"search","target":"foo*"}
+{"offset":413,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":449}}}
+{"offset":415,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":419}}}
+{"offset":415,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":237}}}
+{"offset":416,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":499}}}
+{"offset":418,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":412}}}
+{"offset":420,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":272}}}
+{"offset":420,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":211}}}
+{"offset":422,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":264}}}
+{"offset":423,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":428}}}
+{"offset":423,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":246}}}
+{"offset":425,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":392}}}
+{"offset":426,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":64}}}
+{"offset":427,"op":"search","target":"foo*"}
+{"offset":428,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":232}}}
+{"offset":430,"op":"search","target":"foo*"}
+{"offset":431,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":77}}}
+{"offset":431,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":267}}}
+{"offset":431,"op":"search","target":"foo*"}
+{"offset":433,"op":"search","target":"foo*"}
+{"offset":433,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":64}}}
+{"offset":435,"op":"search","target":"foo*"}
+{"offset":435,"op":"search","target":"foo*"}
+{"offset":435,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":389}}}
+{"offset":435,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":216}}}
+{"offset":437,"op":"search","target":"foo*"}
+{"offset":439,"op":"search","target":"foo*"}
+{"offset":439,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":136}}}
+{"offset":440,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":346}}}
+{"offset":440,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":123}}}
+{"offset":442,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":304}}}
+{"offset":442,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":249}}}
+{"offset":442,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":375}}}
+{"offset":443,"op":"search","target":"foo*"}
+{"offset":444,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":67}}}
+{"offset":446,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":263}}}
+{"offset":447,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":168}}}
+{"offset":448,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":395}}}
+{"offset":450,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":492}}}
+{"offset":452,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":22}}}
+{"offset":453,"op":"search","target":"foo*"}
+{"offset":453,"op":"search","target":"foo*"}
+{"offset":455,"op":"search","target":"foo*"}
+{"offset":456,"op":"search","target":"foo*"}
+{"offset":458,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":135}}}
+{"offset":460,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":103}}}
+{"offset":460,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":51}}}
+{"offset":462,"op":"search","target":"foo*"}
+{"offset":464,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":442}}}
+{"offset":465,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":290}}}
+{"offset":466,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":275}}}
+{"offset":466,"op":"search","target":"foo*"}
+{"offset":468,"op":"search","target":"foo*"}
+{"offset":469,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":343}}}
+{"offset":469,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":68}}}
+{"offset":469,"op":"search","target":"foo*"}
+{"offset":471,"op":"search","target":"foo*"}
+{"offset":472,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":260}}}
+{"offset":473,"op":"search","target":"foo*"}
+{"offset":474,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":145}}}
+{"offset":475,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":439}}}
+{"offset":476,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":17}}}
+{"offset":477,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":58}}}
+{"offset":479,"op":"search","target":"foo*"}
+{"offset":481,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":22}}}
+{"offset":481,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":213}}}
+{"offset":482,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":308}}}
+{"offset":482,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":147}}}
+{"offset":483,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":209}}}
+{"offset":485,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":266}}}
+{"offset":487,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":186}}}
+{"offset":489,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":49}}}
+{"offset":490,"op":"search","target":"foo*"}
+{"offset":490,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":123}}}
+{"offset":492,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":345}}}
+{"offset":494,"op":"search","target":"foo*"}
+{"offset":496,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":21}}}
+{"offset":497,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":407}}}
+{"offset":499,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":46}}}
+{"offset":500,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":218}}}
+{"offset":501,"op":"search","target":"foo*"}
+{"offset":501,"op":"search","target":"foo*"}
+{"offset":501,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":201}}}
+{"offset":502,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":226}}}
+{"offset":504,"op":"search","target":"foo*"}
+{"offset":505,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":71}}}
+{"offset":507,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":262}}}
+{"offset":509,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":196}}}
+{"offset":510,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":17}}}
+{"offset":511,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":100}}}
+{"offset":511,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":412}}}
+{"offset":511,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":188}}}
+{"offset":511,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":315}}}
+{"offset":512,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":203}}}
+{"offset":513,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":112}}}
+{"offset":515,"op":"search","target":"foo*"}
+{"offset":517,"op":"search","target":"foo*"}
+{"offset":517,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":326}}}
+{"offset":517,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":170}}}
+{"offset":518,"op":"search","target":"foo*"}
+{"offset":518,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":13}}}
+{"offset":520,"op":"search","target":"foo*"}
+{"offset":520,"op":"search","target":"foo*"}
+{"offset":522,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":232}}}
+{"offset":524,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":44}}}
+{"offset":524,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":168}}}
+{"offset":525,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":195}}}
+{"offset":526,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":229}}}
+{"offset":528,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":49}}}
+{"offset":529,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":412}}}
+{"offset":531,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":219}}}
+{"offset":531,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":112}}}
+{"offset":532,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":218}}}
+{"offset":533,"op":"search","target":"foo*"}
+{"offset":533,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":325}}}
+{"offset":534,"op":"search","target":"foo*"}
+{"offset":534,"op":"search","target":"foo*"}
+{"offset":535,"op":"search","target":"foo*"}
+{"offset":535,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":293}}}
+{"offset":536,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":53}}}
+{"offset":536,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":79}}}
+{"offset":538,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":280}}}
+{"offset":540,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":268}}}
+{"offset":540,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":88}}}
+{"offset":540,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":18}}}
+{"offset":541,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":400}}}
+{"offset":542,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":217}}}
+{"offset":544,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":205}}}
+{"offset":545,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":420}}}
+{"offset":547,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":383}}}
+{"offset":547,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":485}}}
+{"offset":548,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":495}}}
+{"offset":549,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":325}}}
+{"offset":550,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":252}}}
+{"offset":550,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":177}}}
+{"offset":551,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":449}}}
+{"offset":552,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":244}}}
+{"offset":552,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":95}}}
+{"offset":552,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":201}}}
+{"offset":552,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":28}}}
+{"offset":554,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":397}}}
+{"offset":556,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":70}}}
+{"offset":557,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":294}}}
+{"offset":559,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":31}}}
+{"offset":560,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":145}}}
+{"offset":561,"op":"search","target":"foo*"}
+{"offset":561,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":87}}}
+{"offset":562,"op":"search","target":"foo*"}
+{"offset":563,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":94}}}
+{"offset":564,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":63}}}
+{"offset":564,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":15}}}
+{"offset":564,"op":"search","target":"foo*"}
+{"offset":564,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":340}}}
+{"offset":565,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":120}}}
+{"offset":567,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":395}}}
+{"offset":568,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":52}}}
+{"offset":568,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":57}}}
+{"offset":570,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":167}}}
+{"offset":571,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":291}}}
+{"offset":572,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":62}}}
+{"offset":574,"op":"search","target":"foo*"}
+{"offset":574,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":199}}}
+{"offset":575,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":246}}}
+{"offset":577,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":184}}}
+{"offset":579,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":97}}}
+{"offset":579,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":35}}}
+{"offset":581,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":254}}}
+{"offset":583,"op":"search","target":"foo*"}
+{"offset":584,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":391}}}
+{"offset":585,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":519}}}
+{"offset":587,"op":"search","target":"foo*"}
+{"offset":589,"op":"search","target":"foo*"}
+{"offset":590,"op":"search","target":"foo*"}
+{"offset":590,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":513}}}
+{"offset":590,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":93}}}
+{"offset":590,"op":"search","target":"foo*"}
+{"offset":592,"op":"search","target":"foo*"}
+{"offset":593,"op":"search","target":"foo*"}
+{"offset":594,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":165}}}
+{"offset":596,"op":"search","target":"foo*"}
+{"offset":597,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":161}}}
+{"offset":597,"op":"search","target":"foo*"}
+{"offset":599,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":55}}}
+{"offset":599,"op":"search","target":"foo*"}
+{"offset":600,"op":"search","target":"foo*"}
+{"offset":601,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":218}}}
+{"offset":601,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":55}}}
+{"offset":601,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":280}}}
+{"offset":603,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":141}}}
+{"offset":605,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":104}}}
+{"offset":606,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":452}}}
+{"offset":606,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":447}}}
+{"offset":606,"op":"search","target":"foo*"}
+{"offset":608,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":122}}}
+{"offset":609,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":306}}}
+{"offset":609,"op":"search","target":"foo*"}
+{"offset":609,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":59}}}
+{"offset":611,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":245}}}
+{"offset":613,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":2}}}
+{"offset":615,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":501}}}
+{"offset":615,"op":"search","target":"foo*"}
+{"offset":615,"op":"search","target":"foo*"}
+{"offset":615,"op":"search","target":"foo*"}
+{"offset":617,"op":"search","target":"foo*"}
+{"offset":618,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":2}}}
+{"offset":618,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":277}}}
+{"offset":620,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":51}}}
+{"offset":622,"op":"search","target":"foo*"}
+{"offset":623,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":124}}}
+{"offset":625,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":353}}}
+{"offset":625,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":307}}}
+{"offset":626,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":445}}}
+{"offset":627,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":346}}}
+{"offset":628,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":97}}}
+{"offset":629,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":361}}}
+{"offset":631,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":32}}}
+{"offset":631,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":76}}}
+{"offset":631,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":149}}}
+{"offset":631,"op":"search","target":"foo*"}
+{"offset":633,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":522}}}
+{"offset":633,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":321}}}
+{"offset":633,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":486}}}
+{"offset":634,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":35}}}
+{"offset":635,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":137}}}
+{"offset":635,"op":"search","target":"foo*"}
+{"offset":637,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":73}}}
+{"offset":638,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":28}}}
+{"offset":638,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":33}}}
+{"offset":639,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":236}}}
+{"offset":641,"op":"search","target":"foo*"}
+{"offset":642,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":290}}}
+{"offset":644,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":269}}}
+{"offset":645,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":315}}}
+{"offset":646,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":20}}}
+{"offset":646,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":516}}}
+{"offset":647,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":139}}}
+{"offset":649,"op":"search","target":"foo*"}
+{"offset":649,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":334}}}
+{"offset":649,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":131}}}
+{"offset":650,"op":"search","target":"foo*"}
+{"offset":652,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":255}}}
+{"offset":654,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":21}}}
+{"offset":656,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":7}}}
+{"offset":658,"op":"search","target":"foo*"}
+{"offset":658,"op":"search","target":"foo*"}
+{"offset":660,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":121}}}
+{"offset":661,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":293}}}
+{"offset":663,"op":"search","target":"foo*"}
+{"offset":664,"op":"search","target":"foo*"}
+{"offset":664,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":405}}}
+{"offset":665,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":322}}}
+{"offset":666,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":118}}}
+{"offset":667,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":224}}}
+{"offset":667,"op":"search","target":"foo*"}
+{"offset":669,"op":"search","target":"foo*"}
+{"offset":669,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":49}}}
+{"offset":670,"op":"search","target":"foo*"}
+{"offset":672,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":407}}}
+{"offset":672,"op":"search","target":"foo*"}
+{"offset":672,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":493}}}
+{"offset":672,"op":"search","target":"foo*"}
+{"offset":673,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":419}}}
+{"offset":674,"op":"search","target":"foo*"}
+{"offset":675,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":131}}}
+{"offset":676,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":38}}}
+{"offset":676,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":98}}}
+{"offset":677,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":448}}}
+{"offset":677,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":135}}}
+{"offset":678,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":469}}}
+{"offset":680,"op":"search","target":"foo*"}
+{"offset":682,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":312}}}
+{"offset":683,"op":"search","target":"foo*"}
+{"offset":684,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":288}}}
+{"offset":686,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":346}}}
+{"offset":686,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":112}}}
+{"offset":688,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":221}}}
+{"offset":690,"op":"search","target":"foo*"}
+{"offset":691,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":184}}}
+{"offset":693,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":506}}}
+{"offset":695,"op":"search","target":"foo*"}
+{"offset":697,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":11}}}
+{"offset":699,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":477}}}
+{"offset":699,"op":"search","target":"foo*"}
+{"offset":701,"op":"search","target":"foo*"}
+{"offset":701,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":515}}}
+{"offset":703,"op":"search","target":"foo*"}
+{"offset":705,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":258}}}
+{"offset":705,"op":"search","target":"foo*"}
+{"offset":706,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":106}}}
+{"offset":707,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":130}}}
+{"offset":709,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":332}}}
+{"offset":709,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":187}}}
+{"offset":710,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":245}}}
+{"offset":710,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":68}}}
+{"offset":712,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":220}}}
+{"offset":714,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":381}}}
+{"offset":714,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":463}}}
+{"offset":716,"op":"search","target":"foo*"}
+{"offset":717,"op":"search","target":"foo*"}
+{"offset":717,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":174}}}
+{"offset":717,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":274}}}
+{"offset":717,"op":"search","target":"foo*"}
+{"offset":719,"op":"search","target":"foo*"}
+{"offset":719,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":384}}}
+{"offset":719,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":188}}}
+{"offset":719,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":304}}}
+{"offset":719,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":28}}}
+{"offset":720,"op":"search","target":"foo*"}
+{"offset":720,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":164}}}
+{"offset":722,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":429}}}
+{"offset":724,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":473}}}
+{"offset":725,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":486}}}
+{"offset":727,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":73}}}
+{"offset":727,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":188}}}
+{"offset":728,"op":"search","target":"foo*"}
+{"offset":730,"op":"search","target":"foo*"}
+{"offset":730,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":40}}}
+{"offset":730,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":51}}}
+{"offset":731,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":270}}}
+{"offset":732,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":50}}}
+{"offset":734,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":305}}}
+{"offset":736,"op":"search","target":"foo*"}
+{"offset":737,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":187}}}
+{"offset":737,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":458}}}
+{"offset":737,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":96}}}
+{"offset":738,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":308}}}
+{"offset":739,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":271}}}
+{"offset":739,"op":"search","target":"foo*"}
+{"offset":741,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":157}}}
+{"offset":743,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":96}}}
+{"offset":743,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":395}}}
+{"offset":743,"op":"search","target":"foo*"}
+{"offset":744,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":389}}}
+{"offset":746,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":417}}}
+{"offset":746,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":224}}}
+{"offset":747,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":416}}}
+{"offset":748,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":415}}}
+{"offset":750,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":478}}}
+{"offset":750,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":44}}}
+{"offset":752,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":169}}}
+{"offset":752,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":252}}}
+{"offset":753,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":449}}}
+{"offset":754,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":475}}}
+{"offset":756,"op":"search","target":"foo*"}
+{"offset":758,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":49}}}
+{"offset":758,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":237}}}
+{"offset":759,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":63}}}
+{"offset":760,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":35}}}
+{"offset":761,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":171}}}
+{"offset":763,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":194}}}
+{"offset":763,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":138}}}
+{"offset":763,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":450}}}
+{"offset":764,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":155}}}
+{"offset":765,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":326}}}
+{"offset":766,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":377}}}
+{"offset":766,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":389}}}
+{"offset":766,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":354}}}
+{"offset":768,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":414}}}
+{"offset":768,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":187}}}
+{"offset":769,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":265}}}
+{"offset":770,"op":"search","target":"foo*"}
+{"offset":770,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":214}}}
+{"offset":771,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":73}}}
+{"offset":773,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":514}}}
+{"offset":773,"op":"search","target":"foo*"}
+{"offset":774,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":337}}}
+{"offset":774,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":327}}}
+{"offset":774,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":267}}}
+{"offset":775,"op":"search","target":"foo*"}
+{"offset":776,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":279}}}
+{"offset":778,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":332}}}
+{"offset":778,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":19}}}
+{"offset":780,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":359}}}
+{"offset":780,"op":"search","target":"foo*"}
+{"offset":780,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":80}}}
+{"offset":780,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":113}}}
+{"offset":782,"op":"search","target":"foo*"}
+{"offset":782,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":27}}}
+{"offset":782,"op":"search","target":"foo*"}
+{"offset":782,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":356}}}
+{"offset":783,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":137}}}
+{"offset":783,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":238}}}
+{"offset":784,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":5}}}
+{"offset":784,"op":"search","target":"foo*"}
+{"offset":784,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":24}}}
+{"offset":785,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":248}}}
+{"offset":786,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":21}}}
+{"offset":787,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":62}}}
+{"offset":788,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":296}}}
+{"offset":790,"op":"search","target":"foo*"}
+{"offset":792,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":301}}}
+{"offset":794,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":44}}}
+{"offset":796,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":1}}}
+{"offset":798,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":492}}}
+{"offset":799,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":12}}}
+{"offset":801,"op":"search","target":"foo*"}
+{"offset":803,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":330}}}
+{"offset":804,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":300}}}
+{"offset":805,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":337}}}
+{"offset":806,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":61}}}
+{"offset":808,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":518}}}
+{"offset":808,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":206}}}
+{"offset":810,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":425}}}
+{"offset":812,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":301}}}
+{"offset":814,"op":"search","target":"foo*"}
+{"offset":814,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":424}}}
+{"offset":815,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":490}}}
+{"offset":817,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":308}}}
+{"offset":819,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":520}}}
+{"offset":820,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":308}}}
+{"offset":821,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":275}}}
+{"offset":821,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":254}}}
+{"offset":821,"op":"search","target":"foo*"}
+{"offset":823,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":271}}}
+{"offset":824,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":293}}}
+{"offset":824,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":2}}}
+{"offset":824,"op":"search","target":"foo*"}
+{"offset":826,"op":"search","target":"foo*"}
+{"offset":826,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":273}}}
+{"offset":826,"op":"search","target":"foo*"}
+{"offset":828,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":121}}}
+{"offset":830,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":160}}}
+{"offset":830,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":326}}}
+{"offset":832,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":49}}}
+{"offset":832,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":211}}}
+{"offset":832,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":84}}}
+{"offset":833,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":40}}}
+{"offset":833,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":256}}}
+{"offset":835,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":151}}}
+{"offset":835,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":288}}}
+{"offset":836,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":88}}}
+{"offset":836,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":37}}}
+{"offset":838,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":232}}}
+{"offset":840,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":345}}}
+{"offset":841,"op":"search","target":"foo*"}
+{"offset":841,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":352}}}
+{"offset":841,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":171}}}
+{"offset":843,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":272}}}
+{"offset":844,"op":"search","target":"foo*"}
+{"offset":846,"op":"search","target":"foo*"}
+{"offset":846,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":324}}}
+{"offset":846,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":368}}}
+{"offset":846,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":500}}}
+{"offset":848,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":212}}}
+{"offset":850,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":182}}}
+{"offset":852,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":387}}}
+{"offset":853,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":179}}}
+{"offset":853,"op":"search","target":"foo*"}
+{"offset":855,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":328}}}
+{"offset":855,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":325}}}
+{"offset":855,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":9}}}
+{"offset":855,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":80}}}
+{"offset":855,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":290}}}
+{"offset":857,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":122}}}
+{"offset":859,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":520}}}
+{"offset":861,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":70}}}
+{"offset":861,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":451}}}
+{"offset":863,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":219}}}
+{"offset":865,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":417}}}
+{"offset":866,"op":"search","target":"foo*"}
+{"offset":868,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":112}}}
+{"offset":869,"op":"search","target":"foo*"}
+{"offset":871,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":50}}}
+{"offset":872,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":373}}}
+{"offset":874,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":464}}}
+{"offset":874,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":324}}}
+{"offset":876,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":396}}}
+{"offset":877,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":437}}}
+{"offset":879,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":120}}}
+{"offset":881,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":496}}}
+{"offset":883,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":148}}}
+{"offset":883,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":193}}}
+{"offset":885,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":200}}}
+{"offset":887,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":423}}}
+{"offset":889,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":466}}}
+{"offset":890,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":371}}}
+{"offset":892,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":480}}}
+{"offset":893,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":459}}}
+{"offset":895,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":16}}}
+{"offset":897,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":484}}}
+{"offset":898,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":425}}}
+{"offset":898,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":225}}}
+{"offset":898,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":418}}}
+{"offset":899,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":89}}}
+{"offset":900,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":70}}}
+{"offset":901,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":240}}}
+{"offset":903,"op":"search","target":"foo*"}
+{"offset":905,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":337}}}
+{"offset":906,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":179}}}
+{"offset":907,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":447}}}
+{"offset":908,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":295}}}
+{"offset":909,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":33}}}
+{"offset":911,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":480}}}
+{"offset":912,"op":"search","target":"foo*"}
+{"offset":914,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":161}}}
+{"offset":915,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":328}}}
+{"offset":917,"op":"search","target":"foo*"}
+{"offset":918,"op":"search","target":"foo*"}
+{"offset":919,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":106}}}
+{"offset":921,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":492}}}
+{"offset":923,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":35}}}
+{"offset":925,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":219}}}
+{"offset":927,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":174}}}
+{"offset":929,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":81}}}
+{"offset":929,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":110}}}
+{"offset":931,"op":"search","target":"foo*"}
+{"offset":933,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":236}}}
+{"offset":933,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":517}}}
+{"offset":935,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":119}}}
+{"offset":935,"op":"search","target":"foo*"}
+{"offset":937,"op":"search","target":"foo*"}
+{"offset":938,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":249}}}
+{"offset":940,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":389}}}
+{"offset":942,"op":"search","target":"foo*"}
+{"offset":943,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":209}}}
+{"offset":944,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":175}}}
+{"offset":944,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":489}}}
+{"offset":945,"op":"search","target":"foo*"}
+{"offset":946,"op":"search","target":"foo*"}
+{"offset":946,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":316}}}
+{"offset":946,"op":"search","target":"foo*"}
+{"offset":946,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":98}}}
+{"offset":947,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":306}}}
+{"offset":948,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":515}}}
+{"offset":948,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":522}}}
+{"offset":948,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":476}}}
+{"offset":950,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":34}}}
+{"offset":951,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":388}}}
+{"offset":952,"op":"search","target":"foo*"}
+{"offset":952,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":449}}}
+{"offset":952,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":422}}}
+{"offset":952,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":44}}}
+{"offset":952,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":517}}}
+{"offset":954,"op":"search","target":"foo*"}
+{"offset":954,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":214}}}
+{"offset":956,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":23}}}
+{"offset":957,"op":"search","target":"foo*"}
+{"offset":959,"op":"search","target":"foo*"}
+{"offset":960,"op":"search","target":"foo*"}
+{"offset":961,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":171}}}
+{"offset":961,"op":"search","target":"foo*"}
+{"offset":961,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":169}}}
+{"offset":963,"op":"search","target":"foo*"}
+{"offset":963,"op":"search","target":"foo*"}
+{"offset":963,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":349}}}
+{"offset":965,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":254}}}
+{"offset":967,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":390}}}
+{"offset":967,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":318}}}
+{"offset":967,"op":"search","target":"foo*"}
+{"offset":969,"op":"search","target":"foo*"}
+{"offset":969,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":82}}}
+{"offset":971,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":32}}}
+{"offset":972,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":139}}}
+{"offset":972,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":170}}}
+{"offset":973,"op":"search","target":"foo*"}
+{"offset":975,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":144}}}
+{"offset":977,"op":"search","target":"foo*"}
+{"offset":977,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":210}}}
+{"offset":979,"op":"search","target":"foo*"}
+{"offset":979,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":67}}}
+{"offset":979,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":107}}}
+{"offset":979,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":203}}}
+{"offset":981,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":243}}}
+{"offset":983,"op":"search","target":"foo*"}
+{"offset":983,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":74}}}
+{"offset":984,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":473}}}
+{"offset":984,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":108}}}
+{"offset":985,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":484}}}
+{"offset":985,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":297}}}
+{"offset":986,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":81}}}
+{"offset":988,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":44}}}
+{"offset":990,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":85}}}
+{"offset":991,"op":"search","target":"foo*"}
+{"offset":992,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":422}}}
+{"offset":992,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":129}}}
+{"offset":994,"op":"search","target":"foo*"}
+{"offset":996,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":487}}}
+{"offset":996,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":56}}}
+{"offset":997,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":177}}}
+{"offset":997,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":516}}}
+{"offset":997,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":336}}}
+{"offset":999,"op":"search","target":"foo*"}
+{"offset":1000,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":403}}}
+{"offset":1002,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":255}}}
+{"offset":1003,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":447}}}
+{"offset":1004,"op":"search","target":"foo*"}
+{"offset":1006,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":202}}}
+{"offset":1006,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":366}}}
+{"offset":1008,"op":"search","target":"foo*"}
+{"offset":1008,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":376}}}
+{"offset":1008,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":309}}}
+{"offset":1009,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":348}}}
+{"offset":1010,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":318}}}
+{"offset":1012,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":245}}}
+{"offset":1013,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":323}}}
+{"offset":1014,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":362}}}
+{"offset":1016,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":381}}}
+{"offset":1016,"op":"search","target":"foo*"}
+{"offset":1018,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":100}}}
+{"offset":1018,"op":"search","target":"foo*"}
+{"offset":1018,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":24}}}
+{"offset":1018,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":439}}}
+{"offset":1020,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":209}}}
+{"offset":1020,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":202}}}
+{"offset":1022,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":132}}}
+{"offset":1022,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":316}}}
+{"offset":1024,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":432}}}
+{"offset":1025,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":102}}}
+{"offset":1025,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":141}}}
+{"offset":1026,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":519}}}
+{"offset":1028,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":3}}}
+{"offset":1030,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":432}}}
+{"offset":1031,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":359}}}
+{"offset":1031,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":286}}}
+{"offset":1031,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":47}}}
+{"offset":1033,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":437}}}
+{"offset":1033,"op":"search","target":"foo*"}
+{"offset":1035,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":82}}}
+{"offset":1035,"op":"search","target":"foo*"}
+{"offset":1037,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":133}}}
+{"offset":1038,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":498}}}
+{"offset":1040,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":360}}}
+{"offset":1041,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":495}}}
+{"offset":1043,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":76}}}
+{"offset":1043,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":365}}}
+{"offset":1043,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":269}}}
+{"offset":1045,"op":"search","target":"foo*"}
+{"offset":1046,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":52}}}
+{"offset":1047,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":275}}}
+{"offset":1048,"op":"search","target":"foo*"}
+{"offset":1049,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":2}}}
+{"offset":1049,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":520}}}
+{"offset":1049,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":121}}}
+{"offset":1050,"op":"search","target":"foo*"}
+{"offset":1051,"op":"search","target":"foo*"}
+{"offset":1052,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":142}}}
+{"offset":1053,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":163}}}
+{"offset":1054,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":200}}}
+{"offset":1056,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":22}}}
+{"offset":1057,"op":"search","target":"foo*"}
+{"offset":1058,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":11}}}
+{"offset":1060,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":342}}}
+{"offset":1061,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":469}}}
+{"offset":1062,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":476}}}
+{"offset":1064,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":295}}}
+{"offset":1064,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":485}}}
+{"offset":1066,"op":"search","target":"foo*"}
+{"offset":1066,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":56}}}
+{"offset":1066,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":315}}}
+{"offset":1067,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":140}}}
+{"offset":1067,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":108}}}
+{"offset":1067,"op":"search","target":"foo*"}
+{"offset":1069,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":90}}}
+{"offset":1071,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":450}}}
+{"offset":1071,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":164}}}
+{"offset":1071,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":66}}}
+{"offset":1073,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":96}}}
+{"offset":1075,"op":"search","target":"foo*"}
+{"offset":1077,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":314}}}
+{"offset":1078,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":181}}}
+{"offset":1078,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":466}}}
+{"offset":1080,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":229}}}
+{"offset":1081,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":128}}}
+{"offset":1082,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":341}}}
+{"offset":1082,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":428}}}
+{"offset":1082,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":492}}}
+{"offset":1083,"op":"search","target":"foo*"}
+{"offset":1085,"op":"search","target":"foo*"}
+{"offset":1085,"op":"search","target":"foo*"}
+{"offset":1086,"op":"search","target":"foo*"}
+{"offset":1088,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":101}}}
+{"offset":1088,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":438}}}
+{"offset":1088,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":380}}}
+{"offset":1088,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":219}}}
+{"offset":1090,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":70}}}
+{"offset":1091,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":503}}}
+{"offset":1092,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":462}}}
+{"offset":1094,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":95}}}
+{"offset":1094,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":333}}}
+{"offset":1095,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":64}}}
+{"offset":1097,"op":"search","target":"foo*"}
+{"offset":1097,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":223}}}
+{"offset":1097,"op":"search","target":"foo*"}
+{"offset":1099,"op":"search","target":"foo*"}
+{"offset":1101,"op":"search","target":"foo*"}
+{"offset":1102,"op":"search","target":"foo*"}
+{"offset":1103,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":99}}}
+{"offset":1103,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":360}}}
+{"offset":1103,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":206}}}
+{"offset":1103,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":391}}}
+{"offset":1103,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":275}}}
+{"offset":1103,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":301}}}
+{"offset":1104,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":255}}}
+{"offset":1105,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":484}}}
+{"offset":1107,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":241}}}
+{"offset":1107,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":147}}}
+{"offset":1107,"op":"search","target":"foo*"}
+{"offset":1108,"op":"search","target":"foo*"}
+{"offset":1109,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":466}}}
+{"offset":1110,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":176}}}
+{"offset":1112,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":158}}}
+{"offset":1114,"op":"search","target":"foo*"}
+{"offset":1115,"op":"search","target":"foo*"}
+{"offset":1115,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":60}}}
+{"offset":1116,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":53}}}
+{"offset":1116,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":65}}}
+{"offset":1118,"op":"search","target":"foo*"}
+{"offset":1119,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":497}}}
+{"offset":1119,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":243}}}
+{"offset":1121,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":36}}}
+{"offset":1123,"op":"search","target":"foo*"}
+{"offset":1123,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":201}}}
+{"offset":1123,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":427}}}
+{"offset":1123,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":129}}}
+{"offset":1123,"op":"search","target":"foo*"}
+{"offset":1123,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":254}}}
+{"offset":1125,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":123}}}
+{"offset":1125,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":110}}}
+{"offset":1127,"op":"search","target":"foo*"}
+{"offset":1127,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":178}}}
+{"offset":1127,"op":"search","target":"foo*"}
+{"offset":1127,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":34}}}
+{"offset":1129,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":227}}}
+{"offset":1130,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":521}}}
+{"offset":1131,"op":"search","target":"foo*"}
+{"offset":1131,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":104}}}
+{"offset":1133,"op":"search","target":"foo*"}
+{"offset":1135,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":228}}}
+{"offset":1136,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":107}}}
+{"offset":1137,"op":"search","target":"foo*"}
+{"offset":1139,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":349}}}
+{"offset":1140,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":410}}}
+{"offset":1142,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":71}}}
+{"offset":1144,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":254}}}
+{"offset":1145,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":247}}}
+{"offset":1146,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":9}}}
+{"offset":1147,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":459}}}
+{"offset":1148,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":205}}}
+{"offset":1148,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":319}}}
+{"offset":1149,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":382}}}
+{"offset":1150,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":256}}}
+{"offset":1150,"op":"search","target":"foo*"}
+{"offset":1150,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":103}}}
+{"offset":1152,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":502}}}
+{"offset":1153,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":117}}}
+{"offset":1153,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":246}}}
+{"offset":1155,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":515}}}
+{"offset":1157,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":142}}}
+{"offset":1157,"op":"search","target":"foo*"}
+{"offset":1157,"op":"search","target":"foo*"}
+{"offset":1159,"op":"search","target":"foo*"}
+{"offset":1159,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":59}}}
+{"offset":1160,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":468}}}
+{"offset":1161,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":100}}}
+{"offset":1163,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":448}}}
+{"offset":1163,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":56}}}
+{"offset":1164,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":21}}}
+{"offset":1165,"op":"search","target":"foo*"}
+{"offset":1166,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":80}}}
+{"offset":1166,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":136}}}
+{"offset":1166,"op":"search","target":"foo*"}
+{"offset":1166,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":122}}}
+{"offset":1168,"op":"search","target":"foo*"}
+{"offset":1170,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":100}}}
+{"offset":1171,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":163}}}
+{"offset":1172,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":81}}}
+{"offset":1173,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":324}}}
+{"offset":1175,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":489}}}
+{"offset":1175,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":311}}}
+{"offset":1176,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"sum":10}}}
+{"offset":1176,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":139}}}
+{"offset":1177,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":27}}}
+{"offset":1179,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"sum":179}}}
+{"offset":1181,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":344}}}
+{"offset":1181,"op":"index","target":"foo","body":{"message":"jumped over the","metric":{"count":310}}}
+{"offset":1181,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":74}}}
+{"offset":1181,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"count":220}}}
+{"offset":1181,"op":"index","target":"foo","body":{"message":"lazy dog","metric":{"sum":366}}}
+{"offset":1182,"op":"search","target":"foo*"}
+{"offset":1182,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":288}}}
+{"offset":1184,"op":"index","target":"foo","body":{"message":"the quick brown fox","metric":{"count":88}}}
