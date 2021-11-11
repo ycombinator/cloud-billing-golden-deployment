@@ -16,6 +16,7 @@ var rootCmd = &cobra.Command{
 func init() {
 	// TODO: add flags for test results cluster
 
+	rootCmd.AddCommand(serverCmd)
 	rootCmd.AddCommand(setUpCmd)
 	//rootCmd.AddCommand(exerciseCmd)
 	//rootCmd.AddCommand(validateCmd)
