@@ -23,6 +23,18 @@ Each scenario is governed by the following lifecycle stages:
 
 * `teardown`: This stage tears down everything created during the `setup` lifecycle stage.
 
+### Example structure
+
+```
+scenarios/
+  es1x1g/
+    setup/
+      main.tf
+    exercise/
+      workload.txt
+    validate/
+    ```
+
 ## Building the CLI
 
 ```

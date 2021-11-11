@@ -18,7 +18,7 @@ var setUpCmd = &cobra.Command{
 		}
 		fmt.Printf("Setting up scenario [%s]...\n", scenario)
 
-		workDir, err := terraform.NewWorkDir(filepath.Join("scenarios", scenario))
+		workDir, err := terraform.NewWorkDir(filepath.Join("scenarios", scenario, "setup"))
 		if err != nil {
 			return fmt.Errorf("could not load scenario [%s]: %w", scenario, err)
 		}
