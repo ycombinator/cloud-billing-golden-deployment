@@ -3,7 +3,8 @@
 BINARY=ecbgd
 
 build:
-	go build -o ${BINARY} .
+	mkdir -p bin/
+	go build -o bin/${BINARY} .
 
 clean:
-	rm -f ${BINARY}
+	rm -f bin

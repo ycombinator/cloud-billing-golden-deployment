@@ -8,3 +8,4 @@ api_key.txt
 .idea/
 
 dist/
+bin/
