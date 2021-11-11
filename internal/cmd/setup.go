@@ -23,7 +23,7 @@ var setUpCmd = &cobra.Command{
 			return fmt.Errorf("Elastic Cloud API KEY environment variable [EC_API_KEY] is not set")
 		}
 
-		workDir, err := terraform.NewWorkDir(filepath.Join("scenarios", scenario, "setup"))
+		workDir, err := terraform.NewWorkDir(filepath.Join("deployment_configs", scenario, "setup"))
 		if err != nil {
 			return fmt.Errorf("could not load scenario [%s]: %w", scenario, err)
 		}

@@ -2,12 +2,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/cmd"
 	"os"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/server"
 )
 
 func main() {
-	if err := cmd.Execute(); err != nil {
+	//if err := cmd.Execute(); err != nil {
+	//	fmt.Fprintln(os.Stderr, err)
+	//	os.Exit(1)
+	//}
+
+	if err := server.Start(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}

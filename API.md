@@ -4,7 +4,7 @@ Deployment configurations define the overall configuration
 of a golden deployment.
 
 ```
-PUT /deployment_config/{config ID}
+PUT /deployment_config/{config ID} # Low prio
 GET /deployment_configs
 GET /deployment_config/{config ID}
 DELETE /deployment_config/{config ID}
@@ -17,7 +17,7 @@ exercised against a golden deployment as part of a test
 scenario.
 
 ```
-PUT /workload/{workload ID}
+PUT /workload/{workload ID} # Low prio
 GET /workloads
 GET /workload/{workload ID}
 GET /workload/{workload ID}/payload
@@ -31,7 +31,7 @@ setup (potentially parameterized), the workload to
 execute, and the validations to be performed.
 
 ```
-POST /scenarios
+POST /scenarios # Low prio
 GET /scenarios
 GET /scenario/{scenario ID}
 DELETE /scenario # Doesn't actually delete, just stops the test
