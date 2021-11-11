@@ -7,7 +7,8 @@ of a golden deployment.
 PUT /deployment_config/{config ID} # Low prio
 GET /deployment_configs
 GET /deployment_config/{config ID}
-DELETE /deployment_config/{config ID}
+GET /deployment_config/{config ID}/payload
+DELETE /deployment_config/{config ID} # Low prio
 ```
 
 ## Workloads
