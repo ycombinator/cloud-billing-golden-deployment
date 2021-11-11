@@ -22,7 +22,7 @@ PUT /workload/{workload ID} # Low prio
 GET /workloads
 GET /workload/{workload ID}
 GET /workload/{workload ID}/payload
-DELETE /workload/{workload ID}
+DELETE /workload/{workload ID} # Low prio
 ```
 
 ## Test Scenarios
@@ -32,7 +32,7 @@ setup (potentially parameterized), the workload to
 execute, and the validations to be performed.
 
 ```
-POST /scenarios # Low prio
+POST /scenarios
 GET /scenarios
 GET /scenario/{scenario ID}
 DELETE /scenario # Doesn't actually delete, just stops the test

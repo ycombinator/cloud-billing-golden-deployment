@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const deploymentConfigsDir = "./deployment_configs"
+const deploymentConfigsDir = "./data/deployment_configs"
 
 func registerDeploymentConfigRoutes(r *gin.Engine) {
 	r.GET("/deployment_configs", getDeploymentConfigs)
