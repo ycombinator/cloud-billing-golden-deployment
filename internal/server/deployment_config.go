@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -35,13 +36,32 @@ func getDeploymentConfigs(c *gin.Context) {
 		dirnames = append(dirnames, file.Name())
 	}
 
+	type item struct {
+		ID        string   `json:"id"`
+		Resources []string `json:"resources"`
+	}
+
+	var items []item
+	for _, dirname := range dirnames {
+		items = append(items, item{
+			ID: dirname,
+			Resources: []string{
+				fmt.Sprintf("/deployment_config/%s", dirname),
+				fmt.Sprintf("/deployment_config/%s/payload", dirname),
+			},
+		})
+	}
+
 	c.JSON(200, gin.H{
-		"deployment_configs": dirnames,
+		"deployment_configs": items,
 	})
 }
 
 func getDeploymentConfig(c *gin.Context) {
+	dc := c.Param("id")
+
 	c.JSON(200, gin.H{
+		"id": dc,
 		"resources": []string{
 			c.Request.RequestURI + "/payload",
 		},

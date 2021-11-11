@@ -6,6 +6,7 @@ func Start() error {
 	r := gin.Default()
 
 	// Routes
+	registerRootRoute(r)
 	registerDeploymentConfigRoutes(r)
 	registerWorkloadRoutes(r)
 	registerScenarioRoutes(r)
