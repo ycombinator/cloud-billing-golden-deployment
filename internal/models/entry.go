@@ -1,6 +1,6 @@
 package models
 
 type Entry struct {
-	Offset    int       `json:"offset"`
-	Operation Operation `json:",inline"`
+	Offset int `json:"offset"`
+	Operation
 }
