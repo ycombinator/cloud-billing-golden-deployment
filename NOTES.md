@@ -10,12 +10,13 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Implement `PUT /deployment_config/{config ID}` API
-- [ ] Implement `GET /deployment_configs` API
-- [ ] Implement `GET /deployment_config/{config ID}` API
-- [ ] Implement `GET /deployment_config/{config ID}/payload` API
 - [ ] Implement `POST /scenarios` API
 - [ ] Implement `GET /scenarios` API
 - [ ] Implement `GET /scenario/{scenario ID}` API
+- [ ] Implement `PUT /deployment_config/{config ID}` API
 - [ ] Implement `DELETE /deployment_config/{config ID}` API
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
+- [x] Implement `GET /` API
+- [x] Implement `GET /deployment_configs` API
+- [x] Implement `GET /deployment_config/{config ID}` API
+- [x] Implement `GET /deployment_config/{config ID}/payload` API
