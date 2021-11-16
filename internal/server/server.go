@@ -8,7 +8,7 @@ func Start() error {
 	// Routes
 	registerRootRoute(r)
 	registerDeploymentConfigRoutes(r)
-	registerWorkloadRoutes(r)
+	//registerWorkloadRoutes(r)
 	registerScenarioRoutes(r)
 
 	return r.Run("localhost:8111")

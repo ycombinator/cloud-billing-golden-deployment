@@ -10,7 +10,7 @@ func getRoot(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"resources": []string{
 			"/deployment_configs",
-			"/workloads",
+			//"/workloads",
 			"/scenarios",
 		},
 	})
