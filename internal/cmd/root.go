@@ -17,9 +17,9 @@ func init() {
 	// TODO: add flags for test results cluster? Use Usage Cluster itself?
 
 	rootCmd.AddCommand(serverCmd)
-	//rootCmd.AddCommand(setUpCmd)
-	//rootCmd.AddCommand(generateCmd)
-	//rootCmd.AddCommand(tearDownCmd)
+	//rootCmd.AddCommand(setUpCmd) // TODO: remove command definition?
+	//rootCmd.AddCommand(generateCmd) // TODO: remove command definition?
+	//rootCmd.AddCommand(tearDownCmd) // TODO: remove command definition?
 }
 
 func Execute() error {
