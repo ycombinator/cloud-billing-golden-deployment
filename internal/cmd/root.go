@@ -14,14 +14,12 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	// TODO: add flags for test results cluster
+	// TODO: add flags for test results cluster? Use Usage Cluster itself?
 
 	rootCmd.AddCommand(serverCmd)
-	rootCmd.AddCommand(setUpCmd)
-	//rootCmd.AddCommand(exerciseCmd)
-	//rootCmd.AddCommand(validateCmd)
-	rootCmd.AddCommand(generateCmd)
-	rootCmd.AddCommand(tearDownCmd)
+	//rootCmd.AddCommand(setUpCmd)
+	//rootCmd.AddCommand(generateCmd)
+	//rootCmd.AddCommand(tearDownCmd)
 }
 
 func Execute() error {
