@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 
@@ -20,9 +21,9 @@ func registerWorkloadRoutes(r *gin.Engine) {
 func getWorkloads(c *gin.Context) {
 	files, err := os.ReadDir(workloadsDir)
 	if err != nil {
-		c.JSON(500, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "could not read workloads",
-			"cause": err,
+			"cause": err.Error(),
 		})
 		return
 	}
@@ -52,7 +53,7 @@ func getWorkloads(c *gin.Context) {
 		})
 	}
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"workloads": items,
 	})
 }
@@ -60,7 +61,7 @@ func getWorkloads(c *gin.Context) {
 func getWorkload(c *gin.Context) {
 	dc := c.Param("id")
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"id": dc,
 		"resources": []string{
 			c.Request.RequestURI + "/payload",

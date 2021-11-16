@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 
@@ -20,9 +21,9 @@ func registerDeploymentConfigRoutes(r *gin.Engine) {
 func getDeploymentConfigs(c *gin.Context) {
 	files, err := os.ReadDir(deploymentConfigsDir)
 	if err != nil {
-		c.JSON(500, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "could not read deployment configurations",
-			"cause": err,
+			"cause": err.Error(),
 		})
 		return
 	}
@@ -52,7 +53,7 @@ func getDeploymentConfigs(c *gin.Context) {
 		})
 	}
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"deployment_configs": items,
 	})
 }
@@ -60,7 +61,7 @@ func getDeploymentConfigs(c *gin.Context) {
 func getDeploymentConfig(c *gin.Context) {
 	dc := c.Param("id")
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"id": dc,
 		"resources": []string{
 			c.Request.RequestURI + "/payload",
