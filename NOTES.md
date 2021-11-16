@@ -1,0 +1,21 @@
+- Golden deployments should be expected to keep running. No clean slate approach.
+- Service might be responsible for ensuring golden deployments are up? Could be useful in a flaky environment like QA.
+  - Will need to order vars + has with deployment config ID to get deployment ID (== scenario ID?)
+  - See https://pkg.go.dev/github.com/hashicorp/hcl/v2#section-readme for parsing out vars and defaults
+- Validations should run daily and look back over a sliding window of a day or so.
+- Use ILM to clean up test data so data usage is somewhat stable.
+  - Part of workload spec?  
+- Instead of generating and replaying workloads, dynamically generate and execute them as part of the service (test scenario run).
+- For validations, initial implementation could be watcher-based, where validations (incl. thresholds + tolerances) are baked into watches running on the Usage Cluster.
+- Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
+
+## TODO
+- [ ] Implement `PUT /deployment_config/{config ID}` API
+- [ ] Implement `GET /deployment_configs` API
+- [ ] Implement `GET /deployment_config/{config ID}` API
+- [ ] Implement `GET /deployment_config/{config ID}/payload` API
+- [ ] Implement `POST /scenarios` API
+- [ ] Implement `GET /scenarios` API
+- [ ] Implement `GET /scenario/{scenario ID}` API
+- [ ] Implement `DELETE /deployment_config/{config ID}` API
+- [ ] Implement `DELETE /scenario/{scenario ID}` API
