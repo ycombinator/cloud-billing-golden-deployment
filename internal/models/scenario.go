@@ -16,6 +16,12 @@ type IntRange struct {
 	Max int `json:"max" binding:"required"`
 }
 
+type IntValidationResult struct {
+	IsValid  bool     `json:"is_valid"`
+	Actual   int      `json:"actual"`
+	Expected IntRange `json:"expected"`
+}
+
 type Scenario struct {
 	DeploymentConfiguration struct {
 		ID        string                 `json:"id" binding:"required"`
@@ -40,9 +46,18 @@ type Scenario struct {
 		} `json:"expectations"`
 	} `json:"validations"`
 
-	ID        string    `json:"id"`
-	StartedOn time.Time `json:"started_on"`
-	StoppedOn time.Time `json:"stopped_on"`
+	ID        string     `json:"id"`
+	StartedOn *time.Time `json:"started_on,omitempty"`
+	StoppedOn *time.Time `json:"stopped_on,omitempty"`
+
+	ValidationResults []struct {
+		ValidatedOn              time.Time           `json:"validated_on"`
+		InstanceCapacityGBHours  IntValidationResult `json:"instance_capacity_gb_hours"`
+		DataOutGB                IntValidationResult `json:"data_out_gb"`
+		DataInterNodeGB          IntValidationResult `json:"data_internode_gb"`
+		SnapshotStorageSizeGB    IntValidationResult `json:"snapshot_storage_size_gb"`
+		SnapshotAPIRequestsCount IntValidationResult `json:"snapshot_api_requests_count"`
+	} `json:"validation_results"`
 }
 
 func (s *Scenario) Validate() error {
@@ -65,7 +80,12 @@ func (s *Scenario) Start() error {
 		return fmt.Errorf("scenario does not have an ID")
 	}
 
-	s.StartedOn = time.Now()
+	now := time.Now()
+	s.StartedOn = &now
+	s.StoppedOn = nil
+
+	// TODO: actually start scenario in goroutine
+
 	return s.persist()
 }
 

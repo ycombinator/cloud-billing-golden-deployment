@@ -9,7 +9,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-const workloadsDir = "./data/workloads"
+func workloadsDir() string {
+	return filepath.Join("data", "workloads")
+}
 
 func registerWorkloadRoutes(r *gin.Engine) {
 	r.GET("/workloads", getWorkloads)
@@ -19,7 +21,7 @@ func registerWorkloadRoutes(r *gin.Engine) {
 }
 
 func getWorkloads(c *gin.Context) {
-	files, err := os.ReadDir(workloadsDir)
+	files, err := os.ReadDir(workloadsDir())
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "could not read workloads",
@@ -59,10 +61,10 @@ func getWorkloads(c *gin.Context) {
 }
 
 func getWorkload(c *gin.Context) {
-	dc := c.Param("id")
+	id := c.Param("id")
 
 	c.JSON(http.StatusOK, gin.H{
-		"id": dc,
+		"id": id,
 		"resources": []string{
 			c.Request.RequestURI + "/payload",
 		},
@@ -70,8 +72,8 @@ func getWorkload(c *gin.Context) {
 }
 
 func getWorkloadPayload(c *gin.Context) {
-	dc := c.Param("id")
+	id := c.Param("id")
 
-	path := filepath.Join(workloadsDir, dc, "ops.log")
+	path := filepath.Join(workloadsDir(), id, "ops.log")
 	c.File(path)
 }
