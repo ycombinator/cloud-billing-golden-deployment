@@ -10,9 +10,7 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Implement `POST /scenarios` API
-- [ ] Implement `GET /scenarios` API
-- [ ] Implement `GET /scenario/{scenario ID}` API
+- [ ] Actually start scenario in goroutine
 - [ ] Implement `PUT /deployment_config/{config ID}` API
 - [ ] Implement `DELETE /deployment_config/{config ID}` API
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
@@ -20,3 +18,6 @@
 - [x] Implement `GET /deployment_configs` API
 - [x] Implement `GET /deployment_config/{config ID}` API
 - [x] Implement `GET /deployment_config/{config ID}/payload` API
+- [x] Implement `POST /scenarios` API
+- [x] Implement `GET /scenarios` API
+- [x] Implement `GET /scenario/{scenario ID}` API
