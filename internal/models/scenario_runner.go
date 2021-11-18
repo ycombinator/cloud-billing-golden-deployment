@@ -24,9 +24,8 @@ type ScenarioRunner struct {
 func NewScenarioRunnerSingleton() *ScenarioRunner {
 	if scenarioRunnerSingleton == nil {
 		scenarioRunnerSingleton = new(ScenarioRunner)
+		scenarioRunnerSingleton.scenarios = map[string]runningScenario{}
 	}
-
-	scenarioRunnerSingleton.scenarios = map[string]runningScenario{}
 
 	return scenarioRunnerSingleton
 }
@@ -37,9 +36,9 @@ func (sr *ScenarioRunner) Start(s Scenario) {
 	validationCtx, validationCancelFunc := context.WithCancel(context.Background())
 
 	rs := runningScenario{
-		s,
-		exerciseCancelFunc,
-		validationCancelFunc,
+		Scenario:             s,
+		exerciseCancelFunc:   exerciseCancelFunc,
+		validationCancelFunc: validationCancelFunc,
 	}
 
 	sr.scenarios[s.ID] = rs
@@ -53,6 +52,12 @@ func (sr *ScenarioRunner) Stop(scenarioID string) {
 	rs.exerciseCancelFunc()
 
 	delete(sr.scenarios, scenarioID)
+}
+
+func (sr *ScenarioRunner) StopAll() {
+	for _, scenario := range sr.scenarios {
+		sr.Stop(scenario.ID)
+	}
 }
 
 func (rs *runningScenario) start(exerciseCtx, validationCtx context.Context) {

@@ -11,7 +11,6 @@
 
 ## TODO
 - [ ] Actually start scenario in goroutine
-- [ ] Handle interrupt and stop scenario runner gracefully
 - [ ] Implement `PUT /deployment_config/{config ID}` API
 - [ ] Implement `DELETE /deployment_config/{config ID}` API
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
@@ -23,3 +22,4 @@
 - [x] Implement `POST /scenarios` API
 - [x] Implement `GET /scenarios` API
 - [x] Implement `GET /scenario/{scenario ID}` API
+- [x] Handle interrupt and stop scenario runner gracefully

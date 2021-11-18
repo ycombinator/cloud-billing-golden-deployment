@@ -3,6 +3,8 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
 
@@ -17,6 +19,8 @@ var serverCmd = &cobra.Command{
 		if _, exists := os.LookupEnv("EC_API_KEY"); !exists {
 			return fmt.Errorf("Elastic Cloud API KEY environment variable [EC_API_KEY] is not set")
 		}
+
+		setupCloseHandler()
 
 		fmt.Println("Starting Scenario Runner...")
 		if err := initScenarioRunner(); err != nil {
@@ -48,4 +52,21 @@ func initScenarioRunner() error {
 	}
 
 	return nil
+}
+
+func setupCloseHandler() {
+	c := make(chan os.Signal)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+
+	go func() {
+		<-c
+		fmt.Printf("Stopping Scenario Runner... ")
+
+		scenarioRunner := models.NewScenarioRunnerSingleton()
+		scenarioRunner.StopAll()
+
+		fmt.Println("done")
+
+		os.Exit(0)
+	}()
 }
