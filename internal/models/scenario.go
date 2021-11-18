@@ -11,6 +11,10 @@ import (
 	"github.com/google/uuid"
 )
 
+func ScenariosDir() string {
+	return filepath.Join("data", "scenarios")
+}
+
 type IntRange struct {
 	Min int `json:"min" binding:"required"`
 	Max int `json:"max" binding:"required"`
@@ -60,6 +64,54 @@ type Scenario struct {
 	} `json:"validation_results"`
 }
 
+func LoadAllScenarios() ([]Scenario, error) {
+	var scenarios []Scenario
+
+	files, err := os.ReadDir(ScenariosDir())
+	if err != nil {
+		return nil, err
+	}
+
+	var dirnames []string
+	for _, file := range files {
+		if !file.IsDir() {
+			continue
+		}
+
+		dirnames = append(dirnames, file.Name())
+	}
+
+	for _, dirname := range dirnames {
+		scenario, err := LoadScenario(dirname)
+		if err != nil {
+			return nil, err
+		}
+		scenarios = append(scenarios, *scenario)
+	}
+
+	return scenarios, nil
+}
+
+func LoadScenario(id string) (*Scenario, error) {
+	fmt.Printf("loading scenario [%s] from disk...\n", id)
+	path := filepath.Join(ScenariosDir(), id, "scenario.json")
+	data, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+
+	var scenario Scenario
+	if err := json.Unmarshal(data, &scenario); err != nil {
+		return nil, err
+	}
+
+	return &scenario, nil
+}
+
+func (s *Scenario) IsStarted() bool {
+	return s.StartedOn != nil && !s.StartedOn.IsZero()
+}
+
 func (s *Scenario) Validate() error {
 	// TODO: perform validations
 	return nil
@@ -85,8 +137,16 @@ func (s *Scenario) Start() error {
 	s.StoppedOn = nil
 
 	// TODO: actually start scenario in goroutine
+	// Get scenario runner singleton
+	// Ask scenario runner to start running scenario
 
 	return s.persist()
+}
+
+func (s *Scenario) GetValidationFrequency() time.Duration {
+	// TODO: support frequencies other than "daily"
+	//return 24 * time.Hour
+	return 10 * time.Second
 }
 
 func (s *Scenario) persist() error {

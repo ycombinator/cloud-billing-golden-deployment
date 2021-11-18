@@ -3,17 +3,11 @@ package server
 import (
 	"fmt"
 	"net/http"
-	"os"
-	"path/filepath"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
 
 	"github.com/gin-gonic/gin"
 )
-
-func scenariosDir() string {
-	return filepath.Join("data", "scenarios")
-}
 
 func registerScenarioRoutes(r *gin.Engine) {
 	r.POST("/scenarios", postScenarios)
@@ -65,7 +59,7 @@ func postScenarios(c *gin.Context) {
 }
 
 func getScenarios(c *gin.Context) {
-	files, err := os.ReadDir(scenariosDir())
+	scenarios, err := models.LoadAllScenarios()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "could not read scenarios",
@@ -74,26 +68,17 @@ func getScenarios(c *gin.Context) {
 		return
 	}
 
-	var dirnames []string
-	for _, file := range files {
-		if !file.IsDir() {
-			continue
-		}
-
-		dirnames = append(dirnames, file.Name())
-	}
-
 	type item struct {
 		ID        string   `json:"id"`
 		Resources []string `json:"resources"`
 	}
 
 	var items []item
-	for _, dirname := range dirnames {
+	for _, scenario := range scenarios {
 		items = append(items, item{
-			ID: dirname,
+			ID: scenario.ID,
 			Resources: []string{
-				fmt.Sprintf("/scenario/%s", dirname),
+				fmt.Sprintf("/scenario/%s", scenario.ID),
 			},
 		})
 	}
@@ -106,6 +91,14 @@ func getScenarios(c *gin.Context) {
 func getScenario(c *gin.Context) {
 	id := c.Param("id")
 
-	path := filepath.Join(scenariosDir(), id, "scenario.json")
-	c.File(path)
+	scenario, err := models.LoadScenario(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "could not read scenario",
+			"cause": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, scenario)
 }
