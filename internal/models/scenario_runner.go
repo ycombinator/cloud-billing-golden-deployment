@@ -56,6 +56,8 @@ func (sr *ScenarioRunner) Start(s *Scenario) {
 		usageConn:            sr.usageConn,
 	}
 
+	s.EnsureDeployment()
+
 	sr.scenarios[s.ID] = rs
 	rs.start(exerciseCtx, validationCtx)
 }

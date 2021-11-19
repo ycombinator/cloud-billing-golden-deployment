@@ -7,7 +7,7 @@ func Start() error {
 
 	// Routes
 	registerRootRoute(r)
-	registerDeploymentConfigRoutes(r)
+	registerDeploymentTemplateRoutes(r)
 	//registerWorkloadRoutes(r)
 	registerScenarioRoutes(r)
 

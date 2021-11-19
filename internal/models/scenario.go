@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 
 	"github.com/google/uuid"
@@ -42,11 +44,8 @@ type ValidationResult struct {
 }
 
 type Scenario struct {
-	DeploymentConfiguration struct {
-		ID        string                 `json:"id" binding:"required"`
-		Variables map[string]interface{} `json:"variables"`
-	} `json:"deployment_configuration" binding:"required"`
-	Workload struct {
+	DeploymentConfiguration deployment.Config `json:"deployment_configuration" binding:"required"`
+	Workload                struct {
 		StartOffsetSeconds int `json:"start_offset_seconds"`
 		MinIntervalSeconds int `json:"min_interval_seconds"`
 		MaxIntervalSeconds int `json:"max_interval_seconds"`
@@ -151,6 +150,20 @@ func (s *Scenario) GenerateID() error {
 	return s.persist()
 }
 
+func (s *Scenario) EnsureDeployment() error {
+	if s.ClusterID != "" {
+		return nil
+	}
+
+	out, err := deployment.EnsureDeployment(s.DeploymentConfiguration)
+	if err != nil {
+		return err
+	}
+
+	s.ClusterID = out.ClusterID
+	return s.persist()
+}
+
 func (s *Scenario) Start() error {
 	if s.ID == "" {
 		return fmt.Errorf("scenario does not have an ID")
@@ -170,7 +183,6 @@ func (s *Scenario) Start() error {
 	}
 
 	sr.Start(s)
-
 	return nil
 }
 

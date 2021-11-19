@@ -1,15 +1,15 @@
-## Deployment Configurations
+## Deployment Templates
 
-Deployment configurations define the overall configuration
+Deployment templates define the overall template
 of a golden deployment. When a [test scenario](#Test_Scenarios) starts
 executing, it spins up a new deployment (or ensures that one already exists).
-This deployment is configured according to the deployment configuration specified
+This deployment is templateured according to the deployment template specified
 in the test scenario.
 
-### Create or update a deployment configuration
+### Create or update a deployment template
 _Not implemented yet._
 ```
-PUT /deployment_config/{config ID}
+PUT /deployment_template/{template ID}
 terraform {
   required_providers {
     ec = {
@@ -52,36 +52,36 @@ resource "ec_deployment" "golden_es1x1g" {
 }
 ```
 
-### List deployment configurations
+### List deployment templates
 ```
-GET /deployment_configs
-```
-
-### View a deployment configuration
-```
-GET /deployment_config/{config ID}
+GET /deployment_templates
 ```
 
-### Show a deployment configuration's contents
+### View a deployment template
 ```
-GET /deployment_config/{config ID}/payload
+GET /deployment_template/{template ID}
 ```
 
-### Delete a deployment configuration
+### Show a deployment template's contents
 ```
-DELETE /deployment_config/{config ID}
+GET /deployment_template/{template ID}/payload
+```
+
+### Delete a deployment template
+```
+DELETE /deployment_template/{template ID}
 ```
 
 ## Test Scenarios
 
 Test scenarios define the deployment to spin up (or ensure already exists),
-the workload configuration to execute against the deployment, and the validations to be performed.
+the workload template to execute against the deployment, and the validations to be performed.
 
 ### Create a test scenario and start running it
 ```
 POST /scenarios
 {
-  "deployment_configuration": {
+  "deployment_template": {
     "id": "es1x1g",
     "variables": {
       "stack_version": "latest"

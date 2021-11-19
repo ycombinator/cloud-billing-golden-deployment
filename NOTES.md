@@ -16,14 +16,14 @@
     - [x] Validate usage cluster connection details at `server` cmd?
     - [x] Store deployment ID/cluster IDs in scenario?
   - [ ] Exercise loop
-- [ ] Implement `PUT /deployment_config/{config ID}` API
-- [ ] Implement `DELETE /deployment_config/{config ID}` API
+- [ ] Implement `PUT /deployment_tempalte/{template ID}` API
+- [ ] Implement `DELETE /deployment_template/{template ID}` API
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
 - [ ] Implement logger
 - [x] Implement `GET /` API
-- [x] Implement `GET /deployment_configs` API
-- [x] Implement `GET /deployment_config/{config ID}` API
-- [x] Implement `GET /deployment_config/{config ID}/payload` API
+- [x] Implement `GET /deployment_templates` API
+- [x] Implement `GET /deployment_template/{template ID}` API
+- [x] Implement `GET /deployment_template/{template ID}/payload` API
 - [x] Implement `POST /scenarios` API
 - [x] Implement `GET /scenarios` API
 - [x] Implement `GET /scenario/{scenario ID}` API

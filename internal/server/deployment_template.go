@@ -6,20 +6,20 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
+
 	"github.com/gin-gonic/gin"
 )
 
-const deploymentConfigsDir = "./data/deployment_configs"
-
-func registerDeploymentConfigRoutes(r *gin.Engine) {
-	r.GET("/deployment_configs", getDeploymentConfigs)
-	r.GET("/deployment_config/:id", getDeploymentConfig)
-	r.GET("/deployment_config/:id/payload", getDeploymentConfigPayload)
-	r.DELETE("/deployment_config/:id")
+func registerDeploymentTemplateRoutes(r *gin.Engine) {
+	r.GET("/deployment_templates", getDeploymentTemplates)
+	r.GET("/deployment_template/:id", getDeploymentTemplate)
+	r.GET("/deployment_template/:id/payload", getDeploymentTemplatePayload)
+	r.DELETE("/deployment_template/:id")
 }
 
-func getDeploymentConfigs(c *gin.Context) {
-	files, err := os.ReadDir(deploymentConfigsDir)
+func getDeploymentTemplates(c *gin.Context) {
+	files, err := os.ReadDir(deployment.TemplatesDir())
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "could not read deployment configurations",
@@ -47,18 +47,18 @@ func getDeploymentConfigs(c *gin.Context) {
 		items = append(items, item{
 			ID: dirname,
 			Resources: []string{
-				fmt.Sprintf("/deployment_config/%s", dirname),
-				fmt.Sprintf("/deployment_config/%s/payload", dirname),
+				fmt.Sprintf("/deployment_template/%s", dirname),
+				fmt.Sprintf("/deployment_template/%s/payload", dirname),
 			},
 		})
 	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"deployment_configs": items,
+		"deployment_templates": items,
 	})
 }
 
-func getDeploymentConfig(c *gin.Context) {
+func getDeploymentTemplate(c *gin.Context) {
 	dc := c.Param("id")
 
 	c.JSON(http.StatusOK, gin.H{
@@ -69,9 +69,9 @@ func getDeploymentConfig(c *gin.Context) {
 	})
 }
 
-func getDeploymentConfigPayload(c *gin.Context) {
+func getDeploymentTemplatePayload(c *gin.Context) {
 	dc := c.Param("id")
 
-	path := filepath.Join(deploymentConfigsDir, dc, "setup", "main.tf")
+	path := filepath.Join(deployment.TemplatesDir(), dc, "setup", "main.tf")
 	c.File(path)
 }

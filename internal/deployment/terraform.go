@@ -1,4 +1,4 @@
-package terraform
+package deployment
 
 import (
 	"fmt"
@@ -50,6 +50,9 @@ func (w *WorkDir) runCmd(cmd *exec.Cmd) error {
 	apiKey := os.Getenv("EC_GOLDEN_API_KEY")
 	apiKeyEnvVar := fmt.Sprintf("EC_API_KEY=%s", apiKey)
 	cmd.Env = append(cmd.Env, apiKeyEnvVar)
+
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 
 	cmd.Dir = w.dir
 

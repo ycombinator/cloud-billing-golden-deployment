@@ -34,6 +34,14 @@ func postScenarios(c *gin.Context) {
 		return
 	}
 
+	if err := scenario.EnsureDeployment(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "could not ensure deployment exists",
+			"cause": err.Error(),
+		})
+		return
+	}
+
 	if err := scenario.Start(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "could not start scenario",

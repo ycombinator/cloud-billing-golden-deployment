@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/spf13/cobra"
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/terraform"
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
 )
 
 var tearDownCmd = &cobra.Command{
@@ -23,7 +23,7 @@ var tearDownCmd = &cobra.Command{
 			return fmt.Errorf("Elastic Cloud API KEY environment variable [EC_API_KEY] is not set")
 		}
 
-		workDir, err := terraform.NewWorkDir(filepath.Join("deployment_configs", scenario, "setup"))
+		workDir, err := deployment.NewWorkDir(filepath.Join("deployment_templates", scenario, "setup"))
 		if err != nil {
 			return fmt.Errorf("could not load scenario [%s]: %w", scenario, err)
 		}

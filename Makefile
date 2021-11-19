@@ -7,4 +7,5 @@ build:
 	go build -o bin/${BINARY} .
 
 clean:
-	rm -f bin
+	rm -f bin/*
+	rm -rf data/scenarios/*
