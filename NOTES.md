@@ -10,6 +10,11 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
+- [ ] Use Cloud Deployments Create API instead of TF
+- Create API key for golden deployment in metering-admins@ account and save it as a secret
+- [ ] Switch persistent to Usage Cluster
+- [ ] For accessing Usage Cluster, use same method as Billing Service
+- For reads, sue billing service role, for writes to state indices, create new role
 - [ ] Use Terraform output variables to get cluster ID
 - [x] Actually start scenario in goroutine
   - [x] Validation loop
