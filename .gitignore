@@ -1,4 +1,4 @@
-api_key.txt
+api_key*.txt
 
 # Terraform work files
 *.tfstate*

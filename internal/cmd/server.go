@@ -38,7 +38,7 @@ var serverCmd = &cobra.Command{
 
 func validateServerCmdInput() error {
 	if _, exists := os.LookupEnv("EC_GOLDEN_API_KEY"); !exists {
-		return fmt.Errorf("Elastic Cloud Golden Deployment API Key environment variable [EC_GOLDEN_API_KEY] is not set")
+		return fmt.Errorf("Elastic Cloud Golden Deployment Account API Key environment variable [EC_GOLDEN_API_KEY] is not set")
 	}
 
 	if _, exists := os.LookupEnv("EC_USAGE_URL"); !exists {
@@ -46,7 +46,7 @@ func validateServerCmdInput() error {
 	}
 
 	if _, exists := os.LookupEnv("EC_USAGE_API_KEY"); !exists {
-		return fmt.Errorf("Elastic Cloud Usage Cluster API Key environment variable [EC_USAGE_API_KEY] is not set")
+		return fmt.Errorf("Elasticsearch Usage Cluster API Key environment variable [EC_USAGE_API_KEY] is not set")
 	}
 
 	return nil
@@ -60,11 +60,14 @@ func initScenarioRunner() error {
 	}
 
 	// Get scenario runner singleton
-	scenarioRunner := models.NewScenarioRunnerSingleton()
+	scenarioRunner, err := models.NewScenarioRunner()
+	if err != nil {
+		return err
+	}
 
 	// Ask scenario runner to run each scenario that's started
 	for _, scenario := range scenarios {
-		scenarioRunner.Start(scenario)
+		scenarioRunner.Start(&scenario)
 	}
 
 	return nil
@@ -78,9 +81,13 @@ func setupCloseHandler() {
 		<-c
 		fmt.Printf("Stopping Scenario Runner... ")
 
-		scenarioRunner := models.NewScenarioRunnerSingleton()
-		scenarioRunner.StopAll()
+		scenarioRunner, err := models.NewScenarioRunner()
+		if err != nil {
+			fmt.Println(err.Error())
+			os.Exit(1)
+		}
 
+		scenarioRunner.StopAll()
 		fmt.Println("done")
 
 		os.Exit(0)

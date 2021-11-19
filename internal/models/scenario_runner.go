@@ -14,7 +14,7 @@ var (
 )
 
 type runningScenario struct {
-	Scenario
+	*Scenario
 
 	exerciseCancelFunc   context.CancelFunc
 	validationCancelFunc context.CancelFunc
@@ -27,7 +27,7 @@ type ScenarioRunner struct {
 	usageConn *usage.Connection
 }
 
-func NewScenarioRunnerSingleton() (*ScenarioRunner, error) {
+func NewScenarioRunner() (*ScenarioRunner, error) {
 	if scenarioRunnerSingleton == nil {
 		scenarioRunnerSingleton = new(ScenarioRunner)
 		scenarioRunnerSingleton.scenarios = map[string]runningScenario{}
@@ -44,7 +44,7 @@ func NewScenarioRunnerSingleton() (*ScenarioRunner, error) {
 	return scenarioRunnerSingleton, nil
 }
 
-func (sr *ScenarioRunner) Start(s Scenario) {
+func (sr *ScenarioRunner) Start(s *Scenario) {
 	fmt.Println("starting scenario runner...")
 	exerciseCtx, exerciseCancelFunc := context.WithCancel(context.Background())
 	validationCtx, validationCancelFunc := context.WithCancel(context.Background())

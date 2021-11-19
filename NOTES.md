@@ -11,10 +11,10 @@
 
 ## TODO
 - [ ] Actually start scenario in goroutine
-  - [ ] Validation loop
-    - [ ] Usage cluster client singleton?
-    - [ ] Validate usage cluster connection details at `server` cmd?
-    - [ ] Store deployment ID/cluster IDs in scenario?
+  - [x] Validation loop
+    - [x] Usage cluster client singleton?
+    - [x] Validate usage cluster connection details at `server` cmd?
+    - [x] Store deployment ID/cluster IDs in scenario?
   - [ ] Exercise loop
 - [ ] Implement `PUT /deployment_config/{config ID}` API
 - [ ] Implement `DELETE /deployment_config/{config ID}` API

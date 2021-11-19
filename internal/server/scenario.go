@@ -26,14 +26,6 @@ func postScenarios(c *gin.Context) {
 		return
 	}
 
-	if err := scenario.Validate(); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "invalid scenario",
-			"cause": err.Error(),
-		})
-		return
-	}
-
 	if err := scenario.GenerateID(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": "could not generate ID for scenario",
