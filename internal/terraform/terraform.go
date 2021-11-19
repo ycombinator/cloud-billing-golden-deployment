@@ -30,22 +30,27 @@ func NewWorkDir(path string) (*WorkDir, error) {
 // Init runs `terraform init` in the working directory.
 func (w *WorkDir) Init() error {
 	cmd := exec.Command("terraform", "init")
-	cmd.Dir = w.dir
+	return w.runCmd(cmd)
 
-	return cmd.Run()
 }
 
 // Apply runs `terraform apply` in the working directory.
 func (w *WorkDir) Apply() error {
 	cmd := exec.Command("terraform", "apply", "--auto-approve=true")
-	cmd.Dir = w.dir
-
-	return cmd.Run()
+	return w.runCmd(cmd)
 }
 
 // Destroy runs `terraform destroy` in the working directory.
 func (w *WorkDir) Destroy() error {
 	cmd := exec.Command("terraform", "destroy", "--auto-approve=true")
+	return w.runCmd(cmd)
+}
+
+func (w *WorkDir) runCmd(cmd *exec.Cmd) error {
+	apiKey := os.Getenv("EC_GOLDEN_API_KEY")
+	apiKeyEnvVar := fmt.Sprintf("EC_API_KEY=%s", apiKey)
+	cmd.Env = append(cmd.Env, apiKeyEnvVar)
+
 	cmd.Dir = w.dir
 
 	return cmd.Run()

@@ -3,7 +3,10 @@ package models
 import (
 	"context"
 	"fmt"
+	"os"
 	"time"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 )
 
 var (
@@ -15,19 +18,30 @@ type runningScenario struct {
 
 	exerciseCancelFunc   context.CancelFunc
 	validationCancelFunc context.CancelFunc
+
+	usageConn *usage.Connection
 }
 
 type ScenarioRunner struct {
 	scenarios map[string]runningScenario
+	usageConn *usage.Connection
 }
 
-func NewScenarioRunnerSingleton() *ScenarioRunner {
+func NewScenarioRunnerSingleton() (*ScenarioRunner, error) {
 	if scenarioRunnerSingleton == nil {
 		scenarioRunnerSingleton = new(ScenarioRunner)
 		scenarioRunnerSingleton.scenarios = map[string]runningScenario{}
+
+		usageConn, err := initUsageClusterConnection()
+		if err != nil {
+			return nil, err
+		}
+
+		scenarioRunnerSingleton.usageConn = usageConn
+
 	}
 
-	return scenarioRunnerSingleton
+	return scenarioRunnerSingleton, nil
 }
 
 func (sr *ScenarioRunner) Start(s Scenario) {
@@ -39,6 +53,7 @@ func (sr *ScenarioRunner) Start(s Scenario) {
 		Scenario:             s,
 		exerciseCancelFunc:   exerciseCancelFunc,
 		validationCancelFunc: validationCancelFunc,
+		usageConn:            sr.usageConn,
 	}
 
 	sr.scenarios[s.ID] = rs
@@ -83,9 +98,16 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 				return
 
 			case _ = <-ticker.C:
-				// TODO: run validations
 				fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
+				rs.Scenario.Validate(rs.usageConn)
 			}
 		}
 	}()
+}
+
+func initUsageClusterConnection() (*usage.Connection, error) {
+	address := os.Getenv("EC_USAGE_URL")
+	apiKey := os.Getenv("EC_USAGE_API_KEY")
+
+	return usage.NewConnection(address, apiKey)
 }

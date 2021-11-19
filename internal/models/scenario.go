@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -15,15 +16,28 @@ func ScenariosDir() string {
 	return filepath.Join("data", "scenarios")
 }
 
-type IntRange struct {
-	Min int `json:"min" binding:"required"`
-	Max int `json:"max" binding:"required"`
+type FloatRange struct {
+	Min float64 `json:"min" binding:"required"`
+	Max float64 `json:"max" binding:"required"`
 }
 
-type IntValidationResult struct {
-	IsValid  bool     `json:"is_valid"`
-	Actual   int      `json:"actual"`
-	Expected IntRange `json:"expected"`
+type FloatValidationResult struct {
+	IsValid  bool       `json:"is_valid"`
+
+	Actual   float64    `json:"actual"`
+	Expected FloatRange `json:"expected"`
+
+	Error error `json:"error"`
+}
+
+type ValidationResult struct {
+	ValidatedOn time.Time `json:"validated_on"`
+
+	InstanceCapacityGBHours  FloatValidationResult `json:"instance_capacity_gb_hours"`
+	DataOutGB                FloatValidationResult `json:"data_out_gb"`
+	DataInterNodeGB          FloatValidationResult `json:"data_internode_gb"`
+	SnapshotStorageSizeGB    FloatValidationResult `json:"snapshot_storage_size_gb"`
+	SnapshotAPIRequestsCount FloatValidationResult `json:"snapshot_api_requests_count"`
 }
 
 type Scenario struct {
@@ -42,27 +56,21 @@ type Scenario struct {
 		StartTimestamp string `json:"start_timestamp"`
 		EndTimestamp   string `json:"end_timestamp"`
 		Expectations   struct {
-			InstanceCapacityGBHours  IntRange `json:"instance_capacity_gb_hours" binding:"required"`
-			DataOutGB                IntRange `json:"data_out_gb" binding:"required"`
-			DataInterNodeGB          IntRange `json:"data_internode_gb" binding:"required"`
-			SnapshotStorageSizeGB    IntRange `json:"snapshot_storage_size_gb" binding:"required"`
-			SnapshotAPIRequestsCount IntRange `json:"snapshot_api_requests_count" binding:"required"`
+			InstanceCapacityGBHours  FloatRange `json:"instance_capacity_gb_hours" binding:"required"`
+			DataOutGB                FloatRange `json:"data_out_gb" binding:"required"`
+			DataInterNodeGB          FloatRange `json:"data_internode_gb" binding:"required"`
+			SnapshotStorageSizeGB    FloatRange `json:"snapshot_storage_size_gb" binding:"required"`
+			SnapshotAPIRequestsCount FloatRange `json:"snapshot_api_requests_count" binding:"required"`
 		} `json:"expectations"`
 	} `json:"validations"`
 
 	ID        string     `json:"id"`
+	ClusterID string 	`json:"cluster_id"`
 	StartedOn *time.Time `json:"started_on,omitempty"`
 	StoppedOn *time.Time `json:"stopped_on,omitempty"`
 
-	ValidationResults []struct {
-		ValidatedOn              time.Time           `json:"validated_on"`
-		InstanceCapacityGBHours  IntValidationResult `json:"instance_capacity_gb_hours"`
-		DataOutGB                IntValidationResult `json:"data_out_gb"`
-		DataInterNodeGB          IntValidationResult `json:"data_internode_gb"`
-		SnapshotStorageSizeGB    IntValidationResult `json:"snapshot_storage_size_gb"`
-		SnapshotAPIRequestsCount IntValidationResult `json:"snapshot_api_requests_count"`
-	} `json:"validation_results"`
-}
+	ValidationResults []ValidationResult `json:"validation_results"`
+}wja
 
 func LoadAllScenarios() ([]Scenario, error) {
 	var scenarios []Scenario
@@ -112,9 +120,21 @@ func (s *Scenario) IsStarted() bool {
 	return s.StartedOn != nil && !s.StartedOn.IsZero()
 }
 
-func (s *Scenario) Validate() error {
-	// TODO: perform validations
-	return nil
+func (s *Scenario) Validate(usageConn *usage.Connection)  {
+	q := usage.Query{
+		ClusterID: s.ClusterID,
+		From:      s.Validations.StartTimestamp,
+		To:        s.Validations.EndTimestamp,
+	}
+
+	result := new(ValidationResult)
+	result.ValidatedOn = time.Now()
+
+	s.validateInstanceCapacity(usageConn, q, result)
+	s.validateDataInterNode(usageConn, q, result)
+	s.validateDataOut(usageConn, q, result)
+	s.validateSnapshotAPIRequests(usageConn, q, result)
+	s.validateSnapshotStorageSize(usageConn, q, result)
 }
 
 func (s *Scenario) GenerateID() error {
@@ -173,4 +193,52 @@ func (s *Scenario) persist() error {
 	}
 
 	return nil
+}
+
+func (s *Scenario) validateInstanceCapacity(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {
+	result.InstanceCapacityGBHours.Expected = s.Validations.Expectations.InstanceCapacityGBHours
+
+	value, err := usageConn.GetInstanceCapacityGBHours(q)
+	if err != nil {
+		result.InstanceCapacityGBHours.Error = err
+		return
+	}
+	result.InstanceCapacityGBHours.Actual = value
+	result.InstanceCapacityGBHours.IsValid = s.Validations.Expectations.InstanceCapacityGBHours.IsInRange(value)
+}
+var err error
+var ic, din, do, sa, ss float64
+if din, err = usageConn.GetDataInterNodeGB(q); err != nil {
+// TODO handle error
+}
+if do, err = usageConn.GetDataOutGB(q); err != nil {
+// TODO handle error
+}
+if sa, err = usageConn.GetSnapshotAPIRequestsCount(q); err != nil {
+// TODO handle error
+}
+if ss, err = usageConn.GetSnapshotStorageSizeGB(q); err != nil {
+// TODO handle error
+}
+
+expectations := s.Validations.Expectations
+if !expectations.InstanceCapacityGBHours.IsInRange(ic) {
+// TODO: handle validation failure reporting
+}
+if !expectations.DataInterNodeGB.IsInRange(din) {
+// TODO: handle validation failure reporting
+}
+if !expectations.DataOutGB.IsInRange(do) {
+// TODO: handle validation failure reporting
+}
+if !expectations.SnapshotAPIRequestsCount.IsInRange(sa) {
+// TODO: handle validation failure reporting
+}
+if !expectations.SnapshotStorageSizeGB.IsInRange(ss) {
+// TODO: handle validation failure reporting
+}
+
+
+func (ir *FloatRange) IsInRange(actual float64) bool {
+	return ir.Min <= actual && actual <= ir.Max
 }

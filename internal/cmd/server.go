@@ -16,8 +16,8 @@ var serverCmd = &cobra.Command{
 	Use:   "server",
 	Short: "Start the Scenario Runner and API server",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		if _, exists := os.LookupEnv("EC_API_KEY"); !exists {
-			return fmt.Errorf("Elastic Cloud API KEY environment variable [EC_API_KEY] is not set")
+		if err := validateServerCmdInput(); err != nil {
+			return err
 		}
 
 		setupCloseHandler()
@@ -34,6 +34,22 @@ var serverCmd = &cobra.Command{
 
 		return nil
 	},
+}
+
+func validateServerCmdInput() error {
+	if _, exists := os.LookupEnv("EC_GOLDEN_API_KEY"); !exists {
+		return fmt.Errorf("Elastic Cloud Golden Deployment API Key environment variable [EC_GOLDEN_API_KEY] is not set")
+	}
+
+	if _, exists := os.LookupEnv("EC_USAGE_URL"); !exists {
+		return fmt.Errorf("Elastic Cloud Usage Cluster URL environment variable [EC_USAGE_URL] is not set")
+	}
+
+	if _, exists := os.LookupEnv("EC_USAGE_API_KEY"); !exists {
+		return fmt.Errorf("Elastic Cloud Usage Cluster API Key environment variable [EC_USAGE_API_KEY] is not set")
+	}
+
+	return nil
 }
 
 func initScenarioRunner() error {
