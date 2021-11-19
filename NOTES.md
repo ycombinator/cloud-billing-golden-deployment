@@ -10,7 +10,8 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Actually start scenario in goroutine
+- [ ] Use Terraform output variables to get cluster ID
+- [x] Actually start scenario in goroutine
   - [x] Validation loop
     - [x] Usage cluster client singleton?
     - [x] Validate usage cluster connection details at `server` cmd?
