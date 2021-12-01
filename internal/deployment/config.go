@@ -64,7 +64,7 @@ func (c *Config) vars(contents []byte) (map[string]interface{}, error) {
 
 	// Validate
 	for name, _ := range c.Variables {
-		v, exists := tpl.Vars[name]
+		_, exists := tpl.Vars[name]
 		if !exists {
 			return nil, fmt.Errorf("undefined variable [%s] in configuration [%s]", name, c.ID)
 		}
