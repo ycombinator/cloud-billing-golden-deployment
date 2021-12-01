@@ -38,6 +38,7 @@ func EnsureDeployment(cfg Template) (OutVars, error) {
 	}
 
 	// TODO: make idempotent
+	req.Name = cfg.id()
 	resp, err := deploymentapi.Create(deploymentapi.CreateParams{
 		API:     ess,
 		Request: req,
