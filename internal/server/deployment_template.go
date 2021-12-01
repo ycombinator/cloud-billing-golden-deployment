@@ -14,7 +14,6 @@ import (
 func registerDeploymentTemplateRoutes(r *gin.Engine) {
 	r.GET("/deployment_templates", getDeploymentTemplates)
 	r.GET("/deployment_template/:id", getDeploymentTemplate)
-	r.GET("/deployment_template/:id/payload", getDeploymentTemplatePayload)
 	r.DELETE("/deployment_template/:id")
 }
 
@@ -59,19 +58,8 @@ func getDeploymentTemplates(c *gin.Context) {
 }
 
 func getDeploymentTemplate(c *gin.Context) {
-	dc := c.Param("id")
+	id := c.Param("id")
 
-	c.JSON(http.StatusOK, gin.H{
-		"id": dc,
-		"resources": []string{
-			c.Request.RequestURI + "/payload",
-		},
-	})
-}
-
-func getDeploymentTemplatePayload(c *gin.Context) {
-	dc := c.Param("id")
-
-	path := filepath.Join(deployment.TemplatesDir(), dc, "setup", "main.tf")
+	path := filepath.Join(deployment.TemplatesDir(), id, "setup", "template.json")
 	c.File(path)
 }
