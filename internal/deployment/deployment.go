@@ -2,17 +2,14 @@ package deployment
 
 import (
 	"fmt"
-	"path/filepath"
+	"net/http"
+	"os"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/auth"
 )
-
-func TemplatesDir() string {
-	return filepath.Join("data", "deployment_templates")
-}
-
-type Config struct {
-	ID        string                 `json:"id" binding:"required"`
-	Variables map[string]interface{} `json:"variables,omitempty"`
-}
 
 type OutVars struct {
 	ClusterID string
@@ -22,22 +19,33 @@ func EnsureDeployment(cfg Config) (OutVars, error) {
 	fmt.Printf("ensuring deployment for configuration [%s]...\n", cfg.ID)
 	var out OutVars
 
-	path := filepath.Join(TemplatesDir(), cfg.ID, "setup")
-	wd, err := NewWorkDir(path)
+	apiKey := os.Getenv("EC_API_KEY")
+	if apiKey == "" {
+		return out, fmt.Errorf("unable to obtain Elastic Cloud API key from environment variable [EC_API_KEY]")
+	}
+
+	ess, err := api.NewAPI(api.Config{
+		Client:     new(http.Client),
+		AuthWriter: auth.APIKey(apiKey),
+	})
 	if err != nil {
-		return out, err
+		return out, fmt.Errorf("unable to connect to Elastic Cloud API: %w", err)
 	}
 
-	if err := wd.Init(); err != nil {
-		return out, err
+	req, err := cfg.toDeploymentCreateRequest()
+	if err != nil {
+		return out, fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", cfg.ID, err)
 	}
 
-	if err := wd.Apply(); err != nil {
-		return out, err
+	// TODO: make idempotent
+	resp, err := deploymentapi.Create(deploymentapi.CreateParams{
+		API:     ess,
+		Request: req,
+	})
+	if err != nil {
+		return out, fmt.Errorf("unable to ensure deployment for configuration [%s]: %w", err)
 	}
 
-	// TODO: unharcode
-	out.ClusterID = "129b342e90d443c6986a4fed59a09c0a"
-
+	out.ClusterID = *resp.ID
 	return out, nil
 }

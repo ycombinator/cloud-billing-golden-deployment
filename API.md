@@ -10,45 +10,50 @@ in the test scenario.
 _Not implemented yet._
 ```
 PUT /deployment_template/{template ID}
-terraform {
-  required_providers {
-    ec = {
-      source  = "elastic/ec"
+{
+  "vars": {
+    "stack_version": {
+      "type": "string",
+      "default": "7.15.2"
+    },
+    "region": {
+      "type": "string",
+      "default": "gcp-us-west1"
+    }
+  },
+  "template": {
+    "resources": {
+      "elasticsearch": [
+        {
+          "region": "{{ vars.region }}",
+          "ref_id": "main-elasticsearch",
+          "plan": {
+            "cluster_topology": [
+              {
+                "node_type": {
+                  "data": true,
+                  "master": true,
+                  "ingest": true
+                },
+                "instance_configuration_id": "aws.data.highio.i3",
+                "zone_count": 2,
+                "size": {
+                  "resource": "memory",
+                  "value": 4096
+                }
+              }
+            ],
+            "elasticsearch": {
+              "version": "{{ vars.stack_version }}"
+            },
+            "deployment_template": {
+              "id": "gcp-io-optimized-v2"
+            }
+          }
+        }
+      ]
     }
   }
-}
-
-variable "stack_version" {
-  type    = string
-  default = "latest"
-}
-
-variable "region" {
-  type    = string
-  default = "gcp-us-west1"
-}
-
-variable "deployment_template_id" {
-  type    = string
-  default = "gcp-io-optimized-v2"
-}
-
-data "ec_stack" "info" {
-  version_regex = var.stack_version
-  region        = var.region
-}
-
-# Create an Elastic Cloud deployment
-resource "ec_deployment" "golden_es1x1g" {
-  # Optional name.
-  name = "golden-es1x1g"
-
-  # Mandatory fields
-  region                 = var.region
-  version                = data.ec_stack.info.version
-  deployment_template_id = var.deployment_template_id
-
-  elasticsearch {}
 }
 ```
 
@@ -84,7 +89,7 @@ POST /scenarios
   "deployment_template": {
     "id": "es1x1g",
     "variables": {
-      "stack_version": "latest"
+      "stack_version": "7.14.0"
     }
   },
   "workload": {
