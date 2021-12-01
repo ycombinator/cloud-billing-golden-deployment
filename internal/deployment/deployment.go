@@ -19,9 +19,9 @@ func EnsureDeployment(cfg Config) (OutVars, error) {
 	fmt.Printf("ensuring deployment for configuration [%s]...\n", cfg.ID)
 	var out OutVars
 
-	apiKey := os.Getenv("EC_API_KEY")
+	apiKey := os.Getenv("EC_GOLDEN_API_KEY")
 	if apiKey == "" {
-		return out, fmt.Errorf("unable to obtain Elastic Cloud API key from environment variable [EC_API_KEY]")
+		return out, fmt.Errorf("unable to obtain Elastic Cloud API key from environment variable [EC_GOLDEN_API_KEY]")
 	}
 
 	ess, err := api.NewAPI(api.Config{
