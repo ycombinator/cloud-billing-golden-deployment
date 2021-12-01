@@ -30,16 +30,23 @@ PUT /deployment_template/{template ID}
           "plan": {
             "cluster_topology": [
               {
-                "node_type": {
-                  "data": true,
-                  "master": true,
-                  "ingest": true
+                "zone_count": 1,
+                "elasticsearch": {
+                  "node_attributes": {
+                    "data": "hot"
+                  }
                 },
-                "instance_configuration_id": "aws.data.highio.i3",
-                "zone_count": 2,
+                "instance_configuration_id": "gcp.es.datahot.n2.68x10x45",
+                "node_roles": [
+                  "master",
+                  "ingest",
+                  "data_hot",
+                  "data_content"
+                ],
+                "id": "hot_content",
                 "size": {
                   "resource": "memory",
-                  "value": 4096
+                  "value": 1024
                 }
               }
             ],
@@ -47,7 +54,7 @@ PUT /deployment_template/{template ID}
               "version": "{{ vars.stack_version }}"
             },
             "deployment_template": {
-              "id": "gcp-io-optimized-v2"
+              "id": "gcp-storage-optimized"
             }
           }
         }
