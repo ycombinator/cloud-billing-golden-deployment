@@ -15,13 +15,13 @@ func TemplatesDir() string {
 	return filepath.Join("data", "deployment_templates")
 }
 
-type Config struct {
+type Template struct {
 	ID        string                 `json:"id" binding:"required"`
 	Variables map[string]interface{} `json:"vars,omitempty"`
 }
 
-func (c *Config) toDeploymentCreateRequest() (*models.DeploymentCreateRequest, error) {
-	contents, err := c.templateContents()
+func (c *Template) toDeploymentCreateRequest() (*models.DeploymentCreateRequest, error) {
+	contents, err := c.contents()
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *Config) toDeploymentCreateRequest() (*models.DeploymentCreateRequest, e
 	return &tpl.Template, nil
 }
 
-func (c *Config) vars(contents []byte) (map[string]interface{}, error) {
+func (c *Template) vars(contents []byte) (map[string]interface{}, error) {
 	var tpl struct {
 		Vars map[string]struct {
 			Type    string      `json:"type"`
@@ -71,7 +71,7 @@ func (c *Config) vars(contents []byte) (map[string]interface{}, error) {
 	}
 
 	// Override
-	var vars map[string]interface{}
+	vars := make(map[string]interface{}, len(tpl.Vars))
 	for name, value := range tpl.Vars {
 		vars[name] = value.Default
 		if v, exists := c.Variables[name]; exists {
@@ -82,7 +82,7 @@ func (c *Config) vars(contents []byte) (map[string]interface{}, error) {
 	return vars, nil
 }
 
-func (c *Config) templateContents() ([]byte, error) {
+func (c *Template) contents() ([]byte, error) {
 	path := filepath.Join(TemplatesDir(), c.ID, "setup", "template.json")
 	return ioutil.ReadFile(path)
 }

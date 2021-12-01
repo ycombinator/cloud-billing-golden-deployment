@@ -15,7 +15,7 @@ type OutVars struct {
 	ClusterID string
 }
 
-func EnsureDeployment(cfg Config) (OutVars, error) {
+func EnsureDeployment(cfg Template) (OutVars, error) {
 	fmt.Printf("ensuring deployment for configuration [%s]...\n", cfg.ID)
 	var out OutVars
 

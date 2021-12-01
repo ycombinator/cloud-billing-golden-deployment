@@ -44,8 +44,8 @@ type ValidationResult struct {
 }
 
 type Scenario struct {
-	DeploymentConfiguration deployment.Config `json:"deployment_configuration" binding:"required"`
-	Workload                struct {
+	DeploymentTemplate deployment.Template `json:"deployment_template" binding:"required"`
+	Workload           struct {
 		StartOffsetSeconds int `json:"start_offset_seconds"`
 		MinIntervalSeconds int `json:"min_interval_seconds"`
 		MaxIntervalSeconds int `json:"max_interval_seconds"`
@@ -155,7 +155,7 @@ func (s *Scenario) EnsureDeployment() error {
 		return nil
 	}
 
-	out, err := deployment.EnsureDeployment(s.DeploymentConfiguration)
+	out, err := deployment.EnsureDeployment(s.DeploymentTemplate)
 	if err != nil {
 		return err
 	}
