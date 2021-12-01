@@ -47,7 +47,6 @@ func getDeploymentTemplates(c *gin.Context) {
 			ID: dirname,
 			Resources: []string{
 				fmt.Sprintf("/deployment_template/%s", dirname),
-				fmt.Sprintf("/deployment_template/%s/payload", dirname),
 			},
 		})
 	}
