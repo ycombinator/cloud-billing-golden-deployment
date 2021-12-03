@@ -33,8 +33,6 @@ func EnsureDeployment(cfg *config.Config, template Template) (OutVars, error) {
 		return out, fmt.Errorf("unable to connect to Elastic Cloud API at [%s]: %w", cfg.API.Url, err)
 	}
 
-	fmt.Println("here")
-
 	req, err := template.toDeploymentCreateRequest()
 	if err != nil {
 		return out, fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", template.ID, err)
@@ -50,8 +48,6 @@ func EnsureDeployment(cfg *config.Config, template Template) (OutVars, error) {
 		fmt.Println(err)
 		return out, fmt.Errorf("unable to ensure deployment for configuration [%s]: %w", err)
 	}
-
-	fmt.Println("here 2")
 
 	out.ClusterID = *resp.ID
 	return out, nil
