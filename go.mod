@@ -6,6 +6,7 @@ require (
 	github.com/cbroglie/mustache v1.3.0
 	github.com/elastic/cloud-sdk-go v1.6.0
 	github.com/elastic/go-elasticsearch/v7 v7.12.0
+	github.com/ghodss/yaml v1.0.0
 	github.com/gin-gonic/gin v1.7.4
 	github.com/google/uuid v1.3.0
 	github.com/spf13/cobra v1.2.1

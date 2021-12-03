@@ -6,6 +6,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 )
 
@@ -23,28 +25,26 @@ type runningScenario struct {
 }
 
 type ScenarioRunner struct {
+	cfg       *config.Config
 	scenarios map[string]runningScenario
 	usageConn *usage.Connection
 }
 
-func NewScenarioRunner() (*ScenarioRunner, error) {
-	if scenarioRunnerSingleton == nil {
-		scenarioRunnerSingleton = new(ScenarioRunner)
-		scenarioRunnerSingleton.scenarios = map[string]runningScenario{}
+func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
+	scenarioRunnerSingleton = new(ScenarioRunner)
+	scenarioRunnerSingleton.cfg = cfg
+	scenarioRunnerSingleton.scenarios = map[string]runningScenario{}
 
-		usageConn, err := initUsageClusterConnection()
-		if err != nil {
-			return nil, err
-		}
-
-		scenarioRunnerSingleton.usageConn = usageConn
-
+	usageConn, err := initUsageClusterConnection()
+	if err != nil {
+		return nil, err
 	}
 
+	scenarioRunnerSingleton.usageConn = usageConn
 	return scenarioRunnerSingleton, nil
 }
 
-func (sr *ScenarioRunner) Start(s *Scenario) {
+func (sr *ScenarioRunner) Start(s *Scenario) error {
 	fmt.Println("starting scenario runner...")
 	exerciseCtx, exerciseCancelFunc := context.WithCancel(context.Background())
 	validationCtx, validationCancelFunc := context.WithCancel(context.Background())
@@ -56,10 +56,14 @@ func (sr *ScenarioRunner) Start(s *Scenario) {
 		usageConn:            sr.usageConn,
 	}
 
-	s.EnsureDeployment()
+	if err := s.EnsureDeployment(sr.cfg); err != nil {
+		return err
+	}
 
 	sr.scenarios[s.ID] = rs
 	rs.start(exerciseCtx, validationCtx)
+
+	return nil
 }
 
 func (sr *ScenarioRunner) Stop(scenarioID string) {

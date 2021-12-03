@@ -18,7 +18,7 @@ PUT /deployment_template/{template ID}
     },
     "region": {
       "type": "string",
-      "default": "gcp-us-west1"
+      "default": "gcp-us-central1"
     }
   },
   "template": {

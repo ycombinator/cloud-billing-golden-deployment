@@ -15,7 +15,6 @@
 - [ ] Switch persistence to Usage Cluster
 - [ ] For accessing Usage Cluster, use same method as Billing Service
   - For reads, use billing service role, for writes to state indices, create new role
-- [ ] Use Terraform output variables to get cluster ID
 - [x] Actually start scenario in goroutine
   - [x] Validation loop
     - [x] Usage cluster client singleton?

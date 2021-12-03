@@ -10,3 +10,4 @@ api_key*.txt
 dist/
 bin/
 data/
+config/

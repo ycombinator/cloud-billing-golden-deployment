@@ -3,7 +3,8 @@ package deployment
 import (
 	"fmt"
 	"net/http"
-	"os"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
 
@@ -15,37 +16,42 @@ type OutVars struct {
 	ClusterID string
 }
 
-func EnsureDeployment(cfg Template) (OutVars, error) {
-	fmt.Printf("ensuring deployment for configuration [%s]...\n", cfg.ID)
+func EnsureDeployment(cfg *config.Config, template Template) (OutVars, error) {
+	fmt.Printf("ensuring deployment for configuration [%s]...\n", template.ID)
 	var out OutVars
 
-	apiKey := os.Getenv("EC_GOLDEN_API_KEY")
-	if apiKey == "" {
-		return out, fmt.Errorf("unable to obtain Elastic Cloud API key from environment variable [EC_GOLDEN_API_KEY]")
-	}
-
-	ess, err := api.NewAPI(api.Config{
+	apiCfg := api.Config{
+		Host:       cfg.API.Url,
 		Client:     new(http.Client),
-		AuthWriter: auth.APIKey(apiKey),
-	})
-	if err != nil {
-		return out, fmt.Errorf("unable to connect to Elastic Cloud API: %w", err)
+		AuthWriter: auth.APIKey(cfg.API.Key),
 	}
 
-	req, err := cfg.toDeploymentCreateRequest()
+	fmt.Println(apiCfg)
+
+	ess, err := api.NewAPI(apiCfg)
 	if err != nil {
-		return out, fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", cfg.ID, err)
+		return out, fmt.Errorf("unable to connect to Elastic Cloud API at [%s]: %w", cfg.API.Url, err)
+	}
+
+	fmt.Println("here")
+
+	req, err := template.toDeploymentCreateRequest()
+	if err != nil {
+		return out, fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", template.ID, err)
 	}
 
 	// TODO: make idempotent
-	req.Name = cfg.id()
+	req.Name = template.id()
 	resp, err := deploymentapi.Create(deploymentapi.CreateParams{
 		API:     ess,
 		Request: req,
 	})
 	if err != nil {
+		fmt.Println(err)
 		return out, fmt.Errorf("unable to ensure deployment for configuration [%s]: %w", err)
 	}
+
+	fmt.Println("here 2")
 
 	out.ClusterID = *resp.ID
 	return out, nil

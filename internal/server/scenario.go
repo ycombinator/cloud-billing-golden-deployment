@@ -9,53 +9,47 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func registerScenarioRoutes(r *gin.Engine) {
-	r.POST("/scenarios", postScenarios)
+func registerScenarioRoutes(r *gin.Engine, scenarioRunner *models.ScenarioRunner) {
+	r.POST("/scenarios", postScenarios(scenarioRunner))
 	r.GET("/scenarios", getScenarios)
 	r.GET("/scenario/:id", getScenario)
 	r.DELETE("/scenario/:id")
 }
 
-func postScenarios(c *gin.Context) {
-	var scenario models.Scenario
-	if err := c.ShouldBindJSON(&scenario); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "could not parse scenario",
-			"cause": err.Error(),
-		})
-		return
-	}
+func postScenarios(scenarioRunner *models.ScenarioRunner) func(c *gin.Context) {
+	return func(c *gin.Context) {
+		var scenario models.Scenario
+		if err := c.ShouldBindJSON(&scenario); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "could not parse scenario",
+				"cause": err.Error(),
+			})
+			return
+		}
 
-	if err := scenario.GenerateID(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "could not generate ID for scenario",
-			"cause": err.Error(),
-		})
-		return
-	}
+		if err := scenario.GenerateID(); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "could not generate ID for scenario",
+				"cause": err.Error(),
+			})
+			return
+		}
 
-	if err := scenario.EnsureDeployment(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "could not ensure deployment exists",
-			"cause": err.Error(),
-		})
-		return
-	}
+		if err := scenario.Start(scenarioRunner); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "could not start scenario",
+				"cause": err.Error(),
+			})
+			return
+		}
 
-	if err := scenario.Start(); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": "could not start scenario",
-			"cause": err.Error(),
+		c.JSON(http.StatusCreated, gin.H{
+			"id": scenario.ID,
+			"resources": []string{
+				fmt.Sprintf("/scenario/%s", scenario.ID),
+			},
 		})
-		return
 	}
-
-	c.JSON(http.StatusCreated, gin.H{
-		"id": scenario.ID,
-		"resources": []string{
-			fmt.Sprintf("/scenario/%s", scenario.ID),
-		},
-	})
 }
 
 func getScenarios(c *gin.Context) {

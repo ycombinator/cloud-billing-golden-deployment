@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
@@ -150,12 +152,12 @@ func (s *Scenario) GenerateID() error {
 	return s.persist()
 }
 
-func (s *Scenario) EnsureDeployment() error {
+func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
 	if s.ClusterID != "" {
 		return nil
 	}
 
-	out, err := deployment.EnsureDeployment(s.DeploymentTemplate)
+	out, err := deployment.EnsureDeployment(cfg, s.DeploymentTemplate)
 	if err != nil {
 		return err
 	}
@@ -164,7 +166,7 @@ func (s *Scenario) EnsureDeployment() error {
 	return s.persist()
 }
 
-func (s *Scenario) Start() error {
+func (s *Scenario) Start(scenarioRunner *ScenarioRunner) error {
 	if s.ID == "" {
 		return fmt.Errorf("scenario does not have an ID")
 	}
@@ -177,12 +179,10 @@ func (s *Scenario) Start() error {
 		return err
 	}
 
-	sr, err := NewScenarioRunner()
-	if err != nil {
+	if err := scenarioRunner.Start(s); err != nil {
 		return err
 	}
 
-	sr.Start(s)
 	return nil
 }
 
