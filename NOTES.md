@@ -10,9 +10,8 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Use [Cloud Deployments Create API](https://www.elastic.co/guide/en/cloud/current/ec-api-deployment-crud.html#ec_create_a_deployment) instead of TF
-  - Create API key for golden deployment in metering-admins@ account and save it as a secret
 - [ ] Switch persistence to Usage Cluster
+- [ ] Create API key for golden deployment in metering-admins@ account and save it as a secret
 - [ ] For accessing Usage Cluster, use same method as Billing Service
   - For reads, use billing service role, for writes to state indices, create new role
 - [x] Actually start scenario in goroutine
@@ -33,3 +32,5 @@
 - [x] Implement `GET /scenarios` API
 - [x] Implement `GET /scenario/{scenario ID}` API
 - [x] Handle interrupt and stop scenario runner gracefully
+- [x] Use config files
+- [x] Use [Cloud Deployments Create API](https://www.elastic.co/guide/en/cloud/current/ec-api-deployment-crud.html#ec_create_a_deployment) instead of TF
