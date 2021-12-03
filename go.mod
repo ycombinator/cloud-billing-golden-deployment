@@ -6,11 +6,11 @@ require (
 	github.com/cbroglie/mustache v1.3.0
 	github.com/elastic/cloud-sdk-go v1.6.0
 	github.com/elastic/go-elasticsearch/v7 v7.12.0
-	github.com/ghodss/yaml v1.0.0
 	github.com/gin-gonic/gin v1.7.4
 	github.com/google/uuid v1.3.0
 	github.com/spf13/cobra v1.2.1
 	github.com/stretchr/testify v1.7.0
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
@@ -57,6 +57,5 @@ require (
 	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )

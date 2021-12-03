@@ -10,6 +10,7 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
+- [ ] Actually read data from `usage-v1*` for validations
 - [ ] Switch persistence to Usage Cluster
 - [ ] Create API key for golden deployment in metering-admins@ account and save it as a secret
 - [ ] For accessing Usage Cluster, use same method as Billing Service
