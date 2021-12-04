@@ -10,8 +10,19 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
+- [ ] Bug: version override not working / scenario vars not persisting
+- [ ] Separate state cluster from usage cluster in config
 - [ ] Actually read data from `usage-v1*` for validations
-- [ ] Switch persistence to Usage Cluster
+- [ ] Switch persistence to state cluster
+- [ ] Actually implement exercising deployment with workload
+- [ ] Add `is_monitored` flag on scenario definition
+- [ ] Implement `PUT /scenario/{id}` API to allow partial update to scenario definition
+- [ ] Add snapshot frequency to workload config?
+- [ ] Define state cluster assets in GCM
+  - [ ] index templates for definitions index
+  - [ ] index template for validation results time series index
+  - [ ] ILM policy for validation results index
+  - [ ] one validation watch
 - [ ] Create API key for golden deployment in metering-admins@ account and save it as a secret
 - [ ] For accessing Usage Cluster, use same method as Billing Service
   - For reads, use billing service role, for writes to state indices, create new role
