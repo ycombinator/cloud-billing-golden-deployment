@@ -95,7 +95,7 @@ POST /scenarios
 {
   "deployment_template": {
     "id": "es1x1g",
-    "variables": {
+    "vars": {
       "stack_version": "7.14.0"
     }
   },

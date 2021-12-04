@@ -10,7 +10,6 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Bug: version override not working / scenario vars not persisting
 - [ ] Separate state cluster from usage cluster in config
 - [ ] Actually read data from `usage-v1*` for validations
 - [ ] Switch persistence to state cluster
@@ -46,3 +45,4 @@
 - [x] Handle interrupt and stop scenario runner gracefully
 - [x] Use config files
 - [x] Use [Cloud Deployments Create API](https://www.elastic.co/guide/en/cloud/current/ec-api-deployment-crud.html#ec_create_a_deployment) instead of TF
+- [x] Bug: version override not working / scenario vars not persisting

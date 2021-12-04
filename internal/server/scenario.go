@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
 
@@ -35,9 +36,22 @@ func postScenarios(scenarioRunner *models.ScenarioRunner) func(c *gin.Context) {
 			return
 		}
 
-		if err := scenario.Start(scenarioRunner); err != nil {
+		if err := scenarioRunner.Start(&scenario); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "could not start scenario",
+				"cause": err.Error(),
+			})
+			return
+		}
+
+		now := time.Now()
+		scenario.StartedOn = &now
+		scenario.StoppedOn = nil
+
+		if err := scenario.Persist(); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"id":    scenario.ID,
+				"error": "scenario started but could not be persisted",
 				"cause": err.Error(),
 			})
 			return

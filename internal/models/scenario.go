@@ -139,7 +139,7 @@ func (s *Scenario) Validate(usageConn *usage.Connection) {
 	s.validateSnapshotStorageSize(usageConn, q, result)
 
 	s.ValidationResults = append(s.ValidationResults, *result)
-	s.persist()
+	s.Persist()
 }
 
 func (s *Scenario) GenerateID() error {
@@ -149,7 +149,7 @@ func (s *Scenario) GenerateID() error {
 	}
 
 	s.ID = id.String()
-	return s.persist()
+	return s.Persist()
 }
 
 func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
@@ -163,7 +163,7 @@ func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
 	}
 
 	s.ClusterID = out.ClusterID
-	return s.persist()
+	return s.Persist()
 }
 
 func (s *Scenario) Start(scenarioRunner *ScenarioRunner) error {
@@ -175,7 +175,7 @@ func (s *Scenario) Start(scenarioRunner *ScenarioRunner) error {
 	s.StartedOn = &now
 	s.StoppedOn = nil
 
-	if err := s.persist(); err != nil {
+	if err := s.Persist(); err != nil {
 		return err
 	}
 
@@ -192,7 +192,7 @@ func (s *Scenario) GetValidationFrequency() time.Duration {
 	return 10 * time.Second
 }
 
-func (s *Scenario) persist() error {
+func (s *Scenario) Persist() error {
 	folder := filepath.Join("data", "scenarios", s.ID)
 	_, err := os.Stat(folder)
 	if err != nil {
