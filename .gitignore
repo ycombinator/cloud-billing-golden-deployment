@@ -1,13 +1,13 @@
-./api_key*.txt
+api_key*.txt
 
 # Terraform work files
 *.tfstate*
 *.terraform*
 
 # IDE work files
-./.idea/
+.idea/
 
-./dist/
-./bin/
-./data/
-./config/
+dist/
+bin/
+data/
+config/*.yml
