@@ -66,10 +66,10 @@ type Scenario struct {
 		} `json:"expectations"`
 	} `json:"validations"`
 
-	ID        string     `json:"id"`
-	ClusterID string     `json:"cluster_id"`
-	StartedOn *time.Time `json:"started_on,omitempty"`
-	StoppedOn *time.Time `json:"stopped_on,omitempty"`
+	ID         string     `json:"id"`
+	ClusterIDs []string   `json:"cluster_ids"`
+	StartedOn  *time.Time `json:"started_on,omitempty"`
+	StoppedOn  *time.Time `json:"stopped_on,omitempty"`
 
 	ValidationResults []ValidationResult `json:"validation_results"`
 }
@@ -124,9 +124,9 @@ func (s *Scenario) IsStarted() bool {
 
 func (s *Scenario) Validate(usageConn *usage.Connection) {
 	q := usage.Query{
-		ClusterID: s.ClusterID,
-		From:      s.Validations.StartTimestamp,
-		To:        s.Validations.EndTimestamp,
+		ClusterIDs: s.ClusterIDs,
+		From:       s.Validations.StartTimestamp,
+		To:         s.Validations.EndTimestamp,
 	}
 
 	result := new(ValidationResult)
@@ -153,7 +153,7 @@ func (s *Scenario) GenerateID() error {
 }
 
 func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
-	if s.ClusterID != "" {
+	if s.ClusterIDs != nil && len(s.ClusterIDs) > 0 {
 		return nil
 	}
 
@@ -162,7 +162,7 @@ func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
 		return err
 	}
 
-	s.ClusterID = out.ClusterID
+	s.ClusterIDs = out.ClusterIDs
 	return s.Persist()
 }
 

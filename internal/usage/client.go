@@ -13,9 +13,9 @@ type Connection struct {
 }
 
 type Query struct {
-	ClusterID string
-	From      string
-	To        string
+	ClusterIDs []string
+	From       string
+	To         string
 }
 
 type FloatQueryFunc func(q Query) (float64, error)

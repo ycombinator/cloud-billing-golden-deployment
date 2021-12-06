@@ -15,7 +15,7 @@ import (
 )
 
 type OutVars struct {
-	ClusterID string
+	ClusterIDs []string
 }
 
 func EnsureDeployment(cfg *config.Config, template Template) (OutVars, error) {
@@ -35,12 +35,12 @@ func EnsureDeployment(cfg *config.Config, template Template) (OutVars, error) {
 
 	deploymentName := template.id()
 
-	clusterID, err := checkIfDeploymentExists(ess, deploymentName)
+	clusterIDs, err := checkIfDeploymentExists(ess, deploymentName)
 	if err != nil {
 		return out, fmt.Errorf("unable to check if deployment [%s] already exists: %w", deploymentName, err)
 	}
-	if clusterID != "" {
-		out.ClusterID = clusterID
+	if clusterIDs != nil && len(clusterIDs) > 0 {
+		out.ClusterIDs = clusterIDs
 		return out, nil
 	}
 
@@ -58,16 +58,16 @@ func EnsureDeployment(cfg *config.Config, template Template) (OutVars, error) {
 		return out, fmt.Errorf("unable to ensure deployment for configuration [%s]: %w", err)
 	}
 
-	out.ClusterID = getElasticsearchClusterID(resp.Resources)
+	out.ClusterIDs = getClusterIDs(resp.Resources)
 	return out, nil
 }
 
-func checkIfDeploymentExists(api *api.API, name string) (string, error) {
+func checkIfDeploymentExists(api *api.API, name string) ([]string, error) {
 	resp, err := deploymentapi.List(deploymentapi.ListParams{
 		API: api,
 	})
 	if err != nil {
-		return "", fmt.Errorf("unable list deployments: %w", err)
+		return nil, fmt.Errorf("unable list deployments: %w", err)
 	}
 
 	for _, deployment := range resp.Deployments {
@@ -76,19 +76,20 @@ func checkIfDeploymentExists(api *api.API, name string) (string, error) {
 		}
 
 		if *deployment.Name == name {
-			return getElasticsearchClusterID(deployment.Resources), nil
+			return getClusterIDs(deployment.Resources), nil
 		}
 	}
 
-	return "", nil
+	return nil, nil
 }
 
-func getElasticsearchClusterID(resources []*models.DeploymentResource) string {
+func getClusterIDs(resources []*models.DeploymentResource) []string {
+	clusterIDs := make([]string, 0)
 	for _, resource := range resources {
-		if resource.Kind != nil && *resource.Kind == "elasticsearch" && resource.ID != nil {
-			return *resource.ID
+		if resource.ID != nil {
+			clusterIDs = append(clusterIDs, *resource.ID)
 		}
 	}
 
-	return ""
+	return clusterIDs
 }
