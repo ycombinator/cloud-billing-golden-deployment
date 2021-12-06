@@ -18,6 +18,8 @@ type Query struct {
 	To        string
 }
 
+type FloatQueryFunc func(q Query) (float64, error)
+
 func NewConnection(address, apiKey string) (*Connection, error) {
 	if connectionSingleton == nil {
 		c, err := es.NewClient(es.Config{

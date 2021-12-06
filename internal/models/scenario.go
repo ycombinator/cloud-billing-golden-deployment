@@ -219,35 +219,35 @@ func (s *Scenario) Persist() error {
 }
 
 func (s *Scenario) validateInstanceCapacity(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {
-	validateFloatRange(usageConn, q, s.Validations.Expectations.InstanceCapacityGBHours, &result.InstanceCapacityGBHours)
+	validateFloatRange(q, usageConn.GetInstanceCapacityGBHours, s.Validations.Expectations.InstanceCapacityGBHours, &result.InstanceCapacityGBHours)
 }
 
 func (s *Scenario) validateDataInterNode(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {
-	validateFloatRange(usageConn, q, s.Validations.Expectations.DataInterNodeGB, &result.DataInterNodeGB)
+	validateFloatRange(q, usageConn.GetDataInterNodeGB, s.Validations.Expectations.DataInterNodeGB, &result.DataInterNodeGB)
 }
 
 func (s *Scenario) validateDataOut(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {
-	validateFloatRange(usageConn, q, s.Validations.Expectations.DataOutGB, &result.DataOutGB)
+	validateFloatRange(q, usageConn.GetDataOutGB, s.Validations.Expectations.DataOutGB, &result.DataOutGB)
 }
 
 func (s *Scenario) validateSnapshotAPIRequests(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {
-	validateFloatRange(usageConn, q, s.Validations.Expectations.SnapshotAPIRequestsCount, &result.SnapshotAPIRequestsCount)
+	validateFloatRange(q, usageConn.GetSnapshotAPIRequestsCount, s.Validations.Expectations.SnapshotAPIRequestsCount, &result.SnapshotAPIRequestsCount)
 }
 
 func (s *Scenario) validateSnapshotStorageSize(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {
-	validateFloatRange(usageConn, q, s.Validations.Expectations.SnapshotStorageSizeGB, &result.SnapshotStorageSizeGB)
+	validateFloatRange(q, usageConn.GetSnapshotStorageSizeGB, s.Validations.Expectations.SnapshotStorageSizeGB, &result.SnapshotStorageSizeGB)
 }
 
-func validateFloatRange(usageConn *usage.Connection, q usage.Query, expectations FloatRange, result *FloatValidationResult) {
-	result.Expected = expectations
-
-	value, err := usageConn.GetInstanceCapacityGBHours(q)
+func validateFloatRange(q usage.Query, f usage.FloatQueryFunc, expectations FloatRange, result *FloatValidationResult) {
+	actual, err := f(q)
 	if err != nil {
 		result.Error = err
 		return
 	}
-	result.Actual = value
-	result.IsValid = expectations.IsInRange(value)
+
+	result.Expected = expectations
+	result.Actual = actual
+	result.IsValid = expectations.IsInRange(actual)
 }
 
 func (ir *FloatRange) IsInRange(actual float64) bool {
