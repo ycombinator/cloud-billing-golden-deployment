@@ -3,16 +3,11 @@ package models
 import (
 	"context"
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
-)
-
-var (
-	scenarioRunnerSingleton *ScenarioRunner
 )
 
 type runningScenario struct {
@@ -31,17 +26,17 @@ type ScenarioRunner struct {
 }
 
 func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
-	scenarioRunnerSingleton = new(ScenarioRunner)
-	scenarioRunnerSingleton.cfg = cfg
-	scenarioRunnerSingleton.scenarios = map[string]runningScenario{}
+	sr := new(ScenarioRunner)
+	sr.cfg = cfg
+	sr.scenarios = map[string]runningScenario{}
 
-	usageConn, err := initUsageClusterConnection()
+	usageConn, err := sr.initUsageClusterConnection()
 	if err != nil {
 		return nil, err
 	}
 
-	scenarioRunnerSingleton.usageConn = usageConn
-	return scenarioRunnerSingleton, nil
+	sr.usageConn = usageConn
+	return sr, nil
 }
 
 func (sr *ScenarioRunner) Start(s *Scenario) error {
@@ -111,9 +106,10 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 	}()
 }
 
-func initUsageClusterConnection() (*usage.Connection, error) {
-	address := os.Getenv("EC_USAGE_URL")
-	apiKey := os.Getenv("EC_USAGE_API_KEY")
-
-	return usage.NewConnection(address, apiKey)
+func (sr *ScenarioRunner) initUsageClusterConnection() (*usage.Connection, error) {
+	return usage.NewConnection(
+		sr.cfg.UsageCluster.Url,
+		sr.cfg.UsageCluster.Username,
+		sr.cfg.UsageCluster.Password,
+	)
 }

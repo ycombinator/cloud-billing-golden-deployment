@@ -32,7 +32,7 @@ type FloatValidationResult struct {
 	Actual   float64    `json:"actual"`
 	Expected FloatRange `json:"expected"`
 
-	Error error `json:"error"`
+	Error string `json:"error"`
 }
 
 type ValidationResult struct {
@@ -238,10 +238,10 @@ func (s *Scenario) validateSnapshotStorageSize(usageConn *usage.Connection, q us
 	validateFloatRange(q, usageConn.GetSnapshotStorageSizeGB, s.Validations.Expectations.SnapshotStorageSizeGB, &result.SnapshotStorageSizeGB)
 }
 
-func validateFloatRange(q usage.Query, f usage.FloatQueryFunc, expectations FloatRange, result *FloatValidationResult) {
+func validateFloatRange(q usage.Query, f func(usage.Query) (float64, error), expectations FloatRange, result *FloatValidationResult) {
 	actual, err := f(q)
 	if err != nil {
-		result.Error = err
+		result.Error = err.Error()
 		return
 	}
 
