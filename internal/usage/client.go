@@ -70,7 +70,7 @@ func (c *Connection) GetDataOutGB(q Query) (float64, error) {
 	query := map[string]interface{}{
 		"query": map[string]interface{}{
 			"bool": map[string]interface{}{
-				"filter": q.toElasticsearchFilters("cluster_id", "@timestamp"),
+				"filter": q.toElasticsearchFilters("cluster_id.keyword", "@timestamp"),
 			},
 		},
 		"aggs": map[string]interface{}{
@@ -86,7 +86,7 @@ func (c *Connection) GetDataOutGB(q Query) (float64, error) {
 		return 0, fmt.Errorf("error encoding query: %w", err)
 	}
 
-	fmt.Println("query:", buf.String())
+	//fmt.Println("proxy query:", buf.String())
 
 	// Perform the search request.
 	res, err := c.esClient.Search(
@@ -122,6 +122,8 @@ func (c *Connection) GetDataOutGB(q Query) (float64, error) {
 		} `json:"aggregations"`
 	}
 
+	//fmt.Println("proxy response:", res.String())
+
 	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		return 0, fmt.Errorf("error parsing the response body: %w", err)
 	}
@@ -130,7 +132,70 @@ func (c *Connection) GetDataOutGB(q Query) (float64, error) {
 }
 
 func (c *Connection) GetDataInterNodeGB(q Query) (float64, error) {
-	return 0, nil
+	// Build the request body.
+	var buf bytes.Buffer
+	query := map[string]interface{}{
+		"query": map[string]interface{}{
+			"bool": map[string]interface{}{
+				"filter": q.toElasticsearchFilters("deployment_id.keyword", "@timestamp"),
+			},
+		},
+		"aggs": map[string]interface{}{
+			"total": map[string]interface{}{
+				"sum": map[string]string{
+					"field": "out.value",
+				},
+			},
+		},
+	}
+
+	if err := json.NewEncoder(&buf).Encode(query); err != nil {
+		return 0, fmt.Errorf("error encoding query: %w", err)
+	}
+
+	//fmt.Println("internode query:", buf.String())
+
+	// Perform the search request.
+	res, err := c.esClient.Search(
+		c.esClient.Search.WithContext(context.Background()),
+		c.esClient.Search.WithIndex("aggregations-data-transfer-*"),
+		c.esClient.Search.WithBody(&buf),
+		c.esClient.Search.WithSize(1),
+	)
+	if err != nil {
+		return 0, fmt.Errorf("error getting response: %w", err)
+	}
+	defer res.Body.Close()
+
+	if res.IsError() {
+		var e map[string]interface{}
+		if err := json.NewDecoder(res.Body).Decode(&e); err != nil {
+			return 0, fmt.Errorf("error parsing the response body: %w", err)
+		} else {
+			errStr := fmt.Errorf("query error: status: [%s], type: [%s], reason: [%s]",
+				res.Status(),
+				e["error"].(map[string]interface{})["type"],
+				e["error"].(map[string]interface{})["reason"],
+			)
+			return 0, errStr
+		}
+	}
+
+	var r struct {
+		Aggregations struct {
+			Total struct {
+				Value float64 `json:"value"`
+			} `json:"total"`
+		} `json:"aggregations"`
+	}
+
+	//fmt.Println("internode response:", res.String())
+
+	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
+		return 0, fmt.Errorf("error parsing the response body: %w", err)
+	}
+
+	return r.Aggregations.Total.Value, nil
 }
 
 func (c *Connection) GetSnapshotStorageSizeGB(q Query) (float64, error) {
