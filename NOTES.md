@@ -10,12 +10,22 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Actually read data from Usage Cluster for validations
+- [ ] Implement exercising deployment with workload
 - [ ] Switch persistence to State Cluster
-- [ ] Actually implement exercising deployment with workload
+- [ ] Read data from Usage Cluster for validations
+  - [x] Data Out (`aggregations-proxy-metering-*`)
+  - [x] Data Internode (`aggregations-data-transfer-*`)
+  - [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
+  - [ ] Snapshot Storage (`storage-blob-filebeat-*`)
+- [ ] Read data from PG for validations
+  - [ ] Instance Capacity
+- [ ] Create watches in State Cluster when scenario is created
+- [ ] Use logger
 - [ ] Add `is_monitored` flag on scenario definition
 - [ ] Implement `PUT /scenario/{id}` API to allow partial update to scenario definition
-- [ ] Add snapshot frequency to workload config?
+- [ ] Add snapshot frequency to workload config? ILM configs? Create new data config section?
+- [ ] Define Usage Cluster assets in GCM
+  - [ ] User: `golden-deployment-service` with role `billing-service` 
 - [ ] Define State Cluster assets in GCM
   - [ ] Index templates for definitions index
   - [ ] Index template for validation results time series index

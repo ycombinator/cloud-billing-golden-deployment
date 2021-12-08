@@ -48,10 +48,11 @@ type ValidationResult struct {
 type Scenario struct {
 	DeploymentTemplate deployment.Template `json:"deployment_template" binding:"required"`
 	Workload           struct {
-		StartOffsetSeconds int `json:"start_offset_seconds"`
-		MinIntervalSeconds int `json:"min_interval_seconds"`
-		MaxIntervalSeconds int `json:"max_interval_seconds"`
-		IndexToSearchRatio int `json:"index_to_search_ratio"`
+		StartOffsetSeconds   int `json:"start_offset_seconds"`
+		MinIntervalSeconds   int `json:"min_interval_seconds"`
+		MaxIntervalSeconds   int `json:"max_interval_seconds"`
+		MaxRequestsPerSecond int `json:"max_requests_per_second"`
+		IndexToSearchRatio   int `json:"index_to_search_ratio"`
 	} `json:"workload"`
 	Validations struct {
 		Frequency      string `json:"frequency"`
@@ -66,10 +67,12 @@ type Scenario struct {
 		} `json:"expectations"`
 	} `json:"validations"`
 
-	ID         string     `json:"id"`
-	ClusterIDs []string   `json:"cluster_ids"`
-	StartedOn  *time.Time `json:"started_on,omitempty"`
-	StoppedOn  *time.Time `json:"stopped_on,omitempty"`
+	ID                    string                 `json:"id"`
+	ClusterIDs            []string               `json:"cluster_ids"`
+	DeploymentCredentials deployment.Credentials `json:"deployment_credentials"`
+
+	StartedOn *time.Time `json:"started_on,omitempty"`
+	StoppedOn *time.Time `json:"stopped_on,omitempty"`
 
 	ValidationResults []ValidationResult `json:"validation_results"`
 }
@@ -157,12 +160,13 @@ func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
 		return nil
 	}
 
-	out, err := deployment.EnsureDeployment(cfg, s.DeploymentTemplate)
+	out, err := deployment.EnsureDeployment(cfg, s.DeploymentTemplate, s.ID)
 	if err != nil {
 		return err
 	}
 
 	s.ClusterIDs = out.ClusterIDs
+	s.DeploymentCredentials = out.DeploymentCredentials
 	return s.Persist()
 }
 

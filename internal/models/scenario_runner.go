@@ -2,12 +2,19 @@ package models
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"math/rand"
 	"time"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
+)
+
+const (
+	OpSearch = "search"
+	OpIndex  = "index"
 )
 
 type runningScenario struct {
@@ -83,6 +90,40 @@ func (rs *runningScenario) start(exerciseCtx, validationCtx context.Context) {
 
 func (rs *runningScenario) startExerciseLoop(ctx context.Context) {
 	fmt.Println("starting exercise loop...")
+
+	startOffset := time.Duration(rs.Workload.StartOffsetSeconds) * time.Second
+	now := time.Now()
+	startTime := now.Add(startOffset)
+
+	ticker := time.NewTicker(1 * time.Second)
+	go func() {
+		for {
+			select {
+			case <-ctx.Done():
+				fmt.Printf("exercise loop done for scenario [%s]\n", rs.ID)
+				ticker.Stop()
+				return
+
+			case t := <-ticker.C:
+				if t.Before(startTime) {
+					continue
+				}
+
+				numRequestsToFire := rand.Intn(rs.Workload.MaxRequestsPerSecond + 1)
+				for i := 0; i < numRequestsToFire; i++ {
+					op := randOp(rs.Workload.IndexToSearchRatio)
+					switch op {
+					case OpSearch:
+						//target := "foo*"
+
+					case OpIndex:
+						//target := "foo"
+						//body := randIndexBody()
+					}
+				}
+			}
+		}
+	}()
 }
 
 func (rs *runningScenario) startValidationLoop(ctx context.Context) {
@@ -98,7 +139,7 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 				ticker.Stop()
 				return
 
-			case _ = <-ticker.C:
+			case <-ticker.C:
 				fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
 				rs.Scenario.Validate(rs.usageConn)
 			}
@@ -112,4 +153,38 @@ func (sr *ScenarioRunner) initUsageClusterConnection() (*usage.Connection, error
 		sr.cfg.UsageCluster.Username,
 		sr.cfg.UsageCluster.Password,
 	)
+}
+
+func randOp(indexToSearchRatio int) string {
+	ops := make([]string, 1+indexToSearchRatio)
+	ops[0] = OpSearch
+	for i := 1; i < len(ops); i++ {
+		ops[i] = OpIndex
+	}
+
+	randIdx := rand.Intn(len(ops))
+	return ops[randIdx]
+}
+
+func randIndexBody() json.RawMessage {
+	messages := []string{
+		"the quick brown fox",
+		"jumped over the",
+		"lazy dog",
+	}
+
+	innerKeys := []string{"count", "sum"}
+
+	randMsgIdx := rand.Intn(len(messages))
+	randMsg := messages[randMsgIdx]
+
+	randKeyIdx := rand.Intn(len(innerKeys))
+	randKey := innerKeys[randKeyIdx]
+
+	randNum := (17 + rand.Intn(10000)) % 523
+
+	bodyTpl := `{"message":"%s","metric":{"%s":%d}}`
+	body := fmt.Sprintf(bodyTpl, randMsg, randKey, randNum)
+
+	return json.RawMessage(body)
 }
