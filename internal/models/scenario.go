@@ -4,9 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/auth"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 
@@ -156,11 +160,31 @@ func (s *Scenario) GenerateID() error {
 }
 
 func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
-	if s.ClusterIDs != nil && len(s.ClusterIDs) > 0 {
-		return nil
+	deploymentName := fmt.Sprintf("golden-%s", s.ID)
+
+	apiCfg := api.Config{
+		Host:       cfg.API.Url,
+		Client:     new(http.Client),
+		AuthWriter: auth.APIKey(cfg.API.Key),
 	}
 
-	out, err := deployment.EnsureDeployment(cfg, s.DeploymentTemplate, s.ID)
+	ess, err := api.NewAPI(apiCfg)
+	if err != nil {
+		return fmt.Errorf("unable to connect to Elastic Cloud API at [%s]: %w", cfg.API.Url, err)
+	}
+
+	if s.ClusterIDs != nil && len(s.ClusterIDs) > 0 {
+		exists, err := deployment.CheckIfDeploymentExists(ess, deploymentName)
+		if err != nil {
+			return fmt.Errorf("unable to check if deployment [%s] exists: %w", deploymentName, err)
+		}
+
+		if exists {
+			return nil
+		}
+	}
+
+	out, err := deployment.CreateDeployment(ess, deploymentName, s.DeploymentTemplate)
 	if err != nil {
 		return err
 	}

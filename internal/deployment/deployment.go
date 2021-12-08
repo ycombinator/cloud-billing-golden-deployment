@@ -2,57 +2,37 @@ package deployment
 
 import (
 	"fmt"
-	"net/http"
 
 	"github.com/elastic/cloud-sdk-go/pkg/models"
-
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/auth"
 )
 
 type Credentials struct {
+	CloudID  string `json:"cloud_id"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
 type OutVars struct {
-	ClusterIDs            []string
 	DeploymentCredentials Credentials
+	ClusterIDs            []string
 }
 
-func EnsureDeployment(cfg *config.Config, template Template, suffix string) (OutVars, error) {
-	fmt.Printf("ensuring deployment for configuration [%s]...\n", template.ID)
+func CreateDeployment(api *api.API, name string, template Template) (OutVars, error) {
+	fmt.Printf("creating deployment [%s] from template [%s]...\n", name, template.ID)
 	var out OutVars
-
-	apiCfg := api.Config{
-		Host:       cfg.API.Url,
-		Client:     new(http.Client),
-		AuthWriter: auth.APIKey(cfg.API.Key),
-	}
-
-	ess, err := api.NewAPI(apiCfg)
-	if err != nil {
-		return out, fmt.Errorf("unable to connect to Elastic Cloud API at [%s]: %w", cfg.API.Url, err)
-	}
-
-	deploymentName := fmt.Sprintf("golden-%s", suffix)
-
-	if err := deleteExistingDeployment(ess, deploymentName); err != nil {
-		return out, fmt.Errorf("unable to delete existing deployment: %w", err)
-	}
 
 	req, err := template.toDeploymentCreateRequest()
 	if err != nil {
 		return out, fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", template.ID, err)
 	}
 
-	req.Name = deploymentName
+	req.Name = name
 	resp, err := deploymentapi.Create(deploymentapi.CreateParams{
-		API:     ess,
+		API:     api,
 		Request: req,
 	})
 	if err != nil {
@@ -65,17 +45,8 @@ func EnsureDeployment(cfg *config.Config, template Template, suffix string) (Out
 	return out, nil
 }
 
-func deleteExistingDeployment(api *api.API, name string) error {
-	id, err := getExistingDeployment(api, name)
-	if err != nil {
-		return err
-	}
-
-	if id == "" {
-		return nil
-	}
-
-	if _, err = deploymentapi.Delete(deploymentapi.DeleteParams{
+func DeleteDeployment(api *api.API, id string) error {
+	if _, err := deploymentapi.Delete(deploymentapi.DeleteParams{
 		API:          api,
 		DeploymentID: id,
 	}); err != nil {
@@ -85,21 +56,21 @@ func deleteExistingDeployment(api *api.API, name string) error {
 	return nil
 }
 
-func getExistingDeployment(api *api.API, name string) (string, error) {
+func CheckIfDeploymentExists(api *api.API, name string) (bool, error) {
 	resp, err := deploymentapi.List(deploymentapi.ListParams{
 		API: api,
 	})
 	if err != nil {
-		return "", fmt.Errorf("unable to list deployments: %w", err)
+		return false, fmt.Errorf("unable to list deployments: %w", err)
 	}
 
 	for _, deployment := range resp.Deployments {
-		if deployment.Name != nil && *deployment.Name == name && deployment.ID != nil {
-			return *deployment.ID, nil
+		if deployment.Name != nil && *deployment.Name == name {
+			return true, nil
 		}
 	}
 
-	return "", nil
+	return false, nil
 }
 
 func getClusterIDs(resources []*models.DeploymentResource) []string {
@@ -115,14 +86,16 @@ func getClusterIDs(resources []*models.DeploymentResource) []string {
 
 func getDeploymentCredentials(resources []*models.DeploymentResource) *Credentials {
 	for _, resource := range resources {
-		if resource.Credentials != nil && resource.Credentials.Username != nil && resource.Credentials.Password != nil {
+		if resource.Credentials != nil && resource.Credentials.Username != nil && resource.Credentials.Password != nil &&
+			resource.CloudID != "" {
 			cred := new(Credentials)
+
 			cred.Username = *resource.Credentials.Username
 			cred.Password = *resource.Credentials.Password
+			cred.CloudID = resource.CloudID
 
 			return cred
 		}
 	}
-
 	return nil
 }

@@ -1,20 +1,25 @@
 package models
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"math/rand"
 	"time"
 
+	es "github.com/elastic/go-elasticsearch/v7"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 )
 
+type OpType string
+
 const (
-	OpSearch = "search"
-	OpIndex  = "index"
+	OpSearch OpType = "search"
+	OpIndex         = "index"
 )
 
 type runningScenario struct {
@@ -23,7 +28,8 @@ type runningScenario struct {
 	exerciseCancelFunc   context.CancelFunc
 	validationCancelFunc context.CancelFunc
 
-	usageConn *usage.Connection
+	usageConn  *usage.Connection
+	goldenConn *es.Client
 }
 
 type ScenarioRunner struct {
@@ -48,6 +54,19 @@ func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
 
 func (sr *ScenarioRunner) Start(s *Scenario) error {
 	fmt.Println("starting scenario runner...")
+	goldenConn, err := es.NewClient(es.Config{
+		CloudID:  s.DeploymentCredentials.CloudID,
+		Username: s.DeploymentCredentials.Username,
+		Password: s.DeploymentCredentials.Password,
+	})
+	if err != nil {
+		return fmt.Errorf("unable to create connection to golden deployment: %w", err)
+	}
+
+	if err := s.EnsureDeployment(sr.cfg); err != nil {
+		return err
+	}
+
 	exerciseCtx, exerciseCancelFunc := context.WithCancel(context.Background())
 	validationCtx, validationCancelFunc := context.WithCancel(context.Background())
 
@@ -56,10 +75,7 @@ func (sr *ScenarioRunner) Start(s *Scenario) error {
 		exerciseCancelFunc:   exerciseCancelFunc,
 		validationCancelFunc: validationCancelFunc,
 		usageConn:            sr.usageConn,
-	}
-
-	if err := s.EnsureDeployment(sr.cfg); err != nil {
-		return err
+		goldenConn:           goldenConn,
 	}
 
 	sr.scenarios[s.ID] = rs
@@ -114,11 +130,10 @@ func (rs *runningScenario) startExerciseLoop(ctx context.Context) {
 					op := randOp(rs.Workload.IndexToSearchRatio)
 					switch op {
 					case OpSearch:
-						//target := "foo*"
+						doSearch(rs.goldenConn, "foo*")
 
 					case OpIndex:
-						//target := "foo"
-						//body := randIndexBody()
+						doIndex(rs.goldenConn, "foo", randIndexBody())
 					}
 				}
 			}
@@ -155,8 +170,8 @@ func (sr *ScenarioRunner) initUsageClusterConnection() (*usage.Connection, error
 	)
 }
 
-func randOp(indexToSearchRatio int) string {
-	ops := make([]string, 1+indexToSearchRatio)
+func randOp(indexToSearchRatio int) OpType {
+	ops := make([]OpType, 1+indexToSearchRatio)
 	ops[0] = OpSearch
 	for i := 1; i < len(ops); i++ {
 		ops[i] = OpIndex
@@ -187,4 +202,32 @@ func randIndexBody() json.RawMessage {
 	body := fmt.Sprintf(bodyTpl, randMsg, randKey, randNum)
 
 	return json.RawMessage(body)
+}
+
+func doSearch(esClient *es.Client, target string) error {
+	if _, err := esClient.Search(
+		esClient.Search.WithIndex(target),
+	); err != nil {
+		return fmt.Errorf("search operation failed: %w", err)
+	}
+
+	return nil
+}
+
+func doIndex(esClient *es.Client, target string, body json.RawMessage) error {
+	var b bytes.Buffer
+	if len(body) > 0 {
+		b.Write(body)
+	}
+
+	_, err := esClient.Index(
+		target,
+		&b,
+	)
+
+	if err != nil {
+		return fmt.Errorf("index operation failed: %w", err)
+	}
+
+	return nil
 }
