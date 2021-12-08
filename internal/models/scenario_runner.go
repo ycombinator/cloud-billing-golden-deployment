@@ -83,6 +83,10 @@ func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
 
 func (sr *ScenarioRunner) Start(s *Scenario) error {
 	fmt.Println("starting scenario runner...")
+	if err := s.EnsureDeployment(sr.essConn, sr.stateConn); err != nil {
+		return err
+	}
+
 	goldenConn, err := es.NewClient(es.Config{
 		CloudID:  s.DeploymentCredentials.CloudID,
 		Username: s.DeploymentCredentials.Username,
@@ -90,10 +94,6 @@ func (sr *ScenarioRunner) Start(s *Scenario) error {
 	})
 	if err != nil {
 		return fmt.Errorf("unable to create connection to golden deployment: %w", err)
-	}
-
-	if err := s.EnsureDeployment(sr.essConn, sr.stateConn); err != nil {
-		return err
 	}
 
 	exerciseCtx, exerciseCancelFunc := context.WithCancel(context.Background())

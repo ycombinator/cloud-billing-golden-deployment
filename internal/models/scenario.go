@@ -231,10 +231,10 @@ func (s *Scenario) Persist(stateConn *es.Client) error {
 		return fmt.Errorf("unable to encode scenario [%s] as JSON: %w", s.ID, err)
 	}
 
-	res, err := stateConn.Create(
+	res, err := stateConn.Index(
 		ScenariosIndex,
-		s.ID,
 		&buf,
+		stateConn.Index.WithDocumentID(s.ID),
 	)
 	if err != nil {
 		return fmt.Errorf("unable to persist scenario [%s]: %w", s.ID, err)
