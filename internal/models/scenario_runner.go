@@ -105,7 +105,7 @@ func (rs *runningScenario) start(exerciseCtx, validationCtx context.Context) {
 }
 
 func (rs *runningScenario) startExerciseLoop(ctx context.Context) {
-	fmt.Println("starting exercise loop...")
+	fmt.Printf("starting exercise loop for scenario [%s]...\n", rs.ID)
 
 	startOffset := time.Duration(rs.Workload.StartOffsetSeconds) * time.Second
 	now := time.Now()
@@ -122,19 +122,28 @@ func (rs *runningScenario) startExerciseLoop(ctx context.Context) {
 
 			case t := <-ticker.C:
 				if t.Before(startTime) {
+					fmt.Println("not time yet")
 					continue
 				}
 
 				numRequestsToFire := rand.Intn(rs.Workload.MaxRequestsPerSecond + 1)
+				fmt.Printf("firing [%d] requests now...\n", numRequestsToFire)
+				var err error
 				for i := 0; i < numRequestsToFire; i++ {
 					op := randOp(rs.Workload.IndexToSearchRatio)
 					switch op {
 					case OpSearch:
-						doSearch(rs.goldenConn, "foo*")
+						fmt.Printf("firing search request for scenario [%s]...\n", rs.ID)
+						err = doSearch(rs.goldenConn, "foo*")
 
 					case OpIndex:
-						doIndex(rs.goldenConn, "foo", randIndexBody())
+						fmt.Printf("firing index request for scenario [%s]...\n", rs.ID)
+						err = doIndex(rs.goldenConn, "foo", randIndexBody())
 					}
+				}
+
+				if err != nil {
+					fmt.Println("error: ", err)
 				}
 			}
 		}

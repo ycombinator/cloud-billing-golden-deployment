@@ -103,6 +103,7 @@ POST /scenarios
     "start_offset_seconds": 0,
     "min_interval_seconds": 0,
     "max_interval_seconds": 3,
+    "max_requests_per_second": 3,
     "index_to_search_ratio": 4
   },
   "validations": {
