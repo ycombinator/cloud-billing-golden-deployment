@@ -1,24 +1,29 @@
 package models
 
 import (
+	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"net/http"
-	"os"
 	"path/filepath"
 	"time"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api"
-	"github.com/elastic/cloud-sdk-go/pkg/auth"
+	"github.com/elastic/go-elasticsearch/v7/esapi"
 
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
+	es "github.com/elastic/go-elasticsearch/v7"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 
 	"github.com/google/uuid"
+)
+
+const (
+	ScenariosIndex = "scenarios"
 )
 
 func ScenariosDir() string {
@@ -81,35 +86,46 @@ type Scenario struct {
 	ValidationResults []ValidationResult `json:"validation_results"`
 }
 
-func LoadAllScenarios() ([]Scenario, error) {
+func LoadAllScenarios(stateConn *es.Client) ([]Scenario, error) {
 	var scenarios []Scenario
 
-	files, err := os.ReadDir(ScenariosDir())
+	res, err := stateConn.Search(
+		stateConn.Search.WithContext(context.Background()),
+		stateConn.Search.WithIndex(ScenariosIndex),
+		stateConn.Search.WithSize(10000),
+		// TODO: add active scenarios filter
+	)
+
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("unable to retrieve all scenarios: %w", err)
+	}
+	defer res.Body.Close()
+
+	if res.IsError() {
+		return nil, handleESAPIErrorRespons(res)
 	}
 
-	var dirnames []string
-	for _, file := range files {
-		if !file.IsDir() {
-			continue
-		}
-
-		dirnames = append(dirnames, file.Name())
+	var r struct {
+		Hits struct {
+			Hits []struct {
+				ID     string   `json:"_id"`
+				Source Scenario `json:"_source"`
+			} `json:"hits"`
+		} `json:"hits"`
 	}
 
-	for _, dirname := range dirnames {
-		scenario, err := LoadScenario(dirname)
-		if err != nil {
-			return nil, err
-		}
-		scenarios = append(scenarios, *scenario)
+	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
+		return nil, fmt.Errorf("error parsing the response body: %s", err)
+	}
+
+	for _, hit := range r.Hits.Hits {
+		scenarios = append(scenarios, hit.Source)
 	}
 
 	return scenarios, nil
 }
 
-func LoadScenario(id string) (*Scenario, error) {
+func LoadScenario(id string, stateConn *es.Client) (*Scenario, error) {
 	fmt.Printf("loading scenario [%s] from disk...\n", id)
 	path := filepath.Join(ScenariosDir(), id, "scenario.json")
 	data, err := ioutil.ReadFile(path)
@@ -129,7 +145,7 @@ func (s *Scenario) IsStarted() bool {
 	return s.StartedOn != nil && !s.StartedOn.IsZero()
 }
 
-func (s *Scenario) Validate(usageConn *usage.Connection) {
+func (s *Scenario) Validate(usageConn *usage.Connection, stateConn *es.Client) {
 	q := usage.Query{
 		ClusterIDs: s.ClusterIDs,
 		From:       s.Validations.StartTimestamp,
@@ -146,35 +162,24 @@ func (s *Scenario) Validate(usageConn *usage.Connection) {
 	s.validateSnapshotStorageSize(usageConn, q, result)
 
 	s.ValidationResults = append(s.ValidationResults, *result)
-	s.Persist()
+	s.Persist(stateConn)
 }
 
-func (s *Scenario) GenerateID() error {
+func (s *Scenario) GenerateID(stateConn *es.Client) error {
 	id, err := uuid.NewUUID()
 	if err != nil {
 		return err
 	}
 
 	s.ID = id.String()
-	return s.Persist()
+	return s.Persist(stateConn)
 }
 
-func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
+func (s *Scenario) EnsureDeployment(essConn *api.API, stateConn *es.Client) error {
 	deploymentName := fmt.Sprintf("golden-%s", s.ID)
 
-	apiCfg := api.Config{
-		Host:       cfg.API.Url,
-		Client:     new(http.Client),
-		AuthWriter: auth.APIKey(cfg.API.Key),
-	}
-
-	ess, err := api.NewAPI(apiCfg)
-	if err != nil {
-		return fmt.Errorf("unable to connect to Elastic Cloud API at [%s]: %w", cfg.API.Url, err)
-	}
-
 	if s.ClusterIDs != nil && len(s.ClusterIDs) > 0 {
-		exists, err := deployment.CheckIfDeploymentExists(ess, deploymentName)
+		exists, err := deployment.CheckIfDeploymentExists(essConn, deploymentName)
 		if err != nil {
 			return fmt.Errorf("unable to check if deployment [%s] exists: %w", deploymentName, err)
 		}
@@ -184,17 +189,17 @@ func (s *Scenario) EnsureDeployment(cfg *config.Config) error {
 		}
 	}
 
-	out, err := deployment.CreateDeployment(ess, deploymentName, s.DeploymentTemplate)
+	out, err := deployment.CreateDeployment(essConn, deploymentName, s.DeploymentTemplate)
 	if err != nil {
 		return err
 	}
 
 	s.ClusterIDs = out.ClusterIDs
 	s.DeploymentCredentials = out.DeploymentCredentials
-	return s.Persist()
+	return s.Persist(stateConn)
 }
 
-func (s *Scenario) Start(scenarioRunner *ScenarioRunner) error {
+func (s *Scenario) Start(scenarioRunner *ScenarioRunner, stateConn *es.Client) error {
 	if s.ID == "" {
 		return fmt.Errorf("scenario does not have an ID")
 	}
@@ -203,7 +208,7 @@ func (s *Scenario) Start(scenarioRunner *ScenarioRunner) error {
 	s.StartedOn = &now
 	s.StoppedOn = nil
 
-	if err := s.Persist(); err != nil {
+	if err := s.Persist(stateConn); err != nil {
 		return err
 	}
 
@@ -220,27 +225,24 @@ func (s *Scenario) GetValidationFrequency() time.Duration {
 	return 10 * time.Second
 }
 
-func (s *Scenario) Persist() error {
-	folder := filepath.Join("data", "scenarios", s.ID)
-	_, err := os.Stat(folder)
-	if err != nil {
-		if !os.IsExist(err) {
-			if err := os.Mkdir(folder, os.ModeDir|0755); err != nil {
-				return fmt.Errorf("could not create scenario folder: %w", err)
-			}
-		} else {
-			return fmt.Errorf("unexpected error reading scenario folder: %w", err)
-		}
+func (s *Scenario) Persist(stateConn *es.Client) error {
+	var buf bytes.Buffer
+	if err := json.NewEncoder(&buf).Encode(s); err != nil {
+		return fmt.Errorf("unable to encode scenario [%s] as JSON: %w", s.ID, err)
 	}
 
-	data, err := json.Marshal(s)
+	res, err := stateConn.Create(
+		ScenariosIndex,
+		s.ID,
+		&buf,
+	)
 	if err != nil {
-		return fmt.Errorf("could not serialize scenario: %w", err)
+		return fmt.Errorf("unable to persist scenario [%s]: %w", s.ID, err)
 	}
+	defer res.Body.Close()
 
-	file := filepath.Join(folder, "scenario.json")
-	if err := ioutil.WriteFile(file, data, 0644); err != nil {
-		return fmt.Errorf("could not persist scenario: %w", err)
+	if res.IsError() {
+		return handleESAPIErrorRespons(res)
 	}
 
 	return nil
@@ -280,4 +282,17 @@ func validateFloatRange(q usage.Query, f func(usage.Query) (float64, error), exp
 
 func (ir *FloatRange) IsInRange(actual float64) bool {
 	return ir.Min <= actual && actual <= ir.Max
+}
+
+func handleESAPIErrorRespons(res *esapi.Response) error {
+	var e map[string]interface{}
+	if err := json.NewDecoder(res.Body).Decode(&e); err != nil {
+		return fmt.Errorf("error parsing the response body: %w", err)
+	} else {
+		return fmt.Errorf("[%s] %s: %s",
+			res.Status(),
+			e["error"].(map[string]interface{})["type"],
+			e["error"].(map[string]interface{})["reason"],
+		)
+	}
 }

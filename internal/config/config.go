@@ -7,7 +7,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type esCluster struct {
+type ElasticsearchCluster struct {
 	Url      string `yaml:"url"`
 	Username string `yaml:"username"`
 	Password string `yaml:"password"`
@@ -19,8 +19,8 @@ type Config struct {
 		Key string `yaml:"key"`
 	} `yaml:"api"`
 
-	UsageCluster esCluster `yaml:"usage_cluster"`
-	StateCluster esCluster `yaml:"state_cluster"`
+	UsageCluster ElasticsearchCluster `yaml:"usage_cluster"`
+	StateCluster ElasticsearchCluster `yaml:"state_cluster"`
 }
 
 func LoadFromFile(path string) (*Config, error) {

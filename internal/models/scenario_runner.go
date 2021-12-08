@@ -6,7 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
+	"net/http"
 	"time"
+
+	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/auth"
 
 	es "github.com/elastic/go-elasticsearch/v7"
 
@@ -29,13 +33,17 @@ type runningScenario struct {
 	validationCancelFunc context.CancelFunc
 
 	usageConn  *usage.Connection
+	stateConn  *es.Client
 	goldenConn *es.Client
 }
 
 type ScenarioRunner struct {
 	cfg       *config.Config
 	scenarios map[string]runningScenario
+
 	usageConn *usage.Connection
+	stateConn *es.Client
+	essConn   *api.API
 }
 
 func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
@@ -48,7 +56,28 @@ func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
 		return nil, err
 	}
 
+	stateConn, err := es.NewClient(es.Config{
+		Addresses: []string{cfg.StateCluster.Url},
+		Username:  cfg.StateCluster.Username,
+		Password:  cfg.StateCluster.Password,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	essConn, err := api.NewAPI(api.Config{
+		Host:       cfg.API.Url,
+		Client:     new(http.Client),
+		AuthWriter: auth.APIKey(cfg.API.Key),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("unable to connect to Elastic Cloud API at [%s]: %w", cfg.API.Url, err)
+	}
+
 	sr.usageConn = usageConn
+	sr.stateConn = stateConn
+	sr.essConn = essConn
+
 	return sr, nil
 }
 
@@ -63,7 +92,7 @@ func (sr *ScenarioRunner) Start(s *Scenario) error {
 		return fmt.Errorf("unable to create connection to golden deployment: %w", err)
 	}
 
-	if err := s.EnsureDeployment(sr.cfg); err != nil {
+	if err := s.EnsureDeployment(sr.essConn, sr.stateConn); err != nil {
 		return err
 	}
 
@@ -75,6 +104,7 @@ func (sr *ScenarioRunner) Start(s *Scenario) error {
 		exerciseCancelFunc:   exerciseCancelFunc,
 		validationCancelFunc: validationCancelFunc,
 		usageConn:            sr.usageConn,
+		stateConn:            sr.stateConn,
 		goldenConn:           goldenConn,
 	}
 
@@ -165,7 +195,7 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 
 			case <-ticker.C:
 				fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
-				rs.Scenario.Validate(rs.usageConn)
+				rs.Scenario.Validate(rs.usageConn, rs.stateConn)
 			}
 		}
 	}()

@@ -10,7 +10,6 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Implement exercising deployment with workload
 - [ ] Switch persistence to State Cluster
 - [ ] Read data from Usage Cluster for validations
   - [x] Data Out (`aggregations-proxy-metering-*`)
@@ -56,3 +55,4 @@
 - [x] Use [Cloud Deployments Create API](https://www.elastic.co/guide/en/cloud/current/ec-api-deployment-crud.html#ec_create_a_deployment) instead of TF
 - [x] Bug: version override not working / scenario vars not persisting
 - [x] Separate state cluster from usage cluster in config
+- [x] Implement exercising deployment with workload

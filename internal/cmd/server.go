@@ -6,6 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	es "github.com/elastic/go-elasticsearch/v7"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
@@ -38,15 +40,24 @@ var serverCmd = &cobra.Command{
 			return err
 		}
 
-		setupCloseHandler(scenarioRunner)
+		stateConn, err := es.NewClient(es.Config{
+			Addresses: []string{cfg.StateCluster.Url},
+			Username:  cfg.StateCluster.Username,
+			Password:  cfg.StateCluster.Password,
+		})
+		if err != nil {
+			return fmt.Errorf("unable to create connection to state cluster: %w", err)
+		}
+
+		setupCloseHandler(scenarioRunner, stateConn)
 
 		fmt.Println("Starting existing scenarios...")
-		if err := startScenarios(scenarioRunner); err != nil {
+		if err := startScenarios(scenarioRunner, stateConn); err != nil {
 			return err
 		}
 
 		fmt.Println("Starting API server...")
-		if err := server.Start(scenarioRunner); err != nil {
+		if err := server.Start(scenarioRunner, stateConn); err != nil {
 			return err
 		}
 
@@ -54,9 +65,9 @@ var serverCmd = &cobra.Command{
 	},
 }
 
-func startScenarios(scenarioRunner *models.ScenarioRunner) error {
+func startScenarios(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) error {
 	// Load all scenarios
-	scenarios, err := models.LoadAllScenarios()
+	scenarios, err := models.LoadAllScenarios(stateConn)
 	if err != nil {
 		return fmt.Errorf("could not load all scenarios: %w", err)
 	}
@@ -69,7 +80,7 @@ func startScenarios(scenarioRunner *models.ScenarioRunner) error {
 	return nil
 }
 
-func setupCloseHandler(scenarioRunner *models.ScenarioRunner) {
+func setupCloseHandler(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) {
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 
