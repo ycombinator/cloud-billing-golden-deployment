@@ -11,11 +11,13 @@
 
 ## TODO
 - [ ] Switch persistence to State Cluster
+  - [x] Scenarios
+  - [ ] Deployment Templates
 - [ ] Read data from Usage Cluster for validations
-  - [x] Data Out (`aggregations-proxy-metering-*`)
-  - [x] Data Internode (`aggregations-data-transfer-*`)
-  - [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
-  - [ ] Snapshot Storage (`storage-blob-filebeat-*`)
+- [x] Data Out (`aggregations-proxy-metering-*`)
+- [x] Data Internode (`aggregations-data-transfer-*`)
+- [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
+- [ ] Snapshot Storage (`storage-blob-filebeat-*`)
 - [ ] Read data from PG for validations
   - [ ] Instance Capacity
 - [ ] Create watches in State Cluster when scenario is created
