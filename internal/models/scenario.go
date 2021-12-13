@@ -26,16 +26,6 @@ type FloatValidationResult struct {
 	Error string `json:"error"`
 }
 
-type ValidationResult struct {
-	ValidatedOn time.Time `json:"validated_on"`
-
-	InstanceCapacityGBHours  FloatValidationResult `json:"instance_capacity_gb_hours"`
-	DataOutGB                FloatValidationResult `json:"data_out_gb"`
-	DataInterNodeGB          FloatValidationResult `json:"data_internode_gb"`
-	SnapshotStorageSizeGB    FloatValidationResult `json:"snapshot_storage_size_gb"`
-	SnapshotAPIRequestsCount FloatValidationResult `json:"snapshot_api_requests_count"`
-}
-
 type Scenario struct {
 	DeploymentTemplate deployment.Template `json:"deployment_template" binding:"required"`
 	Workload           struct {
@@ -87,8 +77,6 @@ func (s *Scenario) Validate(usageConn *usage.Connection) {
 	s.validateDataOut(usageConn, q, result)
 	s.validateSnapshotAPIRequests(usageConn, q, result)
 	s.validateSnapshotStorageSize(usageConn, q, result)
-
-	s.ValidationResults = append(s.ValidationResults, *result)
 }
 
 func (s *Scenario) GenerateID() error {

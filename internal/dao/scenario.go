@@ -58,7 +58,12 @@ func (s *Scenario) ListAll() ([]models.Scenario, error) {
 	}
 
 	for _, hit := range r.Hits.Hits {
-		scenarios = append(scenarios, hit.Source)
+		scenario := hit.Source
+		if err := s.attachValidationResults(&scenario); err != nil {
+			return nil, err
+		}
+
+		scenarios = append(scenarios, scenario)
 	}
 
 	return scenarios, nil
@@ -85,12 +90,30 @@ func (s *Scenario) Get(id string) (*models.Scenario, error) {
 	}
 
 	scenario := r.Source
+	if err := s.attachValidationResults(&scenario); err != nil {
+		return nil, err
+	}
+
 	return &scenario, nil
 }
 
 func (s *Scenario) Save(scenario *models.Scenario) error {
+	results := scenario.ValidationResults
+	scenario.ValidationResults = nil
+	defer func() {
+		scenario.ValidationResults = results
+	}()
+
+	validationResultsDAO := NewValidationResult(s.stateConn)
+	for _, r := range results {
+		r.ScenarioID = scenario.ID
+		if err := validationResultsDAO.Save(&r); err != nil {
+			return err
+		}
+	}
+
 	var buf bytes.Buffer
-	if err := json.NewEncoder(&buf).Encode(s); err != nil {
+	if err := json.NewEncoder(&buf).Encode(scenario); err != nil {
 		return fmt.Errorf("unable to encode scenario [%s] as JSON: %w", scenario.ID, err)
 	}
 
@@ -108,5 +131,17 @@ func (s *Scenario) Save(scenario *models.Scenario) error {
 		return handleESAPIErrorResponse(res)
 	}
 
+	return nil
+}
+
+func (s *Scenario) attachValidationResults(scenario *models.Scenario) error {
+	validationResultsDAO := NewValidationResult(s.stateConn)
+
+	results, err := validationResultsDAO.ListAllForScenario(scenario.ID)
+	if err != nil {
+		return err
+	}
+
+	scenario.ValidationResults = results
 	return nil
 }
