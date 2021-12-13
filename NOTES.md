@@ -10,17 +10,18 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Switch persistence to State Cluster
+- [ ] (_Mon_) Switch persistence to State Cluster
   - [x] Scenarios
+  - [ ] Validation Results
   - [ ] Deployment Templates
-- [ ] Read data from Usage Cluster for validations
-- [x] Data Out (`aggregations-proxy-metering-*`)
-- [x] Data Internode (`aggregations-data-transfer-*`)
-- [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
-- [ ] Snapshot Storage (`storage-blob-filebeat-*`)
-- [ ] Read data from PG for validations
+- [ ] (_Tue_) Read data from Usage Cluster for validations
+  - [x] Data Out (`aggregations-proxy-metering-*`)
+  - [x] Data Internode (`aggregations-data-transfer-*`)
+  - [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
+  - [ ] Snapshot Storage (`storage-blob-filebeat-*`)
+- [ ] (_Wed_) Read data from PG for validations
   - [ ] Instance Capacity
-- [ ] Create watches in State Cluster when scenario is created
+- [ ] (_Thu_) Create watches in State Cluster when scenario is created
 - [ ] Use logger
 - [ ] Add `is_monitored` flag on scenario definition
 - [ ] Implement `PUT /scenario/{id}` API to allow partial update to scenario definition

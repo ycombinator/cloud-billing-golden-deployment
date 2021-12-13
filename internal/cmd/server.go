@@ -6,11 +6,13 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/runners"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/dao"
+
 	es "github.com/elastic/go-elasticsearch/v7"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
-
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
 
 	"github.com/spf13/cobra"
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/server"
@@ -35,7 +37,7 @@ var serverCmd = &cobra.Command{
 		}
 
 		// Get scenario runner
-		scenarioRunner, err := models.NewScenarioRunner(cfg)
+		scenarioRunner, err := runners.NewScenarioRunner(cfg)
 		if err != nil {
 			return err
 		}
@@ -65,9 +67,10 @@ var serverCmd = &cobra.Command{
 	},
 }
 
-func startScenarios(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) error {
+func startScenarios(scenarioRunner *runners.ScenarioRunner, stateConn *es.Client) error {
 	// Load all scenarios
-	scenarios, err := models.LoadAllScenarios(stateConn)
+	scenarioDAO := dao.NewScenario(stateConn)
+	scenarios, err := scenarioDAO.ListAll()
 	if err != nil {
 		return fmt.Errorf("could not load all scenarios: %w", err)
 	}
@@ -80,7 +83,7 @@ func startScenarios(scenarioRunner *models.ScenarioRunner, stateConn *es.Client)
 	return nil
 }
 
-func setupCloseHandler(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) {
+func setupCloseHandler(scenarioRunner *runners.ScenarioRunner, stateConn *es.Client) {
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 

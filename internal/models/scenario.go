@@ -1,34 +1,16 @@
 package models
 
 import (
-	"bytes"
-	"context"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"path/filepath"
 	"time"
-
-	"github.com/elastic/go-elasticsearch/v7/esapi"
-
-	es "github.com/elastic/go-elasticsearch/v7"
 
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
-
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 
 	"github.com/google/uuid"
 )
-
-const (
-	ScenariosIndex = "scenarios"
-)
-
-func ScenariosDir() string {
-	return filepath.Join("data", "scenarios")
-}
 
 type FloatRange struct {
 	Min float64 `json:"min" binding:"required"`
@@ -86,66 +68,11 @@ type Scenario struct {
 	ValidationResults []ValidationResult `json:"validation_results"`
 }
 
-func LoadAllScenarios(stateConn *es.Client) ([]Scenario, error) {
-	var scenarios []Scenario
-
-	res, err := stateConn.Search(
-		stateConn.Search.WithContext(context.Background()),
-		stateConn.Search.WithIndex(ScenariosIndex),
-		stateConn.Search.WithSize(10000),
-		// TODO: add active scenarios filter
-	)
-
-	if err != nil {
-		return nil, fmt.Errorf("unable to retrieve all scenarios: %w", err)
-	}
-	defer res.Body.Close()
-
-	if res.IsError() {
-		return nil, handleESAPIErrorRespons(res)
-	}
-
-	var r struct {
-		Hits struct {
-			Hits []struct {
-				ID     string   `json:"_id"`
-				Source Scenario `json:"_source"`
-			} `json:"hits"`
-		} `json:"hits"`
-	}
-
-	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
-		return nil, fmt.Errorf("error parsing the response body: %s", err)
-	}
-
-	for _, hit := range r.Hits.Hits {
-		scenarios = append(scenarios, hit.Source)
-	}
-
-	return scenarios, nil
-}
-
-func LoadScenario(id string, stateConn *es.Client) (*Scenario, error) {
-	fmt.Printf("loading scenario [%s] from disk...\n", id)
-	path := filepath.Join(ScenariosDir(), id, "scenario.json")
-	data, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	var scenario Scenario
-	if err := json.Unmarshal(data, &scenario); err != nil {
-		return nil, err
-	}
-
-	return &scenario, nil
-}
-
 func (s *Scenario) IsStarted() bool {
 	return s.StartedOn != nil && !s.StartedOn.IsZero()
 }
 
-func (s *Scenario) Validate(usageConn *usage.Connection, stateConn *es.Client) {
+func (s *Scenario) Validate(usageConn *usage.Connection) {
 	q := usage.Query{
 		ClusterIDs: s.ClusterIDs,
 		From:       s.Validations.StartTimestamp,
@@ -162,20 +89,19 @@ func (s *Scenario) Validate(usageConn *usage.Connection, stateConn *es.Client) {
 	s.validateSnapshotStorageSize(usageConn, q, result)
 
 	s.ValidationResults = append(s.ValidationResults, *result)
-	s.Persist(stateConn)
 }
 
-func (s *Scenario) GenerateID(stateConn *es.Client) error {
+func (s *Scenario) GenerateID() error {
 	id, err := uuid.NewUUID()
 	if err != nil {
 		return err
 	}
 
 	s.ID = id.String()
-	return s.Persist(stateConn)
+	return nil
 }
 
-func (s *Scenario) EnsureDeployment(essConn *api.API, stateConn *es.Client) error {
+func (s *Scenario) EnsureDeployment(essConn *api.API) error {
 	deploymentName := fmt.Sprintf("golden-%s", s.ID)
 
 	if s.ClusterIDs != nil && len(s.ClusterIDs) > 0 {
@@ -196,25 +122,6 @@ func (s *Scenario) EnsureDeployment(essConn *api.API, stateConn *es.Client) erro
 
 	s.ClusterIDs = out.ClusterIDs
 	s.DeploymentCredentials = out.DeploymentCredentials
-	return s.Persist(stateConn)
-}
-
-func (s *Scenario) Start(scenarioRunner *ScenarioRunner, stateConn *es.Client) error {
-	if s.ID == "" {
-		return fmt.Errorf("scenario does not have an ID")
-	}
-
-	now := time.Now()
-	s.StartedOn = &now
-	s.StoppedOn = nil
-
-	if err := s.Persist(stateConn); err != nil {
-		return err
-	}
-
-	if err := scenarioRunner.Start(s); err != nil {
-		return err
-	}
 
 	return nil
 }
@@ -223,29 +130,6 @@ func (s *Scenario) GetValidationFrequency() time.Duration {
 	// TODO: support frequencies other than "daily"
 	//return 24 * time.Hour
 	return 10 * time.Second
-}
-
-func (s *Scenario) Persist(stateConn *es.Client) error {
-	var buf bytes.Buffer
-	if err := json.NewEncoder(&buf).Encode(s); err != nil {
-		return fmt.Errorf("unable to encode scenario [%s] as JSON: %w", s.ID, err)
-	}
-
-	res, err := stateConn.Index(
-		ScenariosIndex,
-		&buf,
-		stateConn.Index.WithDocumentID(s.ID),
-	)
-	if err != nil {
-		return fmt.Errorf("unable to persist scenario [%s]: %w", s.ID, err)
-	}
-	defer res.Body.Close()
-
-	if res.IsError() {
-		return handleESAPIErrorRespons(res)
-	}
-
-	return nil
 }
 
 func (s *Scenario) validateInstanceCapacity(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {
@@ -282,17 +166,4 @@ func validateFloatRange(q usage.Query, f func(usage.Query) (float64, error), exp
 
 func (ir *FloatRange) IsInRange(actual float64) bool {
 	return ir.Min <= actual && actual <= ir.Max
-}
-
-func handleESAPIErrorRespons(res *esapi.Response) error {
-	var e map[string]interface{}
-	if err := json.NewDecoder(res.Body).Decode(&e); err != nil {
-		return fmt.Errorf("error parsing the response body: %w", err)
-	} else {
-		return fmt.Errorf("[%s] %s: %s",
-			res.Status(),
-			e["error"].(map[string]interface{})["type"],
-			e["error"].(map[string]interface{})["reason"],
-		)
-	}
 }

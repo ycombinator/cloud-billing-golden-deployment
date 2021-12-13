@@ -5,6 +5,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/runners"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/dao"
+
 	es "github.com/elastic/go-elasticsearch/v7"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
@@ -12,14 +16,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func registerScenarioRoutes(r *gin.Engine, scenarioRunner *models.ScenarioRunner, stateConn *es.Client) {
+func registerScenarioRoutes(r *gin.Engine, scenarioRunner *runners.ScenarioRunner, stateConn *es.Client) {
 	r.POST("/scenarios", postScenarios(scenarioRunner, stateConn))
 	r.GET("/scenarios", getScenarios(stateConn))
 	r.GET("/scenario/:id", getScenario(stateConn))
 	r.DELETE("/scenario/:id")
 }
 
-func postScenarios(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) func(c *gin.Context) {
+func postScenarios(scenarioRunner *runners.ScenarioRunner, stateConn *es.Client) func(c *gin.Context) {
+	scenarioDAO := dao.NewScenario(stateConn)
 	return func(c *gin.Context) {
 		var scenario models.Scenario
 		if err := c.ShouldBindJSON(&scenario); err != nil {
@@ -30,9 +35,17 @@ func postScenarios(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) 
 			return
 		}
 
-		if err := scenario.GenerateID(stateConn); err != nil {
+		if err := scenario.GenerateID(); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "could not generate ID for scenario",
+				"cause": err.Error(),
+			})
+			return
+		}
+
+		if err := scenarioDAO.Save(&scenario); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "could not save scenario",
 				"cause": err.Error(),
 			})
 			return
@@ -50,10 +63,10 @@ func postScenarios(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) 
 		scenario.StartedOn = &now
 		scenario.StoppedOn = nil
 
-		if err := scenario.Persist(stateConn); err != nil {
+		if err := scenarioDAO.Save(&scenario); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"id":    scenario.ID,
-				"error": "scenario started but could not be persisted",
+				"error": "scenario started but could not be saved",
 				"cause": err.Error(),
 			})
 			return
@@ -69,8 +82,9 @@ func postScenarios(scenarioRunner *models.ScenarioRunner, stateConn *es.Client) 
 }
 
 func getScenarios(stateConn *es.Client) func(c *gin.Context) {
+	scenarioDAO := dao.NewScenario(stateConn)
 	return func(c *gin.Context) {
-		scenarios, err := models.LoadAllScenarios(stateConn)
+		scenarios, err := scenarioDAO.ListAll()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "could not read scenarios",
@@ -104,7 +118,8 @@ func getScenario(stateConn *es.Client) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 
-		scenario, err := models.LoadScenario(id, stateConn)
+		scenarioDAO := dao.NewScenario(stateConn)
+		scenario, err := scenarioDAO.Get(id)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "could not read scenario",

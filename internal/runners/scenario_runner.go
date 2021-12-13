@@ -1,4 +1,4 @@
-package models
+package runners
 
 import (
 	"bytes"
@@ -9,14 +9,15 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/dao"
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
+
 	"github.com/elastic/cloud-sdk-go/pkg/api"
 	"github.com/elastic/cloud-sdk-go/pkg/auth"
 
 	es "github.com/elastic/go-elasticsearch/v7"
-
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
-
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 )
 
 type OpType string
@@ -27,7 +28,7 @@ const (
 )
 
 type runningScenario struct {
-	*Scenario
+	*models.Scenario
 
 	exerciseCancelFunc   context.CancelFunc
 	validationCancelFunc context.CancelFunc
@@ -81,9 +82,14 @@ func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
 	return sr, nil
 }
 
-func (sr *ScenarioRunner) Start(s *Scenario) error {
+func (sr *ScenarioRunner) Start(s *models.Scenario) error {
 	fmt.Println("starting scenario runner...")
-	if err := s.EnsureDeployment(sr.essConn, sr.stateConn); err != nil {
+	if err := s.EnsureDeployment(sr.essConn); err != nil {
+		return err
+	}
+
+	scenarioDAO := dao.NewScenario(sr.stateConn)
+	if err := scenarioDAO.Save(s); err != nil {
 		return err
 	}
 
@@ -185,6 +191,8 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 	validationFrequency := rs.GetValidationFrequency()
 	ticker := time.NewTicker(validationFrequency)
 
+	scenarioDAO := dao.NewScenario(rs.stateConn)
+
 	go func() {
 		for {
 			select {
@@ -195,7 +203,8 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 
 			case <-ticker.C:
 				fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
-				rs.Scenario.Validate(rs.usageConn, rs.stateConn)
+				rs.Scenario.Validate(rs.usageConn)
+				scenarioDAO.Save(rs.Scenario)
 			}
 		}
 	}()
