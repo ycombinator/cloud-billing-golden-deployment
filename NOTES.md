@@ -10,19 +10,21 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] (_Mon_) Switch persistence to State Cluster
+- [ ] Manually create ONE watch in State Cluster
+- [ ] Implement `PUT /deployment_template/{template ID}` API
+- [ ] Implement `DELETE /deployment_template/{template ID}` API
+- [ ] Switch persistence to State Cluster
   - [x] Scenarios
-  - [ ] Validation Results
+  - [x] Validation Results
   - [ ] Deployment Templates
-- [ ] (_Tue_) Read data from Usage Cluster for validations
+- [ ] Use logger
+- [ ] Read data from Usage Cluster for validations
   - [x] Data Out (`aggregations-proxy-metering-*`)
   - [x] Data Internode (`aggregations-data-transfer-*`)
   - [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
   - [ ] Snapshot Storage (`storage-blob-filebeat-*`)
-- [ ] (_Wed_) Read data from PG for validations
+- [ ] Read data from PG for validations
   - [ ] Instance Capacity
-- [ ] (_Thu_) Create watches in State Cluster when scenario is created
-- [ ] Use logger
 - [ ] Add `is_monitored` flag on scenario definition
 - [ ] Implement `PUT /scenario/{id}` API to allow partial update to scenario definition
 - [ ] Add snapshot frequency to workload config? ILM configs? Create new data config section?
@@ -42,8 +44,6 @@
     - [x] Validate usage cluster connection details at `server` cmd?
     - [x] Store deployment ID/cluster IDs in scenario?
   - [ ] Exercise loop
-- [ ] Implement `PUT /deployment_tempalte/{template ID}` API
-- [ ] Implement `DELETE /deployment_template/{template ID}` API
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
 - [ ] Implement logger
 - [x] Implement `GET /` API
