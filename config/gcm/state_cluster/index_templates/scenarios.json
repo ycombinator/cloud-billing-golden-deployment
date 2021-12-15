@@ -1,0 +1,141 @@
+{
+  "index_patterns": [
+    "scenarios"
+  ],
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": 2,
+        "auto_expand_replicas": "0-1"
+      }
+    },
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "cluster_ids": {
+          "type": "keyword"
+        },
+        "deployment_template": {
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "vars": {
+              "type": "object",
+              "dynamic": true
+            }
+          }
+        },
+        "workload": {
+          "properties": {
+            "start_offset_seconds": {
+              "type": "long"
+            },
+            "min_interval_seconds": {
+              "type": "long"
+            },
+            "max_interval_seconds": {
+              "type": "long"
+            },
+            "max_requests_per_second": {
+              "type": "long"
+            },
+            "index_to_search_ratio": {
+              "type": "long"
+            }
+          }
+        },
+        "validations": {
+          "properties": {
+            "frequency": {
+              "type": "keyword"
+            },
+            "query": {
+              "properties": {
+                "start_timestamp": {
+                  "type": "keyword"
+                },
+                "end_timestamp": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "expectations": {
+              "properties": {
+                "data_internode_gb": {
+                  "properties": {
+                    "min": {
+                      "type": "long"
+                    },
+                    "max": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "data_out_gb": {
+                  "properties": {
+                    "min": {
+                      "type": "long"
+                    },
+                    "max": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "instance_capacity_gb_hours": {
+                  "properties": {
+                    "min": {
+                      "type": "long"
+                    },
+                    "max": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "snapshot_api_requests_count": {
+                  "properties": {
+                    "min": {
+                      "type": "long"
+                    },
+                    "max": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "snapshot_storage_size_gb": {
+                  "properties": {
+                    "min": {
+                      "type": "long"
+                    },
+                    "max": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "started_on": {
+          "type": "date"
+        },
+        "deployment_credentials": {
+          "properties": {
+            "cloud_id": {
+              "type": "keyword"
+            },
+            "username": {
+              "type": "keyword"
+            },
+            "password": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}
