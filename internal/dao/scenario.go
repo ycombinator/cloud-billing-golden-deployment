@@ -28,7 +28,20 @@ func NewScenario(stateConn *es.Client) *Scenario {
 func (s *Scenario) ListAll() ([]models.Scenario, error) {
 	var scenarios []models.Scenario
 
-	res, err := s.stateConn.Search(
+	res, err := s.stateConn.Indices.Exists([]string{scenariosIndex})
+	if err != nil {
+		return nil, fmt.Errorf("unable to check if scenarios exist: %w", err)
+	}
+	defer res.Body.Close()
+
+	if res.IsError() {
+		if res.StatusCode == 404 {
+			return scenarios, nil
+		}
+		return nil, handleESAPIErrorResponse(res)
+	}
+
+	res, err = s.stateConn.Search(
 		s.stateConn.Search.WithContext(context.Background()),
 		s.stateConn.Search.WithIndex(scenariosIndex),
 		s.stateConn.Search.WithSize(10000),
