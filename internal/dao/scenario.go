@@ -70,6 +70,9 @@ func (s *Scenario) ListAll() ([]models.Scenario, error) {
 		return nil, fmt.Errorf("error parsing the response body: %s", err)
 	}
 
+	for _, hit := range r.Hits.Hits {
+		scenarios = append(scenarios, hit.Source)
+	}
 	return scenarios, nil
 }
 
