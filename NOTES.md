@@ -10,7 +10,7 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Ensure frequency (next run) is based of scenario creation time
+- [x] Ensure frequency (next run) is based of scenario creation time
 - [ ] Implement `PUT /deployment_template/{template ID}` API
 - [ ] Implement `DELETE /deployment_template/{template ID}` API
 - [ ] Switch persistence to State Cluster

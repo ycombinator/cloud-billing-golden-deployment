@@ -187,29 +187,48 @@ func (rs *runningScenario) startExerciseLoop(ctx context.Context) {
 }
 
 func (rs *runningScenario) startValidationLoop(ctx context.Context) {
-	fmt.Printf("starting validation loop for scenario [%s]...\n", rs.ID)
 	validationFrequency := rs.GetValidationFrequency()
-	ticker := time.NewTicker(validationFrequency)
+	startAfter := waitFor(*rs.StartedOn, validationFrequency)
 
-	validationResultDAO := dao.NewValidationResult(rs.stateConn)
+	fmt.Printf("starting validation loop for scenario [%s] after [%v]...\n", rs.ID, startAfter)
 
-	go func() {
+	var timer *time.Timer
+	timer = time.AfterFunc(startAfter, func() {
+		rs.validate()
+
+		ticker := time.NewTicker(validationFrequency)
 		for {
 			select {
 			case <-ctx.Done():
-				fmt.Printf("validation loop done for scenario [%s]\n", rs.ID)
+				fmt.Printf("stopping validation loop for scenario [%s]\n", rs.ID)
 				ticker.Stop()
+				timer.Stop()
 				return
 
 			case <-ticker.C:
-				fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
-				result := rs.Scenario.Validate(rs.usageConn)
-				if err := validationResultDAO.Save(result); err != nil {
-					fmt.Println("error saving validation result:", err)
-				}
+				rs.validate()
 			}
 		}
-	}()
+	})
+}
+
+func (rs *runningScenario) validate() {
+	fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
+	result := rs.Scenario.Validate(rs.usageConn)
+
+	validationResultDAO := dao.NewValidationResult(rs.stateConn)
+	if err := validationResultDAO.Save(result); err != nil {
+		fmt.Println("error saving validation result:", err)
+	}
+}
+
+func waitFor(start time.Time, interval time.Duration) time.Duration {
+	next := start
+	for next.Before(time.Now()) {
+		next = next.Add(interval)
+	}
+
+	return next.Sub(time.Now())
 }
 
 func (sr *ScenarioRunner) initUsageClusterConnection() (*usage.Connection, error) {
