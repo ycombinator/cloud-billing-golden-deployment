@@ -191,7 +191,7 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 	validationFrequency := rs.GetValidationFrequency()
 	ticker := time.NewTicker(validationFrequency)
 
-	scenarioDAO := dao.NewScenario(rs.stateConn)
+	validationResultDAO := dao.NewValidationResult(rs.stateConn)
 
 	go func() {
 		for {
@@ -203,8 +203,8 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 
 			case <-ticker.C:
 				fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
-				rs.Scenario.Validate(rs.usageConn)
-				scenarioDAO.Save(rs.Scenario)
+				result := rs.Scenario.Validate(rs.usageConn)
+				validationResultDAO.Save(result)
 			}
 		}
 	}()

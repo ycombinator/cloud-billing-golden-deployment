@@ -77,6 +77,8 @@ func (s *Scenario) Validate(usageConn *usage.Connection) *ValidationResult {
 	s.validateDataOut(usageConn, q, result)
 	s.validateSnapshotAPIRequests(usageConn, q, result)
 	s.validateSnapshotStorageSize(usageConn, q, result)
+
+	return result
 }
 
 func (s *Scenario) GenerateID() error {
