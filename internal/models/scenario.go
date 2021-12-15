@@ -36,8 +36,8 @@ type Scenario struct {
 		IndexToSearchRatio   int `json:"index_to_search_ratio"`
 	} `json:"workload"`
 	Validations struct {
-		Frequency string `json:"frequency"`
-		Query     struct {
+		FrequencySeconds int `json:"frequency_seconds"`
+		Query            struct {
 			StartTimestamp string `json:"start_timestamp"`
 			EndTimestamp   string `json:"end_timestamp"`
 		} `json:"query"`
@@ -118,9 +118,7 @@ func (s *Scenario) EnsureDeployment(essConn *api.API) error {
 }
 
 func (s *Scenario) GetValidationFrequency() time.Duration {
-	// TODO: support frequencies other than "daily"
-	//return 24 * time.Hour
-	return 10 * time.Second
+	return time.Duration(s.Validations.FrequencySeconds) * time.Second
 }
 
 func (s *Scenario) validateInstanceCapacity(usageConn *usage.Connection, q usage.Query, result *ValidationResult) {

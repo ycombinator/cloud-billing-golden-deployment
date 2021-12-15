@@ -50,8 +50,8 @@
         },
         "validations": {
           "properties": {
-            "frequency": {
-              "type": "keyword"
+            "frequency_seconds": {
+              "type": "long"
             },
             "query": {
               "properties": {

@@ -107,7 +107,7 @@ POST /scenarios
     "index_to_search_ratio": 4
   },
   "validations": {
-    "frequency": "daily",
+    "frequency_seconds": 86400,
     "query": {
       "start_timestamp": "now-1d",
       "end_timestamp": "now"
