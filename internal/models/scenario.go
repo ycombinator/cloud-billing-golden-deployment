@@ -36,10 +36,12 @@ type Scenario struct {
 		IndexToSearchRatio   int `json:"index_to_search_ratio"`
 	} `json:"workload"`
 	Validations struct {
-		Frequency      string `json:"frequency"`
-		StartTimestamp string `json:"start_timestamp"`
-		EndTimestamp   string `json:"end_timestamp"`
-		Expectations   struct {
+		Frequency string `json:"frequency"`
+		Query     struct {
+			StartTimestamp string `json:"start_timestamp"`
+			EndTimestamp   string `json:"end_timestamp"`
+		} `json:"query"`
+		Expectations struct {
 			InstanceCapacityGBHours  FloatRange `json:"instance_capacity_gb_hours" binding:"required"`
 			DataOutGB                FloatRange `json:"data_out_gb" binding:"required"`
 			DataInterNodeGB          FloatRange `json:"data_internode_gb" binding:"required"`
@@ -54,19 +56,17 @@ type Scenario struct {
 
 	StartedOn *time.Time `json:"started_on,omitempty"`
 	StoppedOn *time.Time `json:"stopped_on,omitempty"`
-
-	ValidationResults []ValidationResult `json:"validation_results"`
 }
 
 func (s *Scenario) IsStarted() bool {
 	return s.StartedOn != nil && !s.StartedOn.IsZero()
 }
 
-func (s *Scenario) Validate(usageConn *usage.Connection) {
+func (s *Scenario) Validate(usageConn *usage.Connection) *ValidationResult {
 	q := usage.Query{
 		ClusterIDs: s.ClusterIDs,
-		From:       s.Validations.StartTimestamp,
-		To:         s.Validations.EndTimestamp,
+		From:       s.Validations.Query.StartTimestamp,
+		To:         s.Validations.Query.EndTimestamp,
 	}
 
 	result := new(ValidationResult)

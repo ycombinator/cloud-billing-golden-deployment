@@ -108,8 +108,10 @@ POST /scenarios
   },
   "validations": {
     "frequency": "daily",
-    "start_timestamp": "now-1d",
-    "end_timestamp": "now",
+    "query": {
+      "start_timestamp": "now-1d",
+      "end_timestamp": "now"
+    },
     "expectations": {
       "instance_capacity_gb_hours": { "min": 12345, "max": 23456 },
       "data_out_gb": { "min": 345678, "max": 456789 },
