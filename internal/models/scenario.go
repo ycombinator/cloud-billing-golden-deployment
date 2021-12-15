@@ -70,6 +70,7 @@ func (s *Scenario) Validate(usageConn *usage.Connection) *ValidationResult {
 	}
 
 	result := new(ValidationResult)
+	result.ScenarioID = s.ID
 	result.ValidatedOn = time.Now()
 
 	s.validateInstanceCapacity(usageConn, q, result)
