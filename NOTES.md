@@ -10,23 +10,21 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Manually create ONE watch in State Cluster
 - [ ] Ensure frequency (next run) is based of scenario creation time
-- [ ] Testing: define scenario to start deployment, stop service, start again for validation
 - [ ] Implement `PUT /deployment_template/{template ID}` API
 - [ ] Implement `DELETE /deployment_template/{template ID}` API
 - [ ] Switch persistence to State Cluster
   - [x] Scenarios
   - [x] Validation Results
   - [ ] Deployment Templates
+- [ ] Use logger
+- [ ] Testing: define scenario to start deployment, stop service, start again for validation
 - [ ] Read data from Usage Cluster for validations
   - [x] Data Out (`aggregations-proxy-metering-*`)
   - [x] Data Internode (`aggregations-data-transfer-*`)
   - [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
   - [ ] Snapshot Storage (`storage-blob-filebeat-*`) - CRITICAL
     - [ ] Start with simple implementation (not complex one)
-- --- Holiday break ---
-- [ ] Use logger
 - [ ] Read data from PG for validations
   - [ ] Instance Capacity
 - [ ] Add `is_monitored` flag on scenario definition
@@ -62,3 +60,4 @@
 - [x] Bug: version override not working / scenario vars not persisting
 - [x] Separate state cluster from usage cluster in config
 - [x] Implement exercising deployment with workload
+- [x] Manually create ONE watch in State Cluster

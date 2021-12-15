@@ -1,6 +1,6 @@
 {
   "index_patterns": [
-    "validation-results"
+    "gds-validation-results"
   ],
   "data_stream": {},
   "template": {
@@ -9,7 +9,7 @@
         "number_of_shards": 2,
         "auto_expand_replicas": "0-1",
         "lifecycle": {
-          "name": "validation-results"
+          "name": "gds-validation-results"
         }
       }
     },

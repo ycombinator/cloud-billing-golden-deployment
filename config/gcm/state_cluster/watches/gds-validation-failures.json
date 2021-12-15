@@ -1,0 +1,64 @@
+{
+  "trigger": {
+    "schedule": {
+      "daily": {
+        "at": "02:00"
+      }
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "indices": "gds-validation-results",
+        "body": {
+          "query": {
+            "bool": {
+              "filter": {
+                "range": {
+                  "@timestamp": {
+                    "gte": "now-1d",
+                    "lte": "now"
+                  }
+                }
+              },
+              "should": [
+                {
+                  "term": {
+                    "instance_capacity_gb_hours.is_valid": false
+                  }
+                },
+                {
+                  "term": {
+                    "data_out_gb.is_valid": false
+                  }
+                },
+                {
+                  "term": {
+                    "data_internode_gb.is_valid": false
+                  }
+                },
+                {
+                  "term": {
+                    "snapshot_storage_size_gb.is_valid": false
+                  }
+                },
+                {
+                  "term": {
+                    "snapshot_api_requests_count.is_valid": false
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  }
+}
