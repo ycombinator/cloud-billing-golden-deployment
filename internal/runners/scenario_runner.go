@@ -204,7 +204,9 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 			case <-ticker.C:
 				fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
 				result := rs.Scenario.Validate(rs.usageConn)
-				validationResultDAO.Save(result)
+				if err := validationResultDAO.Save(result); err != nil {
+					fmt.Println("error saving validation result:", err)
+				}
 			}
 		}
 	}()

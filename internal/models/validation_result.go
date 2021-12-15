@@ -5,7 +5,7 @@ import "time"
 type ValidationResult struct {
 	ScenarioID string `json:"scenario_id"`
 
-	ValidatedOn time.Time `json:"validated_on"`
+	ValidatedOn time.Time `json:"@timestamp"`
 
 	InstanceCapacityGBHours  FloatValidationResult `json:"instance_capacity_gb_hours"`
 	DataOutGB                FloatValidationResult `json:"data_out_gb"`

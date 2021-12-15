@@ -11,18 +11,22 @@
 
 ## TODO
 - [ ] Manually create ONE watch in State Cluster
+- [ ] Ensure frequency (next run) is based of scenario creation time
+- [ ] Testing: define scenario to start deployment, stop service, start again for validation
 - [ ] Implement `PUT /deployment_template/{template ID}` API
 - [ ] Implement `DELETE /deployment_template/{template ID}` API
 - [ ] Switch persistence to State Cluster
   - [x] Scenarios
   - [x] Validation Results
   - [ ] Deployment Templates
-- [ ] Use logger
 - [ ] Read data from Usage Cluster for validations
   - [x] Data Out (`aggregations-proxy-metering-*`)
   - [x] Data Internode (`aggregations-data-transfer-*`)
   - [x] Snapshot API Requests (`usage-v*` for `snapshot_api`)
-  - [ ] Snapshot Storage (`storage-blob-filebeat-*`)
+  - [ ] Snapshot Storage (`storage-blob-filebeat-*`) - CRITICAL
+    - [ ] Start with simple implementation (not complex one)
+- --- Holiday break ---
+- [ ] Use logger
 - [ ] Read data from PG for validations
   - [ ] Instance Capacity
 - [ ] Add `is_monitored` flag on scenario definition
@@ -31,9 +35,9 @@
 - [ ] Define Usage Cluster assets in GCM
   - [ ] User: `golden-deployment-service` with role `billing-service` 
 - [ ] Define State Cluster assets in GCM
-  - [ ] Index templates for definitions index
-  - [ ] Index template for validation results time series index
-  - [ ] ILM policy for validation results index
+  - [ ] Index templates for `scenarios` index
+  - [ ] Index template for `validation-results` time series index
+  - [ ] ILM policy for `validation-results` index
   - [ ] One validation watch
 - [ ] Create API key for golden deployment in metering-admins@ account and save it as a secret
 - [ ] For accessing Usage Cluster, use same method as Billing Service
@@ -45,7 +49,6 @@
     - [x] Store deployment ID/cluster IDs in scenario?
   - [ ] Exercise loop
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
-- [ ] Implement logger
 - [x] Implement `GET /` API
 - [x] Implement `GET /deployment_templates` API
 - [x] Implement `GET /deployment_template/{template ID}` API
