@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	validationResultsIndex = "validation-results"
+	validationResultsIndex = "gds-validation-results"
 )
 
 type ValidationResult struct {

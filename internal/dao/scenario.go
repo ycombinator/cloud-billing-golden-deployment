@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	scenariosIndex = "scenarios"
+	scenariosIndex = "gds-scenarios"
 )
 
 type Scenario struct {
