@@ -95,22 +95,22 @@ func (sr *ScenarioRunner) Start(s *models.Scenario) error {
 
 	if !exists {
 		// Create deployment
-		deploymentTemplateDAO := dao.NewDeploymentTemplate(sr.stateConn)
-		deploymentTemplate, err := deploymentTemplateDAO.Get(s.DeploymentTemplate.ID)
+		deploymentConfigDAO := dao.NewDeploymentConfiguration(sr.stateConn)
+		deploymentConfig, err := deploymentConfigDAO.Get(s.DeploymentConfiguration.ID)
 		if err != nil {
 			return err
 		}
 
-		if deploymentTemplate == nil {
-			return fmt.Errorf("deployment template [%s] specified in scenario [%s] does not exist", s.DeploymentTemplate.ID, s.ID)
+		if deploymentConfig == nil {
+			return fmt.Errorf("deployment configuration [%s] specified in scenario [%s] does not exist", s.DeploymentConfiguration.ID, s.ID)
 		}
 
-		req, err := deploymentTemplate.ToDeploymentCreateRequest(s.DeploymentTemplate.Variables)
+		req, err := deploymentConfig.ToDeploymentCreateRequest(s.DeploymentConfiguration.Variables)
 		if err != nil {
-			return fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", deploymentTemplate.ID, err)
+			return fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", deploymentConfig.ID, err)
 		}
 
-		fmt.Printf("creating deployment [%s] from template [%s]...\n", deploymentName, deploymentTemplate.ID)
+		fmt.Printf("creating deployment [%s] from template [%s]...\n", deploymentName, deploymentConfig.ID)
 		out, err := deployment.CreateDeployment(sr.essConn, deploymentName, req)
 		if err != nil {
 			return err

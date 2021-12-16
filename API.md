@@ -1,12 +1,12 @@
-## Deployment Templates
+## Deployment Configurations
 
-Deployment templates define the overall template
+Deployment configurations define the overall template
 of a golden deployment. When a [test scenario](#Test_Scenarios) starts
 executing, it spins up a new deployment (or ensures that one already exists).
-This deployment is templateured according to the deployment template specified
+This deployment is templateured according to the deployment configuration specified
 in the test scenario.
 
-### Create or update a deployment template
+### Create or update a deployment configuration
 ```
 PUT /deployment_template/{template ID}
 {
@@ -63,22 +63,22 @@ PUT /deployment_template/{template ID}
 }
 ```
 
-### List deployment templates
+### List deployment configurations
 ```
 GET /deployment_templates
 ```
 
-### View a deployment template
+### View a deployment configuration
 ```
 GET /deployment_template/{template ID}
 ```
 
-### Show a deployment template's contents
+### Show a deployment configuration's contents
 ```
 GET /deployment_template/{template ID}/payload
 ```
 
-### Delete a deployment template
+### Delete a deployment configuration
 ```
 DELETE /deployment_template/{template ID}
 ```

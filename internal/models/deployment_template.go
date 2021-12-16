@@ -8,7 +8,7 @@ import (
 	"github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
-type DeploymentTemplate struct {
+type DeploymentConfiguration struct {
 	ID   string `json:"id"`
 	Vars map[string]struct {
 		Type    string      `json:"type"`
@@ -17,7 +17,7 @@ type DeploymentTemplate struct {
 	Template json.RawMessage `json:"template"`
 }
 
-func (dt *DeploymentTemplate) ToDeploymentCreateRequest(overrideVars map[string]interface{}) (*models.DeploymentCreateRequest, error) {
+func (dt *DeploymentConfiguration) ToDeploymentCreateRequest(overrideVars map[string]interface{}) (*models.DeploymentCreateRequest, error) {
 	vars, err := dt.computeVars(overrideVars)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func (dt *DeploymentTemplate) ToDeploymentCreateRequest(overrideVars map[string]
 	}
 	tplStr, err := mustache.Render(string(contents), ctxt)
 	if err != nil {
-		return nil, fmt.Errorf("unable to read deployment template for configuration [%s]: %w", dt.ID, err)
+		return nil, fmt.Errorf("unable to read deployment configuration for configuration [%s]: %w", dt.ID, err)
 	}
 
 	var tpl struct {
@@ -41,13 +41,13 @@ func (dt *DeploymentTemplate) ToDeploymentCreateRequest(overrideVars map[string]
 	}
 
 	if err := json.Unmarshal([]byte(tplStr), &tpl); err != nil {
-		return nil, fmt.Errorf("unable to decode deployment template for configuration [%s]: %w", dt.ID, err)
+		return nil, fmt.Errorf("unable to decode deployment configuration for configuration [%s]: %w", dt.ID, err)
 	}
 
 	return &tpl.Template, nil
 }
 
-func (dt *DeploymentTemplate) computeVars(overrideVars map[string]interface{}) (map[string]interface{}, error) {
+func (dt *DeploymentConfiguration) computeVars(overrideVars map[string]interface{}) (map[string]interface{}, error) {
 	// Validate
 	for name := range overrideVars {
 		_, exists := dt.Vars[name]

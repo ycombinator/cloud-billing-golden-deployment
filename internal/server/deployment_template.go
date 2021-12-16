@@ -13,31 +13,31 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func registerDeploymentTemplateRoutes(r *gin.Engine, stateConn *es.Client) {
-	r.PUT("/deployment_template/:id", putDeploymentTemplate(stateConn))
-	r.GET("/deployment_templates", getDeploymentTemplates(stateConn))
-	r.GET("/deployment_template/:id", getDeploymentTemplate(stateConn))
+func registerDeploymentConfigurationRoutes(r *gin.Engine, stateConn *es.Client) {
+	r.PUT("/deployment_template/:id", putDeploymentConfiguration(stateConn))
+	r.GET("/deployment_templates", getDeploymentConfigurations(stateConn))
+	r.GET("/deployment_template/:id", getDeploymentConfiguration(stateConn))
 	r.DELETE("/deployment_template/:id")
 }
 
-func putDeploymentTemplate(stateConn *es.Client) func(c *gin.Context) {
-	deploymentTemplateDAO := dao.NewDeploymentTemplate(stateConn)
+func putDeploymentConfiguration(stateConn *es.Client) func(c *gin.Context) {
+	deploymentConfigDAO := dao.NewDeploymentConfiguration(stateConn)
 	return func(c *gin.Context) {
 		id := c.Param("id")
-		var deploymentTemplate models.DeploymentTemplate
+		var deploymentConfig models.DeploymentConfiguration
 
-		if err := c.ShouldBindJSON(&deploymentTemplate); err != nil {
+		if err := c.ShouldBindJSON(&deploymentConfig); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
-				"error": "could not parse deployment template",
+				"error": "could not parse deployment configuration",
 				"cause": err.Error(),
 			})
 			return
 		}
-		deploymentTemplate.ID = id
+		deploymentConfig.ID = id
 
-		if err := deploymentTemplateDAO.Save(&deploymentTemplate); err != nil {
+		if err := deploymentConfigDAO.Save(&deploymentConfig); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": "could not save deployment template",
+				"error": "could not save deployment configuration",
 				"cause": err.Error(),
 			})
 			return
@@ -52,13 +52,13 @@ func putDeploymentTemplate(stateConn *es.Client) func(c *gin.Context) {
 	}
 }
 
-func getDeploymentTemplates(stateConn *es.Client) func(c *gin.Context) {
-	deploymentTemplateDAO := dao.NewDeploymentTemplate(stateConn)
+func getDeploymentConfigurations(stateConn *es.Client) func(c *gin.Context) {
+	deploymentConfigDAO := dao.NewDeploymentConfiguration(stateConn)
 	return func(c *gin.Context) {
-		deploymentTemplates, err := deploymentTemplateDAO.ListAll()
+		deploymentConfigs, err := deploymentConfigDAO.ListAll()
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": "could not read deployment templates",
+				"error": "could not read deployment configurations",
 				"cause": err.Error(),
 			})
 			return
@@ -70,11 +70,11 @@ func getDeploymentTemplates(stateConn *es.Client) func(c *gin.Context) {
 		}
 
 		var items []item
-		for _, deploymentTemplate := range deploymentTemplates {
+		for _, deploymentConfig := range deploymentConfigs {
 			items = append(items, item{
-				ID: deploymentTemplate.ID,
+				ID: deploymentConfig.ID,
 				Resources: []string{
-					fmt.Sprintf("/deployment_template/%s", deploymentTemplate.ID),
+					fmt.Sprintf("/deployment_template/%s", deploymentConfig.ID),
 				},
 			})
 		}
@@ -85,20 +85,20 @@ func getDeploymentTemplates(stateConn *es.Client) func(c *gin.Context) {
 	}
 }
 
-func getDeploymentTemplate(stateConn *es.Client) func(c *gin.Context) {
-	deploymentTemplateDAO := dao.NewDeploymentTemplate(stateConn)
+func getDeploymentConfiguration(stateConn *es.Client) func(c *gin.Context) {
+	deploymentConfigDAO := dao.NewDeploymentConfiguration(stateConn)
 	return func(c *gin.Context) {
 		id := c.Param("id")
 
-		deploymentTemplate, err := deploymentTemplateDAO.Get(id)
+		deploymentConfig, err := deploymentConfigDAO.Get(id)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": "could not read deployment template",
+				"error": "could not read deployment configuration",
 				"cause": err.Error(),
 			})
 			return
 		}
 
-		c.JSON(http.StatusOK, deploymentTemplate)
+		c.JSON(http.StatusOK, deploymentConfig)
 	}
 }

@@ -11,37 +11,37 @@ import (
 )
 
 const (
-	deploymentTemplatesIndex = "gds-deployment-configs"
+	deploymentConfigsIndex = "gds-deployment-configs"
 )
 
-type DeploymentTemplate struct {
+type DeploymentConfiguration struct {
 	stateConn *es.Client
 }
 
-func NewDeploymentTemplate(stateConn *es.Client) *DeploymentTemplate {
-	s := new(DeploymentTemplate)
+func NewDeploymentConfiguration(stateConn *es.Client) *DeploymentConfiguration {
+	s := new(DeploymentConfiguration)
 	s.stateConn = stateConn
 
 	return s
 }
 
-func (dt *DeploymentTemplate) ListAll() ([]models.DeploymentTemplate, error) {
-	var deploymentTemplates []models.DeploymentTemplate
+func (dt *DeploymentConfiguration) ListAll() ([]models.DeploymentConfiguration, error) {
+	var deploymentConfigs []models.DeploymentConfiguration
 
 	if exists, err := dt.indexExists(); err != nil {
 		return nil, err
 	} else if !exists {
-		return deploymentTemplates, nil
+		return deploymentConfigs, nil
 	}
 
 	res, err := dt.stateConn.Search(
 		dt.stateConn.Search.WithContext(context.Background()),
-		dt.stateConn.Search.WithIndex(deploymentTemplatesIndex),
+		dt.stateConn.Search.WithIndex(deploymentConfigsIndex),
 		dt.stateConn.Search.WithSize(10000),
 	)
 
 	if err != nil {
-		return nil, fmt.Errorf("unable to list all deployment templates: %w", err)
+		return nil, fmt.Errorf("unable to list all deployment configurations: %w", err)
 	}
 	defer res.Body.Close()
 
@@ -52,8 +52,8 @@ func (dt *DeploymentTemplate) ListAll() ([]models.DeploymentTemplate, error) {
 	var r struct {
 		Hits struct {
 			Hits []struct {
-				ID     string                    `json:"_id"`
-				Source models.DeploymentTemplate `json:"_source"`
+				ID     string                         `json:"_id"`
+				Source models.DeploymentConfiguration `json:"_source"`
 			} `json:"hits"`
 		} `json:"hits"`
 	}
@@ -63,21 +63,21 @@ func (dt *DeploymentTemplate) ListAll() ([]models.DeploymentTemplate, error) {
 	}
 
 	for _, hit := range r.Hits.Hits {
-		deploymentTemplates = append(deploymentTemplates, hit.Source)
+		deploymentConfigs = append(deploymentConfigs, hit.Source)
 	}
-	return deploymentTemplates, nil
+	return deploymentConfigs, nil
 }
 
-func (dt *DeploymentTemplate) Get(id string) (*models.DeploymentTemplate, error) {
+func (dt *DeploymentConfiguration) Get(id string) (*models.DeploymentConfiguration, error) {
 	if exists, err := dt.indexExists(); err != nil {
 		return nil, err
 	} else if !exists {
 		return nil, nil
 	}
 
-	res, err := dt.stateConn.Get(deploymentTemplatesIndex, id)
+	res, err := dt.stateConn.Get(deploymentConfigsIndex, id)
 	if err != nil {
-		return nil, fmt.Errorf("unable to get deployment template [%s]: %w", id, err)
+		return nil, fmt.Errorf("unable to get deployment configuration [%s]: %w", id, err)
 	}
 	defer res.Body.Close()
 
@@ -86,31 +86,31 @@ func (dt *DeploymentTemplate) Get(id string) (*models.DeploymentTemplate, error)
 	}
 
 	var r struct {
-		ID     string                    `json:"_id"`
-		Source models.DeploymentTemplate `json:"_source"`
+		ID     string                         `json:"_id"`
+		Source models.DeploymentConfiguration `json:"_source"`
 	}
 
 	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		return nil, fmt.Errorf("error parsing the response body: %s", err)
 	}
 
-	deploymentTemplate := r.Source
-	return &deploymentTemplate, nil
+	deploymentConfig := r.Source
+	return &deploymentConfig, nil
 }
 
-func (dt *DeploymentTemplate) Save(deploymentTemplate *models.DeploymentTemplate) error {
+func (dt *DeploymentConfiguration) Save(deploymentConfig *models.DeploymentConfiguration) error {
 	var buf bytes.Buffer
-	if err := json.NewEncoder(&buf).Encode(deploymentTemplate); err != nil {
-		return fmt.Errorf("unable to encode deployment template [%s] as JSON: %w", deploymentTemplate.ID, err)
+	if err := json.NewEncoder(&buf).Encode(deploymentConfig); err != nil {
+		return fmt.Errorf("unable to encode deployment configuration [%s] as JSON: %w", deploymentConfig.ID, err)
 	}
 
 	res, err := dt.stateConn.Index(
-		deploymentTemplatesIndex,
+		deploymentConfigsIndex,
 		&buf,
-		dt.stateConn.Index.WithDocumentID(deploymentTemplate.ID),
+		dt.stateConn.Index.WithDocumentID(deploymentConfig.ID),
 	)
 	if err != nil {
-		return fmt.Errorf("unable to persist deployment template [%s]: %w", deploymentTemplate.ID, err)
+		return fmt.Errorf("unable to persist deployment configuration [%s]: %w", deploymentConfig.ID, err)
 	}
 	defer res.Body.Close()
 
@@ -121,10 +121,10 @@ func (dt *DeploymentTemplate) Save(deploymentTemplate *models.DeploymentTemplate
 	return nil
 }
 
-func (dt *DeploymentTemplate) indexExists() (bool, error) {
-	res, err := dt.stateConn.Indices.Exists([]string{deploymentTemplatesIndex})
+func (dt *DeploymentConfiguration) indexExists() (bool, error) {
+	res, err := dt.stateConn.Indices.Exists([]string{deploymentConfigsIndex})
 	if err != nil {
-		return false, fmt.Errorf("unable to check if deployment templates exist: %w", err)
+		return false, fmt.Errorf("unable to check if deployment configurations exist: %w", err)
 	}
 	defer res.Body.Close()
 

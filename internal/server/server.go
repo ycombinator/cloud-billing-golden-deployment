@@ -11,7 +11,7 @@ func Start(scenarioRunner *runners.ScenarioRunner, stateConn *es.Client) error {
 
 	// Routes
 	registerRootRoute(r)
-	registerDeploymentTemplateRoutes(r, stateConn)
+	registerDeploymentConfigurationRoutes(r, stateConn)
 	registerScenarioRoutes(r, scenarioRunner, stateConn)
 
 	return r.Run("localhost:8111")

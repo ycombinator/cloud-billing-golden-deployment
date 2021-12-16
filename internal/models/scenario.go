@@ -25,7 +25,7 @@ type FloatValidationResult struct {
 }
 
 type Scenario struct {
-	DeploymentTemplate struct {
+	DeploymentConfiguration struct {
 		ID        string                 `json:"id" binding:"required"`
 		Variables map[string]interface{} `json:"vars,omitempty"`
 	} `json:"deployment_template" binding:"required"`

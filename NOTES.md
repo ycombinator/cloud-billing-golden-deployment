@@ -10,12 +10,6 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Implement `PUT /deployment_template/{template ID}` API
-- [ ] Implement `DELETE /deployment_template/{template ID}` API
-- [ ] Switch persistence to State Cluster
-  - [x] Scenarios
-  - [x] Validation Results
-  - [ ] Deployment Templates
 - [ ] Use logger
 - [ ] Testing: define scenario to start deployment, stop service, start again for validation
 - [ ] Read data from Usage Cluster for validations
@@ -46,6 +40,7 @@
     - [x] Store deployment ID/cluster IDs in scenario?
   - [ ] Exercise loop
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
+- [ ] Implement `DELETE /deployment_template/{template ID}` API
 - [x] Implement `GET /` API
 - [x] Implement `GET /deployment_templates` API
 - [x] Implement `GET /deployment_template/{template ID}` API
@@ -61,3 +56,8 @@
 - [x] Implement exercising deployment with workload
 - [x] Manually create ONE watch in State Cluster
 - [x] Ensure frequency (next run) is based of scenario creation time
+- [x] Implement `PUT /deployment_template/{template ID}` API
+- [x] Switch persistence to State Cluster
+  - [x] Scenarios
+  - [x] Validation Results
+  - [x] Deployment Configurations
