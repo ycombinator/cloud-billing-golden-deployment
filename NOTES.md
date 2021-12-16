@@ -10,7 +10,6 @@
 - Getting service into production will most likely be the trickiest part. Not so much because of governance, but more knowing what the latest practices are.
 
 ## TODO
-- [ ] Use logger
 - [ ] Testing: define scenario to start deployment, stop service, start again for validation
 - [ ] Read data from Usage Cluster for validations
   - [x] Data Out (`aggregations-proxy-metering-*`)
@@ -61,3 +60,4 @@
   - [x] Scenarios
   - [x] Validation Results
   - [x] Deployment Configurations
+- [x] Use logger
