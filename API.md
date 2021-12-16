@@ -52,7 +52,7 @@ PUT /deployment_config/{template ID}
             "elasticsearch": {
               "version": "{{ vars.stack_version }}"
             },
-            "deployment_config": {
+            "deployment_template": {
               "id": "gcp-storage-optimized"
             }
           }
