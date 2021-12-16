@@ -6,6 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/logging"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/runners"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/dao"
@@ -53,12 +55,12 @@ var serverCmd = &cobra.Command{
 
 		setupCloseHandler(scenarioRunner, stateConn)
 
-		fmt.Println("Starting existing scenarios...")
+		logging.Logger.Info("Starting existing scenarios...")
 		if err := startScenarios(scenarioRunner, stateConn); err != nil {
 			return err
 		}
 
-		fmt.Println("Starting API server...")
+		logging.Logger.Info("Starting API server...")
 		if err := server.Start(scenarioRunner, stateConn); err != nil {
 			return err
 		}
@@ -89,10 +91,9 @@ func setupCloseHandler(scenarioRunner *runners.ScenarioRunner, stateConn *es.Cli
 
 	go func() {
 		<-c
-		fmt.Printf("Stopping Scenario Runner... ")
+		logging.Logger.Info("Stopping Scenario Runner... ")
 
 		scenarioRunner.StopAll()
-		fmt.Println("done")
 
 		os.Exit(0)
 	}()

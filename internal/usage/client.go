@@ -6,6 +6,9 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/logging"
+	"go.uber.org/zap"
+
 	es "github.com/elastic/go-elasticsearch/v7"
 )
 
@@ -86,7 +89,7 @@ func (c *Connection) GetDataOutGB(q Query) (float64, error) {
 		return 0, fmt.Errorf("error encoding query: %w", err)
 	}
 
-	//fmt.Println("proxy query:", buf.String())
+	logging.Logger.Debug("data out query", zap.String("body", buf.String()))
 
 	// Perform the search request.
 	res, err := c.esClient.Search(
@@ -122,7 +125,7 @@ func (c *Connection) GetDataOutGB(q Query) (float64, error) {
 		} `json:"aggregations"`
 	}
 
-	//fmt.Println("proxy response:", res.String())
+	logging.Logger.Debug("data out requests response", zap.String("body", res.String()))
 
 	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		return 0, fmt.Errorf("error parsing the response body: %w", err)
@@ -153,7 +156,7 @@ func (c *Connection) GetDataInterNodeGB(q Query) (float64, error) {
 		return 0, fmt.Errorf("error encoding query: %w", err)
 	}
 
-	//fmt.Println("internode query:", buf.String())
+	logging.Logger.Debug("data internode query", zap.String("body", buf.String()))
 
 	// Perform the search request.
 	res, err := c.esClient.Search(
@@ -189,7 +192,7 @@ func (c *Connection) GetDataInterNodeGB(q Query) (float64, error) {
 		} `json:"aggregations"`
 	}
 
-	//fmt.Println("internode response:", res.String())
+	logging.Logger.Debug("data internode response", zap.String("body", res.String()))
 
 	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		return 0, fmt.Errorf("error parsing the response body: %w", err)
@@ -232,7 +235,7 @@ func (c *Connection) GetSnapshotAPIRequestsCount(q Query) (float64, error) {
 		return 0, fmt.Errorf("error encoding query: %w", err)
 	}
 
-	fmt.Println("snapshot api requests query:", buf.String())
+	logging.Logger.Debug("snapshot api requests query", zap.String("body", buf.String()))
 
 	// Perform the search request.
 	res, err := c.esClient.Search(
@@ -268,7 +271,7 @@ func (c *Connection) GetSnapshotAPIRequestsCount(q Query) (float64, error) {
 		} `json:"aggregations"`
 	}
 
-	fmt.Println("snapshot api requests response:", res.String())
+	logging.Logger.Debug("snapshot api requests response", zap.String("body", res.String()))
 
 	if err := json.NewDecoder(res.Body).Decode(&r); err != nil {
 		return 0, fmt.Errorf("error parsing the response body: %w", err)

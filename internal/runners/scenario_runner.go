@@ -9,6 +9,10 @@ import (
 	"net/http"
 	"time"
 
+	"go.uber.org/zap"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/logging"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
@@ -85,7 +89,7 @@ func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
 }
 
 func (sr *ScenarioRunner) Start(s *models.Scenario) error {
-	fmt.Println("starting scenario runner...")
+	logging.Logger.Info("starting scenario runner...")
 
 	deploymentName := s.GetDeploymentName()
 	exists, err := deployment.CheckIfDeploymentExists(sr.essConn, deploymentName)
@@ -110,7 +114,10 @@ func (sr *ScenarioRunner) Start(s *models.Scenario) error {
 			return fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", deploymentConfig.ID, err)
 		}
 
-		fmt.Printf("creating deployment [%s] from template [%s]...\n", deploymentName, deploymentConfig.ID)
+		logging.Logger.Info("creating deployment from config...",
+			zap.String("deployment", deploymentName),
+			zap.String("config", deploymentConfig.ID),
+		)
 		out, err := deployment.CreateDeployment(sr.essConn, deploymentName, req)
 		if err != nil {
 			return err
@@ -179,8 +186,10 @@ func (rs *runningScenario) start(exerciseCtx, validationCtx context.Context) {
 }
 
 func (rs *runningScenario) startExerciseLoop(ctx context.Context) {
-	fmt.Printf("starting exercise loop for scenario [%s]...\n", rs.ID)
+	loggingParam := zap.String("scenario", rs.ID)
+	logging.Logger.Info("starting exercise loop", loggingParam)
 
+	// TODO: consider start time + offset, if it has already passed, start now!
 	startOffset := time.Duration(rs.Workload.StartOffsetSeconds) * time.Second
 	now := time.Now()
 	startTime := now.Add(startOffset)
@@ -190,34 +199,34 @@ func (rs *runningScenario) startExerciseLoop(ctx context.Context) {
 		for {
 			select {
 			case <-ctx.Done():
-				fmt.Printf("exercise loop done for scenario [%s]\n", rs.ID)
+				logging.Logger.Info("exercise loop done for scenario", loggingParam)
 				ticker.Stop()
 				return
 
 			case t := <-ticker.C:
 				if t.Before(startTime) {
-					fmt.Println("not time yet")
+					logging.Logger.Debug("not yet time to start exercising scenario", loggingParam)
 					continue
 				}
 
 				numRequestsToFire := rand.Intn(rs.Workload.MaxRequestsPerSecond + 1)
-				fmt.Printf("firing [%d] requests now...\n", numRequestsToFire)
+				logging.Logger.Debug("firing requests now...", loggingParam, zap.Int("requests", numRequestsToFire))
 				var err error
 				for i := 0; i < numRequestsToFire; i++ {
 					op := randOp(rs.Workload.IndexToSearchRatio)
 					switch op {
 					case OpSearch:
-						fmt.Printf("firing search request for scenario [%s]...\n", rs.ID)
+						logging.Logger.Debug("firing search request", loggingParam)
 						err = doSearch(rs.goldenConn, "foo*")
 
 					case OpIndex:
-						fmt.Printf("firing index request for scenario [%s]...\n", rs.ID)
+						logging.Logger.Debug("firing index request", loggingParam)
 						err = doIndex(rs.goldenConn, "foo", randIndexBody())
 					}
 				}
 
 				if err != nil {
-					fmt.Println("error: ", err)
+					logging.Logger.Error(err.Error(), loggingParam)
 				}
 			}
 		}
@@ -228,7 +237,8 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 	validationFrequency := rs.GetValidationFrequency()
 	startAfter := waitFor(*rs.StartedOn, validationFrequency)
 
-	fmt.Printf("starting validation loop for scenario [%s] after [%v]...\n", rs.ID, startAfter)
+	loggingParam := zap.String("scenario", rs.ID)
+	logging.Logger.Info("starting validation loop", loggingParam, zap.Duration("delay", startAfter))
 
 	var timer *time.Timer
 	timer = time.AfterFunc(startAfter, func() {
@@ -238,7 +248,7 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 		for {
 			select {
 			case <-ctx.Done():
-				fmt.Printf("stopping validation loop for scenario [%s]\n", rs.ID)
+				logging.Logger.Info("stopping validation loop", loggingParam)
 				ticker.Stop()
 				timer.Stop()
 				return
@@ -251,12 +261,13 @@ func (rs *runningScenario) startValidationLoop(ctx context.Context) {
 }
 
 func (rs *runningScenario) validate() {
-	fmt.Printf("%s: running validations for scenario [%s]...\n", time.Now().Format(time.RFC3339), rs.ID)
+	loggingParam := zap.String("scenario", rs.ID)
+	logging.Logger.Info("running validations...", loggingParam)
 	result := rs.Scenario.Validate(rs.usageConn)
 
 	validationResultDAO := dao.NewValidationResult(rs.stateConn)
 	if err := validationResultDAO.Save(result); err != nil {
-		fmt.Println("error saving validation result:", err)
+		logging.Logger.Error("error saving validation result", loggingParam, zap.Error(err))
 	}
 }
 
