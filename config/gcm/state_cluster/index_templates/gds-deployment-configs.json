@@ -1,0 +1,29 @@
+{
+  "index_patterns": [
+    "gds-deployment-configs"
+  ],
+  "template": {
+    "settings": {
+      "index": {
+        "number_of_shards": 2,
+        "auto_expand_replicas": "0-1"
+      }
+    },
+    "mappings": {
+      "dynamic": "strict",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "vars": {
+          "type": "object",
+          "dynamic": true
+        },
+        "template": {
+          "type": "object",
+          "dynamic": true
+        }
+      }
+    }
+  }
+}

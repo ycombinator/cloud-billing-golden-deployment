@@ -3,7 +3,6 @@ package server
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/runners"
 
@@ -59,10 +58,6 @@ func postScenarios(scenarioRunner *runners.ScenarioRunner, stateConn *es.Client)
 			return
 		}
 
-		now := time.Now()
-		scenario.StartedOn = &now
-		scenario.StoppedOn = nil
-
 		if err := scenarioDAO.Save(&scenario); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"id":    scenario.ID,
@@ -115,10 +110,10 @@ func getScenarios(stateConn *es.Client) func(c *gin.Context) {
 }
 
 func getScenario(stateConn *es.Client) func(c *gin.Context) {
+	scenarioDAO := dao.NewScenario(stateConn)
 	return func(c *gin.Context) {
 		id := c.Param("id")
 
-		scenarioDAO := dao.NewScenario(stateConn)
 		scenario, err := scenarioDAO.Get(id)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{

@@ -9,6 +9,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
+
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/config"
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/dao"
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
@@ -84,13 +86,38 @@ func NewScenarioRunner(cfg *config.Config) (*ScenarioRunner, error) {
 
 func (sr *ScenarioRunner) Start(s *models.Scenario) error {
 	fmt.Println("starting scenario runner...")
-	if err := s.EnsureDeployment(sr.essConn); err != nil {
-		return err
+
+	deploymentName := s.GetDeploymentName()
+	exists, err := deployment.CheckIfDeploymentExists(sr.essConn, deploymentName)
+	if err != nil {
+		return fmt.Errorf("unable to check if deployment [%s] exists: %w", deploymentName, err)
 	}
 
-	scenarioDAO := dao.NewScenario(sr.stateConn)
-	if err := scenarioDAO.Save(s); err != nil {
-		return err
+	if !exists {
+		// Create deployment
+		deploymentTemplateDAO := dao.NewDeploymentTemplate(sr.stateConn)
+		deploymentTemplate, err := deploymentTemplateDAO.Get(s.DeploymentTemplate.ID)
+		if err != nil {
+			return err
+		}
+
+		if deploymentTemplate == nil {
+			return fmt.Errorf("deployment template [%s] specified in scenario [%s] does not exist", s.DeploymentTemplate.ID, s.ID)
+		}
+
+		req, err := deploymentTemplate.ToDeploymentCreateRequest(s.DeploymentTemplate.Variables)
+		if err != nil {
+			return fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", deploymentTemplate.ID, err)
+		}
+
+		fmt.Printf("creating deployment [%s] from template [%s]...\n", deploymentName, deploymentTemplate.ID)
+		out, err := deployment.CreateDeployment(sr.essConn, deploymentName, req)
+		if err != nil {
+			return err
+		}
+
+		s.ClusterIDs = out.ClusterIDs
+		s.DeploymentCredentials = out.DeploymentCredentials
 	}
 
 	goldenConn, err := es.NewClient(es.Config{
@@ -115,6 +142,17 @@ func (sr *ScenarioRunner) Start(s *models.Scenario) error {
 	}
 
 	sr.scenarios[s.ID] = rs
+
+	if s.StartedOn == nil {
+		scenarioDAO := dao.NewScenario(sr.stateConn)
+		if err := scenarioDAO.Save(s); err != nil {
+			return err
+		}
+
+		now := time.Now()
+		s.StartedOn = &now
+	}
+
 	rs.start(exerciseCtx, validationCtx)
 
 	return nil

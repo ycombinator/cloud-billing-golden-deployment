@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/elastic/cloud-sdk-go/pkg/api"
-
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/usage"
 
@@ -27,8 +25,11 @@ type FloatValidationResult struct {
 }
 
 type Scenario struct {
-	DeploymentTemplate deployment.Template `json:"deployment_template" binding:"required"`
-	Workload           struct {
+	DeploymentTemplate struct {
+		ID        string                 `json:"id" binding:"required"`
+		Variables map[string]interface{} `json:"vars,omitempty"`
+	} `json:"deployment_template" binding:"required"`
+	Workload struct {
 		StartOffsetSeconds   int `json:"start_offset_seconds"`
 		MinIntervalSeconds   int `json:"min_interval_seconds"`
 		MaxIntervalSeconds   int `json:"max_interval_seconds"`
@@ -92,29 +93,8 @@ func (s *Scenario) GenerateID() error {
 	return nil
 }
 
-func (s *Scenario) EnsureDeployment(essConn *api.API) error {
-	deploymentName := fmt.Sprintf("golden-%s", s.ID)
-
-	if s.ClusterIDs != nil && len(s.ClusterIDs) > 0 {
-		exists, err := deployment.CheckIfDeploymentExists(essConn, deploymentName)
-		if err != nil {
-			return fmt.Errorf("unable to check if deployment [%s] exists: %w", deploymentName, err)
-		}
-
-		if exists {
-			return nil
-		}
-	}
-
-	out, err := deployment.CreateDeployment(essConn, deploymentName, s.DeploymentTemplate)
-	if err != nil {
-		return err
-	}
-
-	s.ClusterIDs = out.ClusterIDs
-	s.DeploymentCredentials = out.DeploymentCredentials
-
-	return nil
+func (s *Scenario) GetDeploymentName() string {
+	return fmt.Sprintf("golden-%s", s.ID)
 }
 
 func (s *Scenario) GetValidationFrequency() time.Duration {

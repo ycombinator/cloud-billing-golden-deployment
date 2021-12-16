@@ -3,40 +3,65 @@ package server
 import (
 	"fmt"
 	"net/http"
-	"os"
-	"path/filepath"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/models"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/dao"
 
 	es "github.com/elastic/go-elasticsearch/v7"
-
-	"github.com/ycombinator/cloud-billing-golden-deployment/internal/deployment"
 
 	"github.com/gin-gonic/gin"
 )
 
 func registerDeploymentTemplateRoutes(r *gin.Engine, stateConn *es.Client) {
+	r.PUT("/deployment_template/:id", putDeploymentTemplate(stateConn))
 	r.GET("/deployment_templates", getDeploymentTemplates(stateConn))
 	r.GET("/deployment_template/:id", getDeploymentTemplate(stateConn))
 	r.DELETE("/deployment_template/:id")
 }
 
-func getDeploymentTemplates(stateConn *es.Client) func(c *gin.Context) {
+func putDeploymentTemplate(stateConn *es.Client) func(c *gin.Context) {
+	deploymentTemplateDAO := dao.NewDeploymentTemplate(stateConn)
 	return func(c *gin.Context) {
-		files, err := os.ReadDir(deployment.TemplatesDir())
-		if err != nil {
+		id := c.Param("id")
+		var deploymentTemplate models.DeploymentTemplate
+
+		if err := c.ShouldBindJSON(&deploymentTemplate); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": "could not parse deployment template",
+				"cause": err.Error(),
+			})
+			return
+		}
+		deploymentTemplate.ID = id
+
+		if err := deploymentTemplateDAO.Save(&deploymentTemplate); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": "could not read deployment configurations",
+				"error": "could not save deployment template",
 				"cause": err.Error(),
 			})
 			return
 		}
 
-		var dirnames []string
-		for _, file := range files {
-			if !file.IsDir() {
-				continue
-			}
+		c.JSON(http.StatusOK, gin.H{
+			"id": id,
+			"resources": []string{
+				fmt.Sprintf("/deployment_template/%s", id),
+			},
+		})
+	}
+}
 
-			dirnames = append(dirnames, file.Name())
+func getDeploymentTemplates(stateConn *es.Client) func(c *gin.Context) {
+	deploymentTemplateDAO := dao.NewDeploymentTemplate(stateConn)
+	return func(c *gin.Context) {
+		deploymentTemplates, err := deploymentTemplateDAO.ListAll()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "could not read deployment templates",
+				"cause": err.Error(),
+			})
+			return
 		}
 
 		type item struct {
@@ -45,11 +70,11 @@ func getDeploymentTemplates(stateConn *es.Client) func(c *gin.Context) {
 		}
 
 		var items []item
-		for _, dirname := range dirnames {
+		for _, deploymentTemplate := range deploymentTemplates {
 			items = append(items, item{
-				ID: dirname,
+				ID: deploymentTemplate.ID,
 				Resources: []string{
-					fmt.Sprintf("/deployment_template/%s", dirname),
+					fmt.Sprintf("/deployment_template/%s", deploymentTemplate.ID),
 				},
 			})
 		}
@@ -61,10 +86,19 @@ func getDeploymentTemplates(stateConn *es.Client) func(c *gin.Context) {
 }
 
 func getDeploymentTemplate(stateConn *es.Client) func(c *gin.Context) {
+	deploymentTemplateDAO := dao.NewDeploymentTemplate(stateConn)
 	return func(c *gin.Context) {
 		id := c.Param("id")
 
-		path := filepath.Join(deployment.TemplatesDir(), id, "setup", "template.json")
-		c.File(path)
+		deploymentTemplate, err := deploymentTemplateDAO.Get(id)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "could not read deployment template",
+				"cause": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, deploymentTemplate)
 	}
 }

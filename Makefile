@@ -8,4 +8,3 @@ build:
 
 clean:
 	rm -f bin/*
-	rm -rf data/scenarios/*

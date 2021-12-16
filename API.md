@@ -7,7 +7,6 @@ This deployment is templateured according to the deployment template specified
 in the test scenario.
 
 ### Create or update a deployment template
-_Not implemented yet._
 ```
 PUT /deployment_template/{template ID}
 {

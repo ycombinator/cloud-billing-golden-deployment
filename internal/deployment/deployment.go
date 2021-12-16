@@ -3,11 +3,9 @@ package deployment
 import (
 	"fmt"
 
-	"github.com/elastic/cloud-sdk-go/pkg/models"
-
-	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
-
 	"github.com/elastic/cloud-sdk-go/pkg/api"
+	"github.com/elastic/cloud-sdk-go/pkg/api/deploymentapi"
+	cloudModels "github.com/elastic/cloud-sdk-go/pkg/models"
 )
 
 type Credentials struct {
@@ -21,14 +19,8 @@ type OutVars struct {
 	ClusterIDs            []string
 }
 
-func CreateDeployment(api *api.API, name string, template Template) (OutVars, error) {
-	fmt.Printf("creating deployment [%s] from template [%s]...\n", name, template.ID)
+func CreateDeployment(api *api.API, name string, req *cloudModels.DeploymentCreateRequest) (OutVars, error) {
 	var out OutVars
-
-	req, err := template.toDeploymentCreateRequest()
-	if err != nil {
-		return out, fmt.Errorf("unable to create deployment create request from configuration [%s]: %w", template.ID, err)
-	}
 
 	req.Name = name
 	resp, err := deploymentapi.Create(deploymentapi.CreateParams{
@@ -73,7 +65,7 @@ func CheckIfDeploymentExists(api *api.API, name string) (bool, error) {
 	return false, nil
 }
 
-func getClusterIDs(resources []*models.DeploymentResource) []string {
+func getClusterIDs(resources []*cloudModels.DeploymentResource) []string {
 	clusterIDs := make([]string, 0)
 	for _, resource := range resources {
 		if resource.ID != nil {
@@ -84,7 +76,7 @@ func getClusterIDs(resources []*models.DeploymentResource) []string {
 	return clusterIDs
 }
 
-func getDeploymentCredentials(resources []*models.DeploymentResource) *Credentials {
+func getDeploymentCredentials(resources []*cloudModels.DeploymentResource) *Credentials {
 	for _, resource := range resources {
 		if resource.Credentials != nil && resource.Credentials.Username != nil && resource.Credentials.Password != nil &&
 			resource.CloudID != "" {
