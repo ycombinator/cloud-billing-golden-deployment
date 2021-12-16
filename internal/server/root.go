@@ -9,7 +9,7 @@ func registerRootRoute(r *gin.Engine) {
 func getRoot(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"resources": []string{
-			"/deployment_templates",
+			"/deployment_configs",
 			//"/workloads",
 			"/scenarios",
 		},

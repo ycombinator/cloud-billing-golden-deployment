@@ -32,12 +32,6 @@
 - [ ] Create API key for golden deployment in metering-admins@ account and save it as a secret
 - [ ] For accessing Usage Cluster, use same method as Billing Service
   - For reads, use billing service role, for writes to state indices, create new role
-- [x] Actually start scenario in goroutine
-  - [x] Validation loop
-    - [x] Usage cluster client singleton?
-    - [x] Validate usage cluster connection details at `server` cmd?
-    - [x] Store deployment ID/cluster IDs in scenario?
-  - [ ] Exercise loop
 - [ ] Implement `DELETE /scenario/{scenario ID}` API
 - [ ] Implement `DELETE /deployment_template/{template ID}` API
 - [x] Implement `GET /` API
@@ -52,7 +46,12 @@
 - [x] Use [Cloud Deployments Create API](https://www.elastic.co/guide/en/cloud/current/ec-api-deployment-crud.html#ec_create_a_deployment) instead of TF
 - [x] Bug: version override not working / scenario vars not persisting
 - [x] Separate state cluster from usage cluster in config
-- [x] Implement exercising deployment with workload
+- [x] Actually start scenario in goroutine
+  - [x] Validation loop
+    - [x] Usage cluster client singleton?
+    - [x] Validate usage cluster connection details at `server` cmd?
+    - [x] Store deployment ID/cluster IDs in scenario?
+  - [x] Exercise loop
 - [x] Manually create ONE watch in State Cluster
 - [x] Ensure frequency (next run) is based of scenario creation time
 - [x] Implement `PUT /deployment_template/{template ID}` API

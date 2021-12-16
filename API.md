@@ -8,7 +8,7 @@ in the test scenario.
 
 ### Create or update a deployment configuration
 ```
-PUT /deployment_template/{template ID}
+PUT /deployment_config/{template ID}
 {
   "vars": {
     "stack_version": {
@@ -52,7 +52,7 @@ PUT /deployment_template/{template ID}
             "elasticsearch": {
               "version": "{{ vars.stack_version }}"
             },
-            "deployment_template": {
+            "deployment_config": {
               "id": "gcp-storage-optimized"
             }
           }
@@ -65,22 +65,22 @@ PUT /deployment_template/{template ID}
 
 ### List deployment configurations
 ```
-GET /deployment_templates
+GET /deployment_configs
 ```
 
 ### View a deployment configuration
 ```
-GET /deployment_template/{template ID}
+GET /deployment_config/{template ID}
 ```
 
 ### Show a deployment configuration's contents
 ```
-GET /deployment_template/{template ID}/payload
+GET /deployment_config/{template ID}/payload
 ```
 
 ### Delete a deployment configuration
 ```
-DELETE /deployment_template/{template ID}
+DELETE /deployment_config/{template ID}
 ```
 
 ## Test Scenarios
@@ -92,7 +92,7 @@ the workload template to execute against the deployment, and the validations to 
 ```
 POST /scenarios
 {
-  "deployment_template": {
+  "deployment_config": {
     "id": "es1x1g",
     "vars": {
       "stack_version": "7.14.0"

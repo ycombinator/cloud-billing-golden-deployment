@@ -28,7 +28,7 @@ type Scenario struct {
 	DeploymentConfiguration struct {
 		ID        string                 `json:"id" binding:"required"`
 		Variables map[string]interface{} `json:"vars,omitempty"`
-	} `json:"deployment_template" binding:"required"`
+	} `json:"deployment_config" binding:"required"`
 	Workload struct {
 		StartOffsetSeconds   int `json:"start_offset_seconds"`
 		MinIntervalSeconds   int `json:"min_interval_seconds"`

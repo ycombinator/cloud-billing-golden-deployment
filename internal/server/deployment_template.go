@@ -14,10 +14,10 @@ import (
 )
 
 func registerDeploymentConfigurationRoutes(r *gin.Engine, stateConn *es.Client) {
-	r.PUT("/deployment_template/:id", putDeploymentConfiguration(stateConn))
-	r.GET("/deployment_templates", getDeploymentConfigurations(stateConn))
-	r.GET("/deployment_template/:id", getDeploymentConfiguration(stateConn))
-	r.DELETE("/deployment_template/:id")
+	r.PUT("/deployment_config/:id", putDeploymentConfiguration(stateConn))
+	r.GET("/deployment_configs", getDeploymentConfigurations(stateConn))
+	r.GET("/deployment_config/:id", getDeploymentConfiguration(stateConn))
+	r.DELETE("/deployment_config/:id")
 }
 
 func putDeploymentConfiguration(stateConn *es.Client) func(c *gin.Context) {
@@ -46,7 +46,7 @@ func putDeploymentConfiguration(stateConn *es.Client) func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"id": id,
 			"resources": []string{
-				fmt.Sprintf("/deployment_template/%s", id),
+				fmt.Sprintf("/deployment_config/%s", id),
 			},
 		})
 	}
@@ -74,13 +74,13 @@ func getDeploymentConfigurations(stateConn *es.Client) func(c *gin.Context) {
 			items = append(items, item{
 				ID: deploymentConfig.ID,
 				Resources: []string{
-					fmt.Sprintf("/deployment_template/%s", deploymentConfig.ID),
+					fmt.Sprintf("/deployment_config/%s", deploymentConfig.ID),
 				},
 			})
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"deployment_templates": items,
+			"deployment_configs": items,
 		})
 	}
 }
