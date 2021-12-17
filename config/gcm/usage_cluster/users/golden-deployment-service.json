@@ -1,0 +1,11 @@
+{
+  "username" : "golden-deployment-service",
+  "roles" : [
+    "kibana_admin",
+    "billing-service"
+  ],
+  "full_name" : "Golden Deployment Service",
+  "email" : "metering-admins@elastic.co",
+  "metadata" : { },
+  "enabled" : true
+}
