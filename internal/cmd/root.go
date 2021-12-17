@@ -3,8 +3,16 @@ package cmd
 import (
 	"fmt"
 
+	"go.uber.org/zap/zapcore"
+
+	"github.com/ycombinator/cloud-billing-golden-deployment/internal/logging"
+
+	"go.uber.org/zap"
+
 	"github.com/spf13/cobra"
 )
+
+const flagLogLevel = "log-level"
 
 var rootCmd = &cobra.Command{
 	Use:   "ecbgd",
@@ -14,10 +22,9 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	// TODO: add flags for test results cluster? Use Usage Cluster itself?
-
+	cobra.OnInitialize(initLogging)
+	rootCmd.PersistentFlags().StringP(flagLogLevel, "l", "info", "log level")
 	rootCmd.AddCommand(serverCmd)
-	//rootCmd.AddCommand(generateCmd) // TODO: remove command definition?
 }
 
 func Execute() error {
@@ -26,4 +33,37 @@ func Execute() error {
 	}
 
 	return nil
+
+}
+func initLogging() {
+	logLevel, _ := rootCmd.PersistentFlags().GetString(flagLogLevel)
+
+	var level zap.AtomicLevel
+	level.UnmarshalText([]byte(logLevel))
+
+	cfg := zap.Config{
+		Level:            level,
+		Encoding:         "json",
+		OutputPaths:      []string{"stdout"},
+		ErrorOutputPaths: []string{"stderr"},
+		EncoderConfig: zapcore.EncoderConfig{
+			MessageKey:     "message",
+			LevelKey:       "level",
+			TimeKey:        "@timestamp",
+			NameKey:        "name",
+			CallerKey:      "caller",
+			StacktraceKey:  "stacktrace",
+			LineEnding:     "\n",
+			EncodeLevel:    zapcore.LowercaseLevelEncoder,
+			EncodeTime:     zapcore.RFC3339TimeEncoder,
+			EncodeDuration: zapcore.SecondsDurationEncoder,
+			EncodeCaller:   zapcore.ShortCallerEncoder,
+		},
+	}
+
+	logger, err := cfg.Build()
+	if err != nil {
+		panic(err)
+	}
+	logging.Logger = logger
 }
