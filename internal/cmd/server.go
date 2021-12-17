@@ -20,15 +20,17 @@ import (
 	"github.com/ycombinator/cloud-billing-golden-deployment/internal/server"
 )
 
+const flagConfigFile = "config-file"
+
 func init() {
-	serverCmd.Flags().StringP("config-file", "c", "config/qa.yml", "path to config file")
+	serverCmd.Flags().StringP(flagConfigFile, "c", "config/qa.yml", "path to config file")
 }
 
 var serverCmd = &cobra.Command{
 	Use:   "server",
 	Short: "Start the Scenario Runner and API server",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		cfgFilePath, err := cmd.Flags().GetString("config-file")
+		cfgFilePath, err := cmd.Flags().GetString(flagConfigFile)
 		if err != nil {
 			return err
 		}
