@@ -11,7 +11,7 @@
 
 ## TODO
 - [ ] Bug? Figure out why all actual values are 0
-- [ ] Testing: define scenario to start deployment, stop service, start again for validation
+- [ ] Manual testing: define scenario to start deployment, stop service, start again for validation
 - [ ] Read data from Usage Cluster for validations
   - [x] Data Out (`aggregations-proxy-metering-*`)
   - [x] Data Internode (`aggregations-data-transfer-*`)
@@ -20,6 +20,8 @@
     - [ ] Start with simple implementation (not complex one)
 - [ ] Read data from PG for validations
   - [ ] Instance Capacity
+- [ ] Write unit tests
+- [ ] Migrate to cloud repo (`go/billing-tools/golden-deployment-service`)
 - [ ] Add `is_monitored` flag on scenario definition
 - [ ] Implement `PUT /scenario/{id}` API to allow partial update to scenario definition
 - [ ] Add snapshot frequency to workload config? ILM configs? Create new data config section?
