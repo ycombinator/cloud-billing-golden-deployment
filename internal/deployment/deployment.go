@@ -28,7 +28,7 @@ func CreateDeployment(api *api.API, name string, req *cloudModels.DeploymentCrea
 		Request: req,
 	})
 	if err != nil {
-		return out, fmt.Errorf("unable to create deployment for configuration [%s]: %w", err)
+		return out, fmt.Errorf("unable to create deployment [%s]: %w", req.Name, err)
 	}
 
 	out.ClusterIDs = getClusterIDs(resp.Resources)
